@@ -1,0 +1,27 @@
+package com.momega.spacesimulator.model;
+
+import com.momega.spacesimulator.utils.MathUtils;
+
+/**
+ * Created by martin on 7/19/15.
+ */
+public abstract class PhysicalBody extends MovingObject implements ReferenceFrame {
+
+    private double mass;
+    private double mi = 0;
+
+    public double getGravitationParameter() {
+        if (mi == 0) {
+            mi = this.mass * MathUtils.G;
+        }
+        return mi;
+    }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+}
