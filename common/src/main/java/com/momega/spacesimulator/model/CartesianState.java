@@ -43,4 +43,14 @@ public class CartesianState {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "CartesianState{" +
+                "referenceFrame=" + referenceFrame +
+                ", position=" + position +
+                ", velocity=" + velocity +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
