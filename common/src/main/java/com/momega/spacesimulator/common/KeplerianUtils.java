@@ -43,6 +43,7 @@ public class KeplerianUtils {
             keplerianElements.setHyperbolicAnomaly(null);
         }
         solveTheta(keplerianElements);
+        keplerianElements.setTimestamp(timestamp);
         return keplerianElements;
     }
 

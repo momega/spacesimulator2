@@ -1,7 +1,5 @@
 package com.momega.spacesimulator.model;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
 /**
  * Created by martin on 7/19/15.
  */

@@ -5,7 +5,7 @@ import com.momega.spacesimulator.utils.MathUtils;
 /**
  * Created by martin on 7/19/15.
  */
-public abstract class PhysicalBody extends MovingObject implements ReferenceFrame {
+public abstract class PhysicalBody extends MovingObject {
 
     private double mass;
     private double mi = 0;

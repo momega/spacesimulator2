@@ -2,6 +2,7 @@ package com.momega.spacesimulator.propagator;
 
 import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.common.KeplerianUtils;
+import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,13 +19,16 @@ public class KeplerianPropagator {
     @Autowired
     private CoordinateModels coordinateModels;
 
-    public void compute(MovingObject movingObject, Timestamp timestamp) {
-        KeplerianOrbit keplerianOrbit = movingObject.getKeplerianElements().getKeplerianOrbit();
+    @Autowired
+    private InstantManager instantManager;
+
+    public Instant compute(Model model, CelestialBody celestialBody, Timestamp timestamp) {
+        KeplerianOrbit keplerianOrbit = celestialBody.getKeplerianOrbit();
 
         KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(keplerianOrbit, timestamp);
         CartesianState cartesianState = coordinateModels.transform(keplerianElements);
 
-        movingObject.setKeplerianElements(keplerianElements);
-        movingObject.setCartesianState(cartesianState);
+        Instant instant = instantManager.newInstant(model, celestialBody, cartesianState, keplerianElements);
+        return instant;
     }
 }

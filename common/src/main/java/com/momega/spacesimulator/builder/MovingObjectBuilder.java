@@ -4,7 +4,6 @@ import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.common.KeplerianUtils;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.utils.TimeUtils;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,12 +21,12 @@ public class MovingObjectBuilder {
     @Autowired
     private CoordinateModels coordinateModels;
 
-    public KeplerianElements createKeplerianElements(MovingObject movingObject, ReferenceFrame centralObject, Timestamp timestamp, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
-        Assert.notNull(movingObject);
-        Assert.notNull(centralObject);
+    public KeplerianOrbit createKeplerianOrbit(CelestialBody celestialBody, ReferenceFrame referenceFrame, Timestamp timestamp, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
+        Assert.notNull(celestialBody);
+        Assert.notNull(referenceFrame);
 
         KeplerianOrbit orbit = new KeplerianOrbit();
-        orbit.setReferenceFrame(centralObject);
+        orbit.setReferenceFrame(referenceFrame);
         orbit.setSemimajorAxis(semimajorAxis);
         orbit.setEccentricity(eccentricity);
         orbit.setArgumentOfPeriapsis(Math.toRadians(argumentOfPeriapsis));
@@ -35,29 +34,18 @@ public class MovingObjectBuilder {
         orbit.setAscendingNode(Math.toRadians(ascendingNode));
         orbit.setPeriod(period * DateTimeConstants.SECONDS_PER_DAY);
         orbit.setTimeOfPeriapsis(TimeUtils.fromJulianDay(timeOfPeriapsis));
-        orbit.setMeanMotion(2* Math.PI / orbit.getPeriod());
+        orbit.setMeanMotion(2 * Math.PI / orbit.getPeriod());
 
-        Assert.notNull(movingObject.getName());
-
-        // initialize position
-
-        KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(orbit, timestamp);
-        CartesianState cartesianState = coordinateModels.transform(keplerianElements);
-
-        movingObject.setKeplerianElements(keplerianElements);
-        movingObject.setCartesianState(cartesianState);
-
-        return keplerianElements;
+        celestialBody.setKeplerianOrbit(orbit);
+        return orbit;
     }
 
     public void updateMovingObject(PhysicalBody physicalBody, double mass) {
         physicalBody.setMass(mass * 1E24);
     }
 
-    public void setCentralPoint(MovingObject movingObject, Timestamp timestamp) {
-        movingObject.setCartesianState(new CartesianState());
-        movingObject.getCartesianState().setPosition(Vector3D.ZERO);
-        movingObject.getCartesianState().setVelocity(Vector3D.ZERO);
-        movingObject.getCartesianState().setTimestamp(timestamp);
+    public void insertMovingObject(Model model, MovingObject movingObject) {
+        model.getMovingObjects().add(movingObject);
     }
+
 }

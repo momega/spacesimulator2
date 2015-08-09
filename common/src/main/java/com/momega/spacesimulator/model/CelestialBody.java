@@ -5,14 +5,13 @@ package com.momega.spacesimulator.model;
  */
 public class CelestialBody extends PhysicalBody {
 
-    private ReferenceFrame parent;
+    private KeplerianOrbit keplerianOrbit;
 
-    @Override
-    public ReferenceFrame getParent() {
-        return parent;
+    public void setKeplerianOrbit(KeplerianOrbit keplerianOrbit) {
+        this.keplerianOrbit = keplerianOrbit;
     }
 
-    public void setParent(ReferenceFrame parent) {
-        this.parent = parent;
+    public KeplerianOrbit getKeplerianOrbit() {
+        return keplerianOrbit;
     }
 }
