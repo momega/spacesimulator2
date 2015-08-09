@@ -1,6 +1,7 @@
 package com.momega.spacesimulator.model;
 
 /**
+ * The instant class represents single instance of the moving object in time.
  * Created by martin on 7/21/15.
  */
 public class Instant {

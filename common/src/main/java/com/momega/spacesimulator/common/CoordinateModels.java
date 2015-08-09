@@ -112,7 +112,7 @@ public class CoordinateModels {
             meanMotion = FastMath.sqrt(mi / (a * a * a));
         }
         double period = 2* Math.PI / meanMotion;
-        keplerianOrbit.setMeanMotion(Double.valueOf(meanMotion));
+        keplerianOrbit.setMeanMotion(meanMotion);
         keplerianOrbit.setPeriod(period);
 
         Timestamp TT = keplerianUtils.timeToAngle(keplerianElements, timestamp, 0.0, false);

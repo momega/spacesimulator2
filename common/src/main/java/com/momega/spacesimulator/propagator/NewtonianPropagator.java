@@ -6,11 +6,13 @@ import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.model.GravityModel;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * The propagator computes new position of the spacecraft. It uses newtonian gravitation model
  * Created by martin on 7/21/15.
  */
+@Component
 public class NewtonianPropagator {
 
     @Autowired
@@ -34,9 +36,9 @@ public class NewtonianPropagator {
     /**
      * Solves the velocity and position by the simple Euler method
      * @param spacecraft the spacecraft instance
-     * @param newTimestamp
+     * @param newTimestamp new timestamp
      * @param dt time interval
-     * @return the position
+     * @return new cartesian state
      */
     protected CartesianState eulerSolver(Model model, Instant spacecraft, Timestamp newTimestamp, double dt) {
         // Euler's method

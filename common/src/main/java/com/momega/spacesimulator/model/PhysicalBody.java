@@ -3,6 +3,7 @@ package com.momega.spacesimulator.model;
 import com.momega.spacesimulator.utils.MathUtils;
 
 /**
+ * Physical body in the space. It is the {@link MovingObject} with the mass and the given orientation.
  * Created by martin on 7/19/15.
  */
 public abstract class PhysicalBody extends MovingObject {

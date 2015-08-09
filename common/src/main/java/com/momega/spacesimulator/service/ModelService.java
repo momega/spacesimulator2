@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by martin on 7/25/15.
@@ -15,12 +16,10 @@ import java.util.List;
 public class ModelService {
 
     public List<CelestialBody> findAllCelestialBodies(Model model) {
-        List<CelestialBody> result = new ArrayList<>();
-        for(MovingObject movingObject : model.getMovingObjects()) {
-            if (movingObject instanceof CelestialBody) {
-                result.add((CelestialBody) movingObject);
-            }
-        }
+        List<CelestialBody> result = model.getMovingObjects().stream().
+                filter(movingObject -> movingObject instanceof CelestialBody).
+                map(movingObject -> (CelestialBody) movingObject).
+                collect(Collectors.toList());
         return result;
     }
 
