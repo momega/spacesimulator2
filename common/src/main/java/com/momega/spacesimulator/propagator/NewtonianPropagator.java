@@ -7,6 +7,7 @@ import com.momega.spacesimulator.propagator.model.GravityModel;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 /**
  * The propagator computes new position of the spacecraft. It uses newtonian gravitation model
@@ -25,25 +26,28 @@ public class NewtonianPropagator {
     private InstantManager instantManager;
 
 
-    public Instant compute(Model model, Instant spacecraft, Timestamp newTimestamp, double dt) {
-        CartesianState cartesianState = eulerSolver(model, spacecraft, newTimestamp, dt);
-        KeplerianElements keplerianElements = coordinateModels.transform(cartesianState);
+    public Instant compute(Model model, MovingObject movingObject, Timestamp timestamp, Timestamp newTimestamp, double dt) {
+        Instant instant = instantManager.getInstant(model, movingObject, timestamp);
+        Assert.notNull(instant);
 
-        Instant instant = instantManager.newInstant(model, spacecraft.getMovingObject(), cartesianState, keplerianElements);
-        return instant;
+        CartesianState cartesianState = eulerSolver(model, instant, dt);
+        KeplerianElements keplerianElements = coordinateModels.transform(cartesianState, newTimestamp);
+
+        Instant newInstant = instantManager.newInstant(model, movingObject, cartesianState, keplerianElements, newTimestamp);
+        return newInstant;
     }
 
     /**
      * Solves the velocity and position by the simple Euler method
      * @param spacecraft the spacecraft instance
-     * @param newTimestamp new timestamp
      * @param dt time interval
      * @return new cartesian state
      */
-    protected CartesianState eulerSolver(Model model, Instant spacecraft, Timestamp newTimestamp, double dt) {
+    protected CartesianState eulerSolver(Model model, Instant spacecraft, double dt) {
         // Euler's method
         Vector3D position = spacecraft.getCartesianState().getPosition();
         Vector3D velocity = spacecraft.getCartesianState().getVelocity();
+        ReferenceFrame referenceFrame = spacecraft.getCartesianState().getReferenceFrame();
 
         // iterate all force models
         Vector3D acceleration = gravityModel.getAcceleration(model, spacecraft);
@@ -54,8 +58,9 @@ public class NewtonianPropagator {
         CartesianState result = new CartesianState();
         result.setVelocity(velocity);
         result.setPosition(position);
-        result.setTimestamp(newTimestamp);
+        result.setReferenceFrame(referenceFrame);
 
         return result;
     }
+
 }

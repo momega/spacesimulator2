@@ -22,7 +22,7 @@ public class KeplerianUtils {
      * is used for Keplerian propagator to compute current position and velocity of the celestial bodies
      * such as planets.
      * @param keplerianOrbit the keplerian orbit
-     * @param timestamp
+     * @param timestamp the timestamp
      * @return returns new instance of keplerian elements
      */
     public KeplerianElements fromTimestamp(KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
@@ -43,7 +43,6 @@ public class KeplerianUtils {
             keplerianElements.setHyperbolicAnomaly(null);
         }
         solveTheta(keplerianElements);
-        keplerianElements.setTimestamp(timestamp);
         return keplerianElements;
     }
 
@@ -154,7 +153,7 @@ public class KeplerianUtils {
         double inclination = keplerianOrbit.getInclination();
         double ascendingNode = keplerianOrbit.getAscendingNode();
         Vector3D p = getCartesianPosition(r, trueAnomaly, inclination, ascendingNode, argumentOfPeriapsis);
-        return keplerianOrbit.getReferenceFrame().getCartesianState().getPosition().add(p);
+        return p;
     }
 
     private static Vector3D getCartesianPosition(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis) {
@@ -175,7 +174,7 @@ public class KeplerianUtils {
         double mi = keplerianOrbit.getReferenceFrame().getGravitationParameter();
         Vector3D v = getCartesianVelocity(keplerianOrbit.getSemimajorAxis(), mi, trueAnomaly, e,
                 keplerianOrbit.getInclination(), keplerianOrbit.getAscendingNode(), keplerianOrbit.getArgumentOfPeriapsis());
-        return keplerianOrbit.getReferenceFrame().getCartesianState().getVelocity().add(v);
+        return v;
     }
 
     public static Vector3D getCartesianVelocity(double a, double mi, double theta, double e, double inclination, double OMEGA, double omega) {
@@ -230,7 +229,7 @@ public class KeplerianUtils {
         return 2 * FastMath.atan(FastMath.tan(theta/2) / param);
     }
 
-    private double solveHA(double eccentricity, double theta) {
+    public double solveHA(double eccentricity, double theta) {
         double sinH = (FastMath.sin(theta) * FastMath.sqrt(eccentricity*eccentricity -1)) / (1 + eccentricity * Math.cos(theta));
         double HA = FastMath.asinh(sinH);
         //double cosHA = (eccentricity + Math.cos(theta))/(1 + eccentricity*Math.cos(theta));

@@ -5,15 +5,7 @@ package com.momega.spacesimulator.model;
  */
 public class CelestialBodyReferenceFrame implements ReferenceFrame {
 
-    private Instant instant;
-
-    public Instant getInstant() {
-        return instant;
-    }
-
-    public void setInstant(Instant instant) {
-        this.instant = instant;
-    }
+    private CelestialBody celestialBody;
 
     @Override
     public ReferenceFrame getParent() {
@@ -23,15 +15,19 @@ public class CelestialBodyReferenceFrame implements ReferenceFrame {
 
     @Override
     public CartesianState getCartesianState() {
-        return instant.getCartesianState();
+        return null;
     }
 
     @Override
     public double getGravitationParameter() {
-        return getCelestalBody().getGravitationParameter();
+        return getCelestialBody().getGravitationParameter();
     }
 
-    private CelestialBody getCelestalBody() {
-        return (CelestialBody) getInstant().getMovingObject();
+    public CelestialBody getCelestialBody() {
+        return celestialBody;
+    }
+
+    public void setCelestialBody(CelestialBody celestialBody) {
+        this.celestialBody = celestialBody;
     }
 }

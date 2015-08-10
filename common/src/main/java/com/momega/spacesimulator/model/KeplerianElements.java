@@ -1,7 +1,5 @@
 package com.momega.spacesimulator.model;
 
-import java.sql.Time;
-
 /**
  * Created by martin on 7/19/15.
  */
@@ -11,7 +9,6 @@ public class KeplerianElements {
     private double trueAnomaly; // theta
     private Double hyperbolicAnomaly; // HA
     private Double eccentricAnomaly; //EA
-    private Timestamp timestamp;
 
     public KeplerianOrbit getKeplerianOrbit() {
         return keplerianOrbit;
@@ -43,14 +40,6 @@ public class KeplerianElements {
 
     public void setEccentricAnomaly(Double eccentricAnomaly) {
         this.eccentricAnomaly = eccentricAnomaly;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
     }
 
     @Override

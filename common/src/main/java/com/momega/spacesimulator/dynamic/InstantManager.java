@@ -14,16 +14,31 @@ public class InstantManager {
         return model.getInstant(timestamp, movingObject);
     }
 
-    public Instant newInstant(Model model, MovingObject movingObject, CartesianState cartesianState, KeplerianElements keplerianElements) {
+    public Instant newZeroInstance(Model model, MovingObject movingObject, ReferenceFrame referenceFrame, Timestamp timestamp) {
+        Assert.notNull(model);
+        Assert.notNull(movingObject);
+        Assert.notNull(timestamp);
+
+        Instant instant = new Instant();
+        instant.setCartesianState(CartesianState.getZero(referenceFrame));
+        instant.setKeplerianElements(null);
+        instant.setMovingObject(movingObject);
+        instant.setTimestamp(timestamp);
+        model.addInstant(instant);
+        return instant;
+    }
+
+    public Instant newInstant(Model model, MovingObject movingObject, CartesianState cartesianState, KeplerianElements keplerianElements, Timestamp timestamp) {
         Assert.notNull(model);
         Assert.notNull(movingObject);
         Assert.notNull(cartesianState);
         Assert.notNull(keplerianElements);
+        Assert.notNull(timestamp);
         Instant instant = new Instant();
         instant.setCartesianState(cartesianState);
         instant.setKeplerianElements(keplerianElements);
         instant.setMovingObject(movingObject);
-        instant.setTimestamp(cartesianState.getTimestamp());
+        instant.setTimestamp(timestamp);
         model.addInstant(instant);
         return instant;
     }

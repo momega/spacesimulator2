@@ -22,13 +22,18 @@ public class KeplerianPropagator {
     @Autowired
     private InstantManager instantManager;
 
-    public Instant compute(Model model, CelestialBody celestialBody, Timestamp timestamp) {
+    public Instant compute(Model model, CelestialBody celestialBody, Timestamp newTimestamp) {
         KeplerianOrbit keplerianOrbit = celestialBody.getKeplerianOrbit();
+        if (keplerianOrbit == null) {
+            ReferenceFrame referenceFrame = model.getRootReferenceFrame();
+            Instant instant = instantManager.newZeroInstance(model, celestialBody, referenceFrame, newTimestamp);
+            return instant;
+        }
 
-        KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(keplerianOrbit, timestamp);
+        KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(keplerianOrbit, newTimestamp);
         CartesianState cartesianState = coordinateModels.transform(keplerianElements);
 
-        Instant instant = instantManager.newInstant(model, celestialBody, cartesianState, keplerianElements);
-        return instant;
+        Instant newInstant = instantManager.newInstant(model, celestialBody, cartesianState, keplerianElements, newTimestamp);
+        return newInstant;
     }
 }

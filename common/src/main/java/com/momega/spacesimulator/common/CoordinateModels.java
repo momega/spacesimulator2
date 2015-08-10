@@ -20,7 +20,7 @@ public class CoordinateModels {
     @Autowired
     private KeplerianUtils keplerianUtils;
 
-    public KeplerianElements transform(CartesianState cartesianState) {
+    public KeplerianElements transform(CartesianState cartesianState, Timestamp timestamp) {
         Vector3D position = cartesianState.getPosition();
         Vector3D velocity = cartesianState.getVelocity();
         Vector3D hVector = getAngularMomentum(cartesianState);
@@ -28,8 +28,6 @@ public class CoordinateModels {
         double h = hVector.getNorm();
         double i = FastMath.acos(hVector.getZ() / h);
         double mi = cartesianState.getReferenceFrame().getGravitationParameter();
-
-        Timestamp timestamp = cartesianState.getTimestamp();
 
         Vector3D eVector = new Vector3D(1/mi, velocity.crossProduct(hVector)).subtract(position.normalize());
         double e = eVector.getNorm();
@@ -103,13 +101,18 @@ public class CoordinateModels {
         keplerianOrbit.setAscendingNode(OMEGA);
         keplerianOrbit.setArgumentOfPeriapsis(omega);
         keplerianElements.setTrueAnomaly(theta);
-        keplerianElements.setTimestamp(timestamp);
 
         double meanMotion;
         if (keplerianOrbit.isHyperbolic()) {
             meanMotion = FastMath.sqrt(-mi / (a * a * a));
+            double ha = keplerianUtils.solveHA(e, theta);
+            keplerianElements.setHyperbolicAnomaly(ha);
+            keplerianElements.setEccentricAnomaly(null);
         } else {
             meanMotion = FastMath.sqrt(mi / (a * a * a));
+            double ea = keplerianUtils.solveEA(e, theta);
+            keplerianElements.setEccentricAnomaly(ea);
+            keplerianElements.setHyperbolicAnomaly(null);
         }
         double period = 2* Math.PI / meanMotion;
         keplerianOrbit.setMeanMotion(meanMotion);
@@ -129,7 +132,6 @@ public class CoordinateModels {
         CartesianState cartesianState = new CartesianState();
         cartesianState.setPosition(keplerianUtils.getCartesianPosition(keplerianElements));
         cartesianState.setVelocity(keplerianUtils.getCartesianVelocity(keplerianElements));
-        cartesianState.setTimestamp(keplerianElements.getTimestamp());
         cartesianState.setReferenceFrame(keplerianElements.getKeplerianOrbit().getReferenceFrame());
         return cartesianState;
     }

@@ -25,4 +25,11 @@ public abstract class PhysicalBody extends MovingObject {
     public void setMass(double mass) {
         this.mass = mass;
     }
+
+    @Override
+    public String toString() {
+        return "PhysicalBody{" +
+                "mass=" + mass +
+                "} " + super.toString();
+    }
 }

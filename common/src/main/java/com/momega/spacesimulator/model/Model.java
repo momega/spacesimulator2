@@ -2,8 +2,10 @@ package com.momega.spacesimulator.model;
 
 import org.springframework.util.Assert;
 
-import java.sql.Time;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by martin on 7/25/15.
@@ -12,6 +14,7 @@ public class Model {
 
     private List<MovingObject> movingObjects = new ArrayList<>();
     private Map<Timestamp, Map<MovingObject, Instant>> instants = new HashMap<>();
+    private ReferenceFrame rootReferenceFrame;
 
     public List<MovingObject> getMovingObjects() {
         return movingObjects;
@@ -36,6 +39,7 @@ public class Model {
         Map<MovingObject, Instant> map = instants.get(instant.getTimestamp());
         if (map == null) {
             map = new HashMap<>();
+            instants.put(instant.getTimestamp(), map);
         }
         map.put(instant.getMovingObject(), instant);
     }
@@ -43,5 +47,13 @@ public class Model {
     public void removeInstants(Timestamp timestamp) {
         Assert.notNull(timestamp);
         instants.remove(timestamp);
+    }
+
+    public void setRootReferenceFrame(ReferenceFrame rootReferenceFrame) {
+        this.rootReferenceFrame = rootReferenceFrame;
+    }
+
+    public ReferenceFrame getRootReferenceFrame() {
+        return rootReferenceFrame;
     }
 }

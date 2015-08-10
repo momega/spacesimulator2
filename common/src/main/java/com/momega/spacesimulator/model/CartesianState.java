@@ -3,14 +3,29 @@ package com.momega.spacesimulator.model;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
+ * Cartesian state of any object. It consists of position and velocity.
  * Created by martin on 7/19/15.
  */
 public class CartesianState {
 
+    public static CartesianState getZero(ReferenceFrame referenceFrame) {
+        return new CartesianState(referenceFrame, Vector3D.ZERO, Vector3D.ZERO);
+    }
+
+    public CartesianState() {
+        super();
+    }
+
+    public CartesianState(ReferenceFrame referenceFrame, Vector3D position, Vector3D velocity) {
+        this();
+        this.referenceFrame = referenceFrame;
+        this.position = position;
+        this.velocity = velocity;
+    }
+
     private ReferenceFrame referenceFrame;
     private Vector3D position;
     private Vector3D velocity;
-    private Timestamp timestamp;
 
     public Vector3D getPosition() {
         return position;
@@ -36,21 +51,12 @@ public class CartesianState {
         this.referenceFrame = referenceFrame;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
     @Override
     public String toString() {
         return "CartesianState{" +
                 "referenceFrame=" + referenceFrame +
                 ", position=" + position +
                 ", velocity=" + velocity +
-                ", timestamp=" + timestamp +
                 '}';
     }
 }

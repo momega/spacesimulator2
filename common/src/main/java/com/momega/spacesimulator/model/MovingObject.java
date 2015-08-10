@@ -1,8 +1,5 @@
 package com.momega.spacesimulator.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by martin on 7/19/15.
  */
@@ -18,4 +15,10 @@ public abstract class MovingObject {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "MovingObject{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

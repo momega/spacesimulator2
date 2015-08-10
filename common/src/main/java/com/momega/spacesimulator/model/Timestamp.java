@@ -44,7 +44,11 @@ public class Timestamp implements Comparable<Timestamp> {
     }
 
     public boolean after(Timestamp o) {
-        return (compareTo(o) >0);
+        return (compareTo(o) > 0);
+    }
+
+    public boolean before(Timestamp o) {
+        return (compareTo(o) < 0);
     }
 
     @Override

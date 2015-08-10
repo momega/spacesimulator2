@@ -12,7 +12,7 @@ public interface ReferenceFrame {
     ReferenceFrame getParent();
 
     /**
-     * Gets the position of the frame
+     * Gets the position of the frame relative to parent frame
      * @return
      */
     CartesianState getCartesianState();
