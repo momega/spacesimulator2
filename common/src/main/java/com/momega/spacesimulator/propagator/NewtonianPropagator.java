@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.sql.Time;
-
 /**
  * The propagator computes new position of the spacecraft. It uses newtonian gravitation model
  * Created by martin on 7/21/15.

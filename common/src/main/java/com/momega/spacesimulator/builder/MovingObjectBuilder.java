@@ -1,7 +1,5 @@
 package com.momega.spacesimulator.builder;
 
-import com.momega.spacesimulator.common.CoordinateModels;
-import com.momega.spacesimulator.common.KeplerianUtils;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.utils.TimeUtils;

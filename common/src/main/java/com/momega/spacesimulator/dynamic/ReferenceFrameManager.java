@@ -1,7 +1,8 @@
 package com.momega.spacesimulator.dynamic;
 
-import com.momega.spacesimulator.model.*;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.CelestialBodyReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrame;
 import org.springframework.stereotype.Component;
 
 /**
