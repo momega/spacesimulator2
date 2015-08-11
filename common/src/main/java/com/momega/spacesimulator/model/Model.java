@@ -24,14 +24,6 @@ public class Model {
         this.movingObjects = movingObjects;
     }
 
-    public Instant getInstant(Timestamp timestamp, MovingObject movingObject) {
-        Map<MovingObject, Instant> map = instants.get(timestamp);
-        if (map == null) {
-            return null;
-        }
-        return map.get(movingObject);
-    }
-
     public void addInstant(Instant instant) {
         Assert.notNull(instant);
         Assert.notNull(instant.getMovingObject());
@@ -55,5 +47,9 @@ public class Model {
 
     public ReferenceFrame getRootReferenceFrame() {
         return rootReferenceFrame;
+    }
+
+    public Map<Timestamp, Map<MovingObject, Instant>> getInstants() {
+        return instants;
     }
 }

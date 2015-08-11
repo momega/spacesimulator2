@@ -1,5 +1,6 @@
 package com.momega.spacesimulator.utils;
 
+import com.momega.spacesimulator.model.TimeInterval;
 import com.momega.spacesimulator.model.Timestamp;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
@@ -53,7 +54,7 @@ public class TimeUtils {
     /**
      * Creates the timestamp
      * @param seconds
-     * @return
+     * @return new instance of the timestamp
      */
     public static Timestamp fromSeconds(double seconds) {
     	Timestamp time = new Timestamp();
@@ -104,10 +105,17 @@ public class TimeUtils {
         return calendar;
     }
 
-//    public static double getDuration(TimeInterval timeInterval) {
-//        return timeInterval.getEndTime().subtract(timeInterval.getStartTime());
-//    }
-//
+    public static double getDuration(TimeInterval timeInterval) {
+        return timeInterval.getEndTime().subtract(timeInterval.getStartTime());
+    }
+
+    public static TimeInterval createInterval(Timestamp timestamp, double duration) {
+        TimeInterval timeInterval = new TimeInterval();
+        timeInterval.setStartTime(timestamp);
+        timeInterval.setEndTime(timestamp.add(duration));
+        return timeInterval;
+    }
+
 //    public static boolean isTimestampInInterval(Timestamp timestamp, TimeInterval interval) {
 //        Assert.notNull(timestamp);
 //        Assert.notNull(interval);
@@ -135,6 +143,9 @@ public class TimeUtils {
 //    }
 
     public static String timeAsString(Timestamp timestamp) {
+        if (timestamp == null) {
+            return null;
+        }
         return UTC_FORMATTER.print(TimeUtils.toDateTime(timestamp));
     }
 

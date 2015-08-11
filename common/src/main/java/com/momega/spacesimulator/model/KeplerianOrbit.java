@@ -3,7 +3,9 @@ package com.momega.spacesimulator.model;
 import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
- * Created by martin on 7/19/15.
+ * Keplerian orbit contains all elements which defines single orbit. There multi infinite positions
+ * located on the orbit. Typically several objects shared the same instance of this class.
+ * Created by martin on 10/12/14.
  */
 public class KeplerianOrbit {
 
@@ -95,7 +97,7 @@ public class KeplerianOrbit {
 
     @Override
     public String toString() {
-        String result = String.format("(a=%6.2f, e=%6.2f, omega=%6.2f, i=%6.2f, OMEGA=%6.2f, Tp=%s)", semimajorAxis, eccentricity, argumentOfPeriapsis, inclination, ascendingNode, TimeUtils.timeAsString(timeOfPeriapsis));
+        String result = String.format("(a=%6.2f, e=%6.3f, omega=%6.3f, i=%6.3f, OMEGA=%6.3f, Tp=%s)", semimajorAxis, eccentricity, argumentOfPeriapsis, inclination, ascendingNode, TimeUtils.timeAsString(timeOfPeriapsis));
         return result;
     }
 

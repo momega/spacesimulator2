@@ -1,7 +1,8 @@
 package com.momega.spacesimulator.model;
 
 /**
- * Created by martin on 7/19/15.
+ * The class holding keplerian elements of the trajectory.
+ * Created by martin on 4/21/14.
  */
 public class KeplerianElements {
 

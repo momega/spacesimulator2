@@ -38,26 +38,38 @@ public class ModelService {
     }
 
     /**
-     * Propagates the trajectory of the moving object in the given time interval
+     * Propagates the trajectory of the moving object in the given time interval.It is assumed that starting point of the interval
+     * is already calculated. The iteration is run until end time of the interval (inclusive)
      * @param model the model
      * @param movingObjects the set moving objects
-     * @param timeInterval the time interval
+     * @param timeInterval the time interval.
      * @param dt the step
      */
-    public void propagateTrajectories(Model model, List<MovingObject> movingObjects, TimeInterval timeInterval, double dt) {
+    public PropagationResult propagateTrajectories(Model model, List<MovingObject> movingObjects, TimeInterval timeInterval, double dt) {
+        PropagationResult result = new PropagationResult();
         Timestamp time = timeInterval.getStartTime();
-        Timestamp newTime = time.add(dt);
-        while (!newTime.after(timeInterval.getEndTime())) {
+        result.setStartTime(time);
+        long t1 = System.nanoTime();
+        logger.info("propagation started at {}", time);
+        while (!time.after(timeInterval.getEndTime())) {
+            Timestamp newTime = time.add(dt);
             for(MovingObject movingObject : movingObjects) {
                 Instant instant = instantManager.getInstant(model, movingObject, newTime);
                 if (instant == null) {
                     instant = propagateTrajectory(model, movingObject, time, newTime, dt);
-                    logger.info("{} : {}", movingObject.getName(), instant.getKeplerianElements());
+                }
+                if (logger.isDebugEnabled()) {
+                    logger.debug("{} : {}, {}", movingObject.getName(), instant.getCartesianState(), instant.getKeplerianElements());
                 }
             }
             time = newTime;
-            newTime = time.add(dt);
         }
+        result.setEndTime(time);
+        long t2 = System.nanoTime();
+        result.setExecTime(t2 - t1);
+        logger.info("propagation finished at {} in {}ns ", time, result.getExecTime());
+        result.setInstants(instantManager.getInstants(model, time));
+        return result;
     }
 
     protected Instant propagateTrajectory(Model model, MovingObject movingObject, Timestamp timestamp, Timestamp newTimestamp, double dt) {
@@ -69,4 +81,11 @@ public class ModelService {
         }
     }
 
+    public void setInstantManager(InstantManager instantManager) {
+        this.instantManager = instantManager;
+    }
+
+    public void setKeplerianPropagator(KeplerianPropagator keplerianPropagator) {
+        this.keplerianPropagator = keplerianPropagator;
+    }
 }

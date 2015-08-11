@@ -5,6 +5,7 @@ import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.dynamic.ReferenceFrameManager;
 import com.momega.spacesimulator.service.ModelService;
+import com.momega.spacesimulator.service.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
 import junit.framework.Assert;
 import org.joda.time.DateTime;
@@ -61,14 +62,18 @@ public class SimpleTest {
         initSpacecrafts(applicationContext, model, spacecraft, referenceFrame, earth, timestamp);
 
         List<MovingObject> list = new ArrayList<>();
-        list.add(moon);
+        //list.add(moon);
         list.add(spacecraft);
 
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(timestamp.add(100));
+        timeInterval.setEndTime(timestamp.add(90.0 * 60 - 32));
 
-        modelService.propagateTrajectories(model, list, timeInterval, 1.0);
+        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.05);
+        Instant i = result.getInstants().get(spacecraft);
+        Assert.assertNotNull(i);
+
+        logger.info("{}, {}", i.getCartesianState(), i.getKeplerianElements());
     }
 
     public Instant initSpacecrafts(ApplicationContext applicationContext, Model model, Spacecraft spacecraft, ReferenceFrame referenceFrame, CelestialBody earth, Timestamp timestamp) {

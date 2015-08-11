@@ -4,14 +4,25 @@ import com.momega.spacesimulator.model.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.Map;
+
 /**
  * Created by martin on 7/22/15.
  */
 @Component
 public class InstantManager {
 
+    public Map<MovingObject, Instant> getInstants(Model model, Timestamp timestamp) {
+        Map<MovingObject, Instant> map = model.getInstants().get(timestamp);
+        return map;
+    }
+
     public Instant getInstant(Model model, MovingObject movingObject, Timestamp timestamp) {
-        return model.getInstant(timestamp, movingObject);
+        Map<MovingObject, Instant> map = getInstants(model, timestamp);
+        if (map == null) {
+            return null;
+        }
+        return map.get(movingObject);
     }
 
     public Instant newZeroInstance(Model model, MovingObject movingObject, ReferenceFrame referenceFrame, Timestamp timestamp) {
