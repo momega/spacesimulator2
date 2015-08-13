@@ -17,7 +17,6 @@ import org.springframework.util.Assert;
 public class NewtonianPropagator {
 
     @Autowired
-    @SuppressWarnings("null")
     private GravityModel gravityModel;
 
     @Autowired

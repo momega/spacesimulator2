@@ -36,16 +36,14 @@ public class MovingObjectBuilder {
         return orbit;
     }
 
-    public void insertCentralBody(Model model, CelestialBody celestialBody) {
-        model.getMovingObjects().add(celestialBody);
-    }
-
     public void updateMovingObject(PhysicalBody physicalBody, double mass) {
         physicalBody.setMass(mass * 1E24);
     }
 
-    public void updateMovingObject(RotatingObject rotatingObject, double mass, double radius) {
+    public void updateMovingObject(RotatingObject rotatingObject, double mass, double radius, double rotationPeriod, double primeMeridian) {
         updateMovingObject(rotatingObject, mass);
+        rotatingObject.setPrimeMeridian(Math.toRadians(primeMeridian));
+        rotatingObject.setRotationPeriod(rotationPeriod * DateTimeConstants.SECONDS_PER_DAY);
         rotatingObject.setRadius(radius * 1E6);
     }
 

@@ -42,15 +42,15 @@ public class SimpleTest {
 
         CelestialBody earth = new CelestialBody();
         earth.setName("Earth");
-        mob.updateMovingObject(earth, 5.97219, 6.378);
-        mob.insertCentralBody(model, earth);
+        mob.updateMovingObject(earth, 5.97219, 6.378, 0.997269, 190.147d);
+        mob.insertCelestialBody(model, earth, timestamp);
 
         ReferenceFrame referenceFrame = rfm.createByCelestialBody(earth);
         model.setRootReferenceFrame(referenceFrame);
 
         CelestialBody moon = new CelestialBody();
         moon.setName("Moon");
-        mob.updateMovingObject(moon, 0.07349, 1.737);
+        mob.updateMovingObject(moon, 0.07349, 1.737, 27.321, 38.3213d);
         mob.createKeplerianOrbit(moon, referenceFrame, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.145, 208.1199);
 
         mob.insertCelestialBody(model, moon, timestamp);

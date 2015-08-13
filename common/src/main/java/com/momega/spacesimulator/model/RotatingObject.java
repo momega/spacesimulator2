@@ -7,7 +7,17 @@ package com.momega.spacesimulator.model;
  */
 public class RotatingObject extends PhysicalBody {
 
+    private double rotationPeriod; // rotation period in seconds
     private double radius;
+    private double primeMeridian;
+
+    public void setRotationPeriod(double rotationPeriod) {
+        this.rotationPeriod = rotationPeriod;
+    }
+
+    public double getRotationPeriod() {
+        return rotationPeriod;
+    }
 
     /**
      * Gets the radius in meters of the planet
@@ -19,5 +29,17 @@ public class RotatingObject extends PhysicalBody {
 
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    /**
+     * The angle of the prime meridian at epoch JD2000.
+     * @return the angle in radians of the prime meridian at epoch JD2000.
+     */
+    public double getPrimeMeridian() {
+        return primeMeridian;
+    }
+
+    public void setPrimeMeridian(double primeMeridian) {
+        this.primeMeridian = primeMeridian;
     }
 }

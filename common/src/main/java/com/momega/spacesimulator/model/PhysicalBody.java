@@ -28,8 +28,8 @@ public abstract class PhysicalBody extends MovingObject {
 
     @Override
     public String toString() {
-        return "PhysicalBody{" +
+        return "PhysicalBody{" + super.toString() +
                 "mass=" + mass +
-                "} " + super.toString();
+                "} ";
     }
 }
