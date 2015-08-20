@@ -30,4 +30,11 @@ public class CelestialBodyReferenceFrame implements ReferenceFrame {
     public void setCelestialBody(CelestialBody celestialBody) {
         this.celestialBody = celestialBody;
     }
+
+    @Override
+    public String toString() {
+        return "CelestialBodyReferenceFrame{" +
+                "celestialBody=" + celestialBody +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.momega.spacesimulator.builder;
 
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.utils.RotationUtils;
 import com.momega.spacesimulator.utils.TimeUtils;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,13 @@ public class MovingObjectBuilder {
         physicalBody.setMass(mass * 1E24);
     }
 
-    public void updateMovingObject(RotatingObject rotatingObject, double mass, double radius, double rotationPeriod, double primeMeridian) {
+    public void updateMovingObject(RotatingObject rotatingObject, double mass, double radius, double rotationPeriod, double primeMeridian, double ra, double dec) {
         updateMovingObject(rotatingObject, mass);
         rotatingObject.setPrimeMeridian(Math.toRadians(primeMeridian));
         rotatingObject.setRotationPeriod(rotationPeriod * DateTimeConstants.SECONDS_PER_DAY);
         rotatingObject.setRadius(radius * 1E6);
+        rotatingObject.setRa(Math.toRadians(ra));
+        rotatingObject.setDec(Math.toRadians(dec));
     }
 
     public void insertSpacecraft(Model model, Spacecraft spacecraft) {
@@ -55,6 +58,16 @@ public class MovingObjectBuilder {
         model.getMovingObjects().add(celestialBody);
 
         keplerianPropagator.compute(model, celestialBody, timestamp);
+    }
+
+    /**
+     * Creates the rotation transformation
+     * @param alpha right ascension
+     * @param delta declination of the north-pole
+     * @return the transformation matrix
+     */
+    public static Orientation createOrientation(double alpha, double delta) {
+        return RotationUtils.createOrientation(alpha, delta, true);
     }
 
 }

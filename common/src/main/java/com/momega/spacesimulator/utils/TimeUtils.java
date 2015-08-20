@@ -116,31 +116,31 @@ public class TimeUtils {
         return timeInterval;
     }
 
-//    public static boolean isTimestampInInterval(Timestamp timestamp, TimeInterval interval) {
-//        Assert.notNull(timestamp);
-//        Assert.notNull(interval);
-//        Assert.notNull(interval.getStartTime());
-//        Assert.notNull(interval.getEndTime());
-//
-//        return (interval.getStartTime().compareTo(timestamp) <=0) &&
-//                (interval.getEndTime().compareTo(timestamp) >= 0);
-//    }
-//
-//    public static boolean isIntervalInFuture(Timestamp timestamp, TimeInterval interval) {
-//        Assert.notNull(timestamp);
-//        Assert.notNull(interval);
-//        Assert.notNull(interval.getStartTime());
-//
-//        return interval.getStartTime().compareTo(timestamp) > 0;
-//    }
-//
-//    public static boolean isIntervalInPast(Timestamp timestamp, TimeInterval interval) {
-//        Assert.notNull(timestamp);
-//        Assert.notNull(interval);
-//        Assert.notNull(interval.getEndTime());
-//
-//        return interval.getEndTime().compareTo(timestamp) < 0;
-//    }
+    public static boolean isTimestampInInterval(Timestamp timestamp, TimeInterval interval) {
+        Assert.notNull(timestamp);
+        Assert.notNull(interval);
+        Assert.notNull(interval.getStartTime());
+        Assert.notNull(interval.getEndTime());
+
+        return (interval.getStartTime().compareTo(timestamp) <=0) &&
+                (interval.getEndTime().compareTo(timestamp) >= 0);
+    }
+
+    public static boolean isIntervalInFuture(Timestamp timestamp, TimeInterval interval) {
+        Assert.notNull(timestamp);
+        Assert.notNull(interval);
+        Assert.notNull(interval.getStartTime());
+
+        return interval.getStartTime().compareTo(timestamp) > 0;
+    }
+
+    public static boolean isIntervalInPast(Timestamp timestamp, TimeInterval interval) {
+        Assert.notNull(timestamp);
+        Assert.notNull(interval);
+        Assert.notNull(interval.getEndTime());
+
+        return interval.getEndTime().compareTo(timestamp) < 0;
+    }
 
     public static String timeAsString(Timestamp timestamp) {
         if (timestamp == null) {

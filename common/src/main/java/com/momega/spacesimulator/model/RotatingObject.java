@@ -10,6 +10,8 @@ public class RotatingObject extends PhysicalBody {
     private double rotationPeriod; // rotation period in seconds
     private double radius;
     private double primeMeridian;
+    private double ra;
+    private double dec;
 
     public void setRotationPeriod(double rotationPeriod) {
         this.rotationPeriod = rotationPeriod;
@@ -41,5 +43,29 @@ public class RotatingObject extends PhysicalBody {
 
     public void setPrimeMeridian(double primeMeridian) {
         this.primeMeridian = primeMeridian;
+    }
+
+    /**
+     * Right ascension (RA) of the north pole
+     * @return the angle of the right ascension of the north pole
+     */
+    public double getRa() {
+        return ra;
+    }
+
+    public void setRa(double ra) {
+        this.ra = ra;
+    }
+
+    /**
+     * Declination of the north pole
+     * @return the angle of the declination of the north pole
+     */
+    public double getDec() {
+        return dec;
+    }
+
+    public void setDec(double dec) {
+        this.dec = dec;
     }
 }

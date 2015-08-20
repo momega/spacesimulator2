@@ -1,5 +1,6 @@
 package com.momega.spacesimulator.utils;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 
 /**
@@ -57,6 +58,10 @@ public class MathUtils {
     	} else {
     		return new double[] { (-b - FastMath.sqrt(D)) / 2 / a, (-b + FastMath.sqrt(D)) / 2 / a };
     	}
+    }
+
+    public static boolean equals(Vector3D v1, Vector3D v2, double precision) {
+        return v1.subtract(v2).getNorm()<precision;
     }
 
 }

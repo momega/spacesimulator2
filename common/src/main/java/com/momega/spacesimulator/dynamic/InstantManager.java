@@ -13,8 +13,7 @@ import java.util.Map;
 public class InstantManager {
 
     public Map<MovingObject, Instant> getInstants(Model model, Timestamp timestamp) {
-        Map<MovingObject, Instant> map = model.getInstants().get(timestamp);
-        return map;
+        return model.getInstants().get(timestamp);
     }
 
     public Instant getInstant(Model model, MovingObject movingObject, Timestamp timestamp) {
