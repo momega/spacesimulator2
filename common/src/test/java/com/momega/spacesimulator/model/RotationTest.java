@@ -32,25 +32,25 @@ public class RotationTest {
 
         Assert.assertTrue(MathUtils.equals(v, orientation.getV(), 0.00000001));
     }
-//
-//    @Test
-//    public void marsTest2() {
-//        double alpha = Math.toRadians(317.68143);
-//        double delta = Math.toRadians(52.88650);
-//        Orientation orientation = VectorUtils.createOrientation(alpha, delta, false);
-//
-//        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
-//        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
-//
-//        Orientation o = Orientation.createUnit();
-//        o.lookLeft(alpha);
-//        o.lookUp(Math.PI/2 - delta);
-//
-//        angles = new SphericalCoordinates(o.getV());
-//        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
-//
-//        Assert.assertTrue(VectorUtils.equals(o.getV(), orientation.getV(), 0.00000001));
-//    }
+
+    @Test
+    public void marsTest2() {
+        double alpha = Math.toRadians(317.68143);
+        double delta = Math.toRadians(52.88650);
+        Orientation orientation = RotationUtils.createOrientation(alpha, delta, false);
+
+        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
+
+        Orientation o = Orientation.createUnit();
+        o.lookLeft(alpha);
+        o.lookUp(Math.PI/2 - delta);
+
+        angles = new SphericalCoordinates(o.getV());
+        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
+
+        Assert.assertTrue(MathUtils.equals(o.getV(), orientation.getV(), 0.00000001));
+    }
 //
 //    @Test
 //    public void earthTest() {
