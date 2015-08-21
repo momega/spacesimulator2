@@ -20,7 +20,7 @@ public class RotationUtils {
         o.lookAroundV(alpha);
         o.lookUp(Math.PI / 2 - delta);
         if (toEcliptic) {
-            o.rotate(Vector3D.MINUS_I, -ECLIPTIC);
+            o.rotate(Vector3D.MINUS_I, ECLIPTIC);
         }
         return o;
     }

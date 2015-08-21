@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by martin on 7/25/15.
@@ -30,10 +30,12 @@ public class ModelService {
     private KeplerianPropagator keplerianPropagator;
 
     public List<CelestialBody> findAllCelestialBodies(Model model) {
-        List<CelestialBody> result = model.getMovingObjects().stream().
-                filter(movingObject -> movingObject instanceof CelestialBody).
-                map(movingObject -> (CelestialBody) movingObject).
-                collect(Collectors.toList());
+        List<CelestialBody> result = new ArrayList();
+        for(MovingObject mo : model.getMovingObjects()) {
+            if (mo instanceof CelestialBody) {
+                result.add((CelestialBody) mo);
+            }
+        };
         return result;
     }
 

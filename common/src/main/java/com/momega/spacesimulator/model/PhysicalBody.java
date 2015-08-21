@@ -13,7 +13,7 @@ public abstract class PhysicalBody extends MovingObject {
 
     public double getGravitationParameter() {
         if (mi == 0) {
-            mi = this.mass * MathUtils.G;
+            mi = getMass() * MathUtils.G;
         }
         return mi;
     }

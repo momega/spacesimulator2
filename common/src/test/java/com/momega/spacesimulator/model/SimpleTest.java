@@ -69,7 +69,7 @@ public class SimpleTest {
         timeInterval.setStartTime(timestamp);
         timeInterval.setEndTime(timestamp.add(90.0 * 60 - 32));
 
-        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.02);
+        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.1);
         Instant i = result.getInstants().get(spacecraft);
         Assert.assertNotNull(i);
 
