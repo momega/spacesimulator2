@@ -16,6 +16,8 @@ public class RotationTest {
 
     private static final Logger logger = LoggerFactory.getLogger(RotationTest.class);
 
+    private RotationUtils rotationUtils = new RotationUtils();
+
     @Test
     public void marsTest() {
         double alpha = Math.toRadians(317.68143);
@@ -25,21 +27,21 @@ public class RotationTest {
         SphericalCoordinates angles2 = new SphericalCoordinates(v);
         logger.info("directly dec = {}, ra = {}", 90-Math.toDegrees(angles2.getTheta()), Math.toDegrees(angles2.getPhi()));
 
-        Orientation orientation = RotationUtils.createOrientation(alpha, delta, false);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, false);
 
-        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
-        Assert.assertTrue(MathUtils.equals(v, orientation.getV(), 0.00000001));
+        Assert.assertTrue(MathUtils.equals(v, northPole, 0.00000001));
     }
 
     @Test
     public void marsTest2() {
         double alpha = Math.toRadians(317.68143);
         double delta = Math.toRadians(52.88650);
-        Orientation orientation = RotationUtils.createOrientation(alpha, delta, false);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, false);
 
-        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
         Orientation o = Orientation.createUnit();
@@ -49,7 +51,7 @@ public class RotationTest {
         angles = new SphericalCoordinates(o.getV());
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
-        Assert.assertTrue(MathUtils.equals(o.getV(), orientation.getV(), 0.00000001));
+        Assert.assertTrue(MathUtils.equals(o.getV(), northPole, 0.00000001));
     }
 
     @Test
@@ -61,12 +63,12 @@ public class RotationTest {
         SphericalCoordinates angles2 = new SphericalCoordinates(v);
         logger.info("directly dec = {}, ra = {}", 90-Math.toDegrees(angles2.getTheta()), Math.toDegrees(angles2.getPhi()));
 
-        Orientation orientation = RotationUtils.createOrientation(alpha, delta, false);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, false);
 
-        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
-        Assert.assertTrue(MathUtils.equals(v, orientation.getV(), 0.00000001));
+        Assert.assertTrue(MathUtils.equals(v, northPole, 0.00000001));
     }
 
     @Test
@@ -80,12 +82,12 @@ public class RotationTest {
 
         alpha = Math.toRadians(0);
         delta = Math.toRadians(90);
-        Orientation orientation = RotationUtils.createOrientation(alpha, delta, true);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, true);
 
-        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
-        Assert.assertTrue(MathUtils.equals(v, orientation.getV(), 0.000001));
+        Assert.assertTrue(MathUtils.equals(v, northPole, 0.000001));
     }
 
     @Test
@@ -99,21 +101,21 @@ public class RotationTest {
 
         alpha = Math.toRadians(317.68143);
         delta = Math.toRadians(52.8865);
-        Orientation orientation = RotationUtils.createOrientation(alpha, delta, true);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, true);
 
-        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
-        Assert.assertTrue(MathUtils.equals(v, orientation.getV(), 0.000001));
+        Assert.assertTrue(MathUtils.equals(v, northPole, 0.000001));
     }
 
     @Test
     public void marsEclipticTest2() {
         double alpha = Math.toRadians(317.68143);
         double delta = Math.toRadians(52.8865);
-        Orientation orientation = RotationUtils.createOrientation(alpha, delta, true);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, true);
 
-        SphericalCoordinates angles = new SphericalCoordinates(orientation.getV());
+        SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
         Orientation o = Orientation.createUnit();
@@ -125,7 +127,7 @@ public class RotationTest {
         angles = new SphericalCoordinates(o.getV());
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
-        Assert.assertTrue(MathUtils.equals(v, orientation.getV(), 0.00000001));
+        Assert.assertTrue(MathUtils.equals(v, northPole, 0.00000001));
     }
 
 }

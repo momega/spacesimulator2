@@ -1,17 +1,20 @@
 package com.momega.spacesimulator.model;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
+
 /**
  * The rotation object is the {@link PhysicalBody} with defined radius and the rotation period. The {@link CelestialBody}
  * is the typical subclass of the rotation object.
  * Created by martin on 8/9/15.
  */
-public class RotatingObject extends PhysicalBody {
+public abstract class RotatingObject extends PhysicalBody {
 
     private double rotationPeriod; // rotation period in seconds
     private double radius;
     private double primeMeridian;
     private double ra;
     private double dec;
+    private Rotation axialTilt;
 
     public void setRotationPeriod(double rotationPeriod) {
         this.rotationPeriod = rotationPeriod;
@@ -67,5 +70,13 @@ public class RotatingObject extends PhysicalBody {
 
     public void setDec(double dec) {
         this.dec = dec;
+    }
+
+    public Rotation getAxialTilt() {
+        return axialTilt;
+    }
+
+    public void setAxialTilt(Rotation axialTilt) {
+        this.axialTilt = axialTilt;
     }
 }

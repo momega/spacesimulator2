@@ -1,5 +1,7 @@
 package com.momega.spacesimulator.model;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
+
 /**
  * The class represents the celestial such as planet. It is the {@link RotatingObject}
  * with defined keplerian orbit
@@ -16,4 +18,5 @@ public class CelestialBody extends RotatingObject {
     public KeplerianOrbit getKeplerianOrbit() {
         return keplerianOrbit;
     }
+
 }

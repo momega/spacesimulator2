@@ -18,6 +18,9 @@ public class MovingObjectBuilder {
     @Autowired
     private KeplerianPropagator keplerianPropagator;
 
+    @Autowired
+    private RotationUtils rotationUtils;
+
     public KeplerianOrbit createKeplerianOrbit(CelestialBody celestialBody, ReferenceFrame referenceFrame, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
         Assert.notNull(celestialBody);
         Assert.notNull(referenceFrame);
@@ -48,6 +51,7 @@ public class MovingObjectBuilder {
         rotatingObject.setRadius(radius * 1E6);
         rotatingObject.setRa(Math.toRadians(ra));
         rotatingObject.setDec(Math.toRadians(dec));
+        rotatingObject.setAxialTilt(rotationUtils.getAxialTilt(rotatingObject.getRa(), rotatingObject.getDec(), true));
     }
 
     public void insertSpacecraft(Model model, Spacecraft spacecraft) {
@@ -58,16 +62,6 @@ public class MovingObjectBuilder {
         model.getMovingObjects().add(celestialBody);
 
         keplerianPropagator.compute(model, celestialBody, timestamp);
-    }
-
-    /**
-     * Creates the rotation transformation
-     * @param alpha right ascension
-     * @param delta declination of the north-pole
-     * @return the transformation matrix
-     */
-    public static Orientation createOrientation(double alpha, double delta) {
-        return RotationUtils.createOrientation(alpha, delta, true);
     }
 
 }

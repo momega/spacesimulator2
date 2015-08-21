@@ -1,9 +1,8 @@
-package com.momega.spacesimulator.common;
+package com.momega.spacesimulator.utils;
 
 import com.momega.spacesimulator.model.KeplerianElements;
 import com.momega.spacesimulator.model.KeplerianOrbit;
 import com.momega.spacesimulator.model.Timestamp;
-import com.momega.spacesimulator.utils.MathUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 import org.springframework.stereotype.Component;
@@ -156,7 +155,7 @@ public class KeplerianUtils {
         return p;
     }
 
-    private static Vector3D getCartesianPosition(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis) {
+    private Vector3D getCartesianPosition(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis) {
         double u = theta + argumentOfPeriapsis;
         double x = r * (FastMath.cos(u) * FastMath.cos(ascendingNode) - FastMath.sin(u) * FastMath.cos(inclination) * FastMath.sin(ascendingNode));
         double y = r * (FastMath.cos(u) * FastMath.sin(ascendingNode) + FastMath.sin(u) * FastMath.cos(inclination) * FastMath.cos(ascendingNode));
@@ -177,7 +176,7 @@ public class KeplerianUtils {
         return v;
     }
 
-    public static Vector3D getCartesianVelocity(double a, double mi, double theta, double e, double inclination, double OMEGA, double omega) {
+    public Vector3D getCartesianVelocity(double a, double mi, double theta, double e, double inclination, double OMEGA, double omega) {
         double param = FastMath.cos(theta) + e;
         double p =a * (1-e*e);
         double sqrtMdivP = FastMath.sqrt(mi/p);
