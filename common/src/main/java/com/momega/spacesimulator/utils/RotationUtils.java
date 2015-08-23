@@ -17,12 +17,15 @@ public class RotationUtils {
      * Create rotation transformation based on the direction of the axial tilt
      * @param alpha the RA of the axial tilt
      * @param delta the DEC to the axial tilt
+     * @param primeMeridian prime meridian
      * @param toEcliptic true if the values relates to the ecliptic. The value false if just for testing purposes
      * @return the rotation
      */
-    public Rotation getAxialTilt(double alpha, double delta, boolean toEcliptic) {
+    public Rotation getAxialTilt(double alpha, double delta, double primeMeridian, boolean toEcliptic) {
         double xAngle = (toEcliptic) ? -ECLIPTIC : 0d;
-        Rotation r = new Rotation(RotationOrder.XZY, xAngle, alpha, Math.PI / 2 - delta);
+        Rotation tilt = new Rotation(RotationOrder.XZY, xAngle, alpha, Math.PI / 2 - delta);
+        Rotation meridian = new Rotation(Vector3D.PLUS_K, primeMeridian);
+        Rotation r = tilt.applyTo(meridian);
         return r;
     }
 
@@ -30,13 +33,14 @@ public class RotationUtils {
      * Create vector defines the position of the north pole
      * @param alpha the RA of the axial tilt
      * @param delta the DEC to the axial tilt
+     * @param primeMeridian prime meridian
      * @param toEcliptic true if the values relates to the ecliptic. The value false if just for testing purposes
      * @return the rotation
      */
-    public Vector3D getNorthPoleVector(double alpha, double delta, boolean toEcliptic) {
+    public Vector3D getNorthPoleVector(double alpha, double delta, double primeMeridian, boolean toEcliptic) {
         //Orientation orientation = createOrientation(alpha, delta, toEcliptic);
         //return orientation.getV();
-        Rotation r = getAxialTilt(alpha, delta, toEcliptic);
+        Rotation r = getAxialTilt(alpha, delta, primeMeridian, toEcliptic);
         Vector3D result = r.applyTo(Vector3D.PLUS_K);
         return result;
     }

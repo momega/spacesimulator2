@@ -22,6 +22,9 @@ public class KeplerianPropagator {
     @Autowired
     private InstantManager instantManager;
 
+    @Autowired
+    private RotationPropagator rotationPropagator;
+
     public Instant compute(Model model, CelestialBody celestialBody, Timestamp newTimestamp) {
         KeplerianOrbit keplerianOrbit = celestialBody.getKeplerianOrbit();
         if (keplerianOrbit == null) {
@@ -34,6 +37,7 @@ public class KeplerianPropagator {
         CartesianState cartesianState = coordinateModels.transform(keplerianElements);
 
         Instant newInstant = instantManager.newInstant(model, celestialBody, cartesianState, keplerianElements, newTimestamp);
+        rotationPropagator.compute(celestialBody, newInstant, newTimestamp);
         return newInstant;
     }
 }

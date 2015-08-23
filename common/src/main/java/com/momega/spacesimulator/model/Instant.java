@@ -1,5 +1,7 @@
 package com.momega.spacesimulator.model;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
+
 /**
  * The instant class represents single instance of the moving object in time.
  * Created by martin on 7/21/15.
@@ -10,6 +12,7 @@ public class Instant {
     private KeplerianElements keplerianElements;
     private Timestamp timestamp;
     private MovingObject movingObject;
+    private Rotation rotation;
 
     public KeplerianElements getKeplerianElements() {
         return keplerianElements;
@@ -41,5 +44,13 @@ public class Instant {
 
     public void setMovingObject(MovingObject movingObject) {
         this.movingObject = movingObject;
+    }
+
+    public Rotation getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(Rotation rotation) {
+        this.rotation = rotation;
     }
 }

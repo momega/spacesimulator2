@@ -3,6 +3,8 @@ package com.momega.spacesimulator.utils;
 import com.momega.spacesimulator.model.KeplerianElements;
 import com.momega.spacesimulator.model.KeplerianOrbit;
 import com.momega.spacesimulator.model.Timestamp;
+import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
+import org.apache.commons.math3.geometry.euclidean.threed.RotationOrder;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 import org.springframework.stereotype.Component;
@@ -153,6 +155,16 @@ public class KeplerianUtils {
         double ascendingNode = keplerianOrbit.getAscendingNode();
         Vector3D p = getCartesianPosition(r, trueAnomaly, inclination, ascendingNode, argumentOfPeriapsis);
         return p;
+    }
+
+    public Rotation getRotation(KeplerianOrbit keplerianOrbit) {
+        return new Rotation(RotationOrder.ZXZ, -keplerianOrbit.getArgumentOfPeriapsis(), -keplerianOrbit.getInclination(), -keplerianOrbit.getAscendingNode());
+    }
+
+    public Vector3D rotate(KeplerianOrbit keplerianOrbit, Vector3D vector) {
+        Rotation r = getRotation(keplerianOrbit);
+        Vector3D rv = r.applyTo(vector);
+        return rv;
     }
 
     private Vector3D getCartesianPosition(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis) {

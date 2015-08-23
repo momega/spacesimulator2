@@ -27,31 +27,12 @@ public class RotationTest {
         SphericalCoordinates angles2 = new SphericalCoordinates(v);
         logger.info("directly dec = {}, ra = {}", 90-Math.toDegrees(angles2.getTheta()), Math.toDegrees(angles2.getPhi()));
 
-        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, false);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, 0, false);
 
         SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
         Assert.assertTrue(MathUtils.equals(v, northPole, 0.00000001));
-    }
-
-    @Test
-    public void marsTest2() {
-        double alpha = Math.toRadians(317.68143);
-        double delta = Math.toRadians(52.88650);
-        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, false);
-
-        SphericalCoordinates angles = new SphericalCoordinates(northPole);
-        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
-
-        Orientation o = Orientation.createUnit();
-        o.lookLeft(alpha);
-        o.lookUp(Math.PI/2 - delta);
-
-        angles = new SphericalCoordinates(o.getV());
-        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
-
-        Assert.assertTrue(MathUtils.equals(o.getV(), northPole, 0.00000001));
     }
 
     @Test
@@ -63,7 +44,7 @@ public class RotationTest {
         SphericalCoordinates angles2 = new SphericalCoordinates(v);
         logger.info("directly dec = {}, ra = {}", 90-Math.toDegrees(angles2.getTheta()), Math.toDegrees(angles2.getPhi()));
 
-        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, false);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, 0, false);
 
         SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
@@ -82,7 +63,7 @@ public class RotationTest {
 
         alpha = Math.toRadians(0);
         delta = Math.toRadians(90);
-        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, true);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, 190.0, true);
 
         SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
@@ -101,33 +82,12 @@ public class RotationTest {
 
         alpha = Math.toRadians(317.68143);
         delta = Math.toRadians(52.8865);
-        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, true);
+        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, 0, true);
 
         SphericalCoordinates angles = new SphericalCoordinates(northPole);
         logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
 
         Assert.assertTrue(MathUtils.equals(v, northPole, 0.000001));
-    }
-
-    @Test
-    public void marsEclipticTest2() {
-        double alpha = Math.toRadians(317.68143);
-        double delta = Math.toRadians(52.8865);
-        Vector3D northPole = rotationUtils.getNorthPoleVector(alpha, delta, true);
-
-        SphericalCoordinates angles = new SphericalCoordinates(northPole);
-        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
-
-        Orientation o = Orientation.createUnit();
-        o.lookUp(Math.PI / 2 - delta);
-        o.lookLeft(alpha);
-        o.rotate(new Vector3D(1, 0, 0), -Math.toRadians(23.439291));
-        Vector3D v = o.getV();
-
-        angles = new SphericalCoordinates(o.getV());
-        logger.info("trans dec = {}, ra = {}", 90-Math.toDegrees(angles.getTheta()), Math.toDegrees(angles.getPhi()));
-
-        Assert.assertTrue(MathUtils.equals(v, northPole, 0.00000001));
     }
 
 }

@@ -4,6 +4,8 @@ import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.utils.RotationUtils;
 import com.momega.spacesimulator.utils.TimeUtils;
+import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,7 +53,8 @@ public class MovingObjectBuilder {
         rotatingObject.setRadius(radius * 1E6);
         rotatingObject.setRa(Math.toRadians(ra));
         rotatingObject.setDec(Math.toRadians(dec));
-        rotatingObject.setAxialTilt(rotationUtils.getAxialTilt(rotatingObject.getRa(), rotatingObject.getDec(), true));
+        Rotation axialTilt = rotationUtils.getAxialTilt(rotatingObject.getRa(), rotatingObject.getDec(), rotatingObject.getPrimeMeridian(), true);
+        rotatingObject.setAxialTilt(axialTilt);
     }
 
     public void insertSpacecraft(Model model, Spacecraft spacecraft) {
