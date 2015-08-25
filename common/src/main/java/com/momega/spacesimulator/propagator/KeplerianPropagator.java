@@ -25,19 +25,21 @@ public class KeplerianPropagator {
     @Autowired
     private RotationPropagator rotationPropagator;
 
-    public Instant compute(Model model, CelestialBody celestialBody, Timestamp newTimestamp) {
-        KeplerianOrbit keplerianOrbit = celestialBody.getKeplerianOrbit();
+    public Instant compute(Model model, KeplerianObject keplerianObject, Timestamp newTimestamp) {
+        KeplerianOrbit keplerianOrbit = keplerianObject.getKeplerianOrbit();
         if (keplerianOrbit == null) {
             ReferenceFrame referenceFrame = model.getRootReferenceFrame();
-            Instant instant = instantManager.newZeroInstance(model, celestialBody, referenceFrame, newTimestamp);
+            Instant instant = instantManager.newZeroInstance(model, keplerianObject, referenceFrame, newTimestamp);
             return instant;
         }
 
         KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(keplerianOrbit, newTimestamp);
         CartesianState cartesianState = coordinateModels.transform(keplerianElements);
 
-        Instant newInstant = instantManager.newInstant(model, celestialBody, cartesianState, keplerianElements, newTimestamp);
-        rotationPropagator.compute(celestialBody, newInstant, newTimestamp);
+        Instant newInstant = instantManager.newInstant(model, keplerianObject, cartesianState, keplerianElements, newTimestamp);
+        if (keplerianObject instanceof CelestialBody) {
+            rotationPropagator.compute((CelestialBody) keplerianObject, newInstant, newTimestamp);
+        }
         return newInstant;
     }
 }

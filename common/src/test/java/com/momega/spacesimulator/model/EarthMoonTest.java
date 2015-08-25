@@ -22,16 +22,15 @@ import java.util.List;
 /**
  * Created by martin on 7/19/15.
  */
-public class SimpleTest {
+public class EarthMoonTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(SimpleTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(EarthMoonTest.class);
 
     @Test
-    public void simpleTest() {
+    public void earthMoonTest() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SimpleConfig.class);
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
         ReferenceFrameManager rfm = applicationContext.getBean(ReferenceFrameManager.class);
-
         ModelService modelService = applicationContext.getBean(ModelService.class);
 
         Assert.assertNotNull(mob);
@@ -45,7 +44,7 @@ public class SimpleTest {
         mob.updateMovingObject(earth, 5.97219, 6.378, 0.997269, 190.147d, 0d, 90d);
         mob.insertCelestialBody(model, earth, timestamp);
 
-        ReferenceFrame referenceFrame = rfm.createByCelestialBody(earth);
+        ReferenceFrame referenceFrame = rfm.create(earth, null);
         model.setRootReferenceFrame(referenceFrame);
 
         CelestialBody moon = new CelestialBody();

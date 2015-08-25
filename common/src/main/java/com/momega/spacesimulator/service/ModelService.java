@@ -78,8 +78,8 @@ public class ModelService {
         if (movingObject instanceof Spacecraft) {
             return newtonianPropagator.compute(model, movingObject, timestamp, newTimestamp, dt);
         } else {
-            CelestialBody celestialBody = (CelestialBody) movingObject;
-            return keplerianPropagator.compute(model, celestialBody, newTimestamp);
+            KeplerianObject keplerianObject = (KeplerianObject) movingObject;
+            return keplerianPropagator.compute(model, keplerianObject, newTimestamp);
         }
     }
 

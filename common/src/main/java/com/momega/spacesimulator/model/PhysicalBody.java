@@ -1,22 +1,12 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.utils.MathUtils;
-
 /**
  * Physical body in the space. It is the {@link MovingObject} with the mass and the given orientation.
  * Created by martin on 7/19/15.
  */
-public abstract class PhysicalBody extends MovingObject {
+public abstract class PhysicalBody extends KeplerianObject {
 
     private double mass;
-    private double mi = 0;
-
-    public double getGravitationParameter() {
-        if (mi == 0) {
-            mi = getMass() * MathUtils.G;
-        }
-        return mi;
-    }
 
     public double getMass() {
         return mass;
@@ -29,7 +19,7 @@ public abstract class PhysicalBody extends MovingObject {
     @Override
     public String toString() {
         return "PhysicalBody{" + super.toString() +
-                "mass=" + mass +
+                " mass=" + mass +
                 "} ";
     }
 }

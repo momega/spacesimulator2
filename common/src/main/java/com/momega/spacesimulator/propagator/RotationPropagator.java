@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Rotation propagator is used to 
- * rotate the {@link RotatingObject} such as {@link CelestialBody}.
+ * rotate the {@link CelestialBody} such as {@link CelestialBody}.
  * It supports only RotatingObject.
  * Created by martin on 5/25/14.
  */
@@ -20,16 +20,15 @@ public class RotationPropagator {
 
     private static final Logger logger = LoggerFactory.getLogger(RotationPropagator.class);
 
-	public void compute(MovingObject movingObject, Instant instant, Timestamp newTimestamp) {
-		RotatingObject rotatingObject = (RotatingObject) movingObject;
+	public void compute(CelestialBody celestialBody, Instant instant, Timestamp newTimestamp) {
 		double dt = newTimestamp.subtract(TimeUtils.JD2000);
-        double phi = dt / rotatingObject.getRotationPeriod() * 2 * Math.PI;
+        double phi = dt / celestialBody.getRotationPeriod() * 2 * Math.PI;
         phi = MathUtils.normalizeAngle(phi);
 
         logger.debug("phi = {}", phi);
 
         Rotation r = new Rotation(Vector3D.PLUS_K, phi);
-        r = rotatingObject.getAxialTilt().applyTo(r);
+        r = celestialBody.getAxialTilt().applyTo(r);
 
         instant.setRotation(r);
 	}

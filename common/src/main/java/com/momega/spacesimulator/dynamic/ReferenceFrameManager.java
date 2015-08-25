@@ -1,7 +1,7 @@
 package com.momega.spacesimulator.dynamic;
 
-import com.momega.spacesimulator.model.CelestialBody;
-import com.momega.spacesimulator.model.CelestialBodyReferenceFrame;
+import com.momega.spacesimulator.model.BasicReferenceFrame;
+import com.momega.spacesimulator.model.KeplerianObject;
 import com.momega.spacesimulator.model.ReferenceFrame;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReferenceFrameManager {
 
-    public ReferenceFrame createByCelestialBody(CelestialBody celestialBody) {
-        CelestialBodyReferenceFrame referenceFrame = new CelestialBodyReferenceFrame();
-        referenceFrame.setCelestialBody(celestialBody);
+    public ReferenceFrame create(KeplerianObject keplerianObject, ReferenceFrame parent) {
+        BasicReferenceFrame referenceFrame = new BasicReferenceFrame();
+        referenceFrame.setParent(parent);
+        referenceFrame.setKeplerianObject(keplerianObject);
         return referenceFrame;
     }
 }

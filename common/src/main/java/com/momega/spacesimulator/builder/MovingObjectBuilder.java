@@ -5,7 +5,6 @@ import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.utils.RotationUtils;
 import com.momega.spacesimulator.utils.TimeUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,8 @@ public class MovingObjectBuilder {
     @Autowired
     private RotationUtils rotationUtils;
 
-    public KeplerianOrbit createKeplerianOrbit(CelestialBody celestialBody, ReferenceFrame referenceFrame, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
-        Assert.notNull(celestialBody);
+    public KeplerianOrbit createKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrame referenceFrame, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
+        Assert.notNull(keplerianObject);
         Assert.notNull(referenceFrame);
 
         KeplerianOrbit orbit = new KeplerianOrbit();
@@ -38,7 +37,7 @@ public class MovingObjectBuilder {
         orbit.setTimeOfPeriapsis(TimeUtils.fromJulianDay(timeOfPeriapsis));
         orbit.setMeanMotion(2 * Math.PI / orbit.getPeriod());
 
-        celestialBody.setKeplerianOrbit(orbit);
+        keplerianObject.setKeplerianOrbit(orbit);
         return orbit;
     }
 
@@ -46,15 +45,19 @@ public class MovingObjectBuilder {
         physicalBody.setMass(mass * 1E24);
     }
 
-    public void updateMovingObject(RotatingObject rotatingObject, double mass, double radius, double rotationPeriod, double primeMeridian, double ra, double dec) {
-        updateMovingObject(rotatingObject, mass);
-        rotatingObject.setPrimeMeridian(Math.toRadians(primeMeridian));
-        rotatingObject.setRotationPeriod(rotationPeriod * DateTimeConstants.SECONDS_PER_DAY);
-        rotatingObject.setRadius(radius * 1E6);
-        rotatingObject.setRa(Math.toRadians(ra));
-        rotatingObject.setDec(Math.toRadians(dec));
-        Rotation axialTilt = rotationUtils.getAxialTilt(rotatingObject.getRa(), rotatingObject.getDec(), rotatingObject.getPrimeMeridian(), true);
-        rotatingObject.setAxialTilt(axialTilt);
+    public void updateMovingObject(CelestialBody celestialBody, double mass, double radius, double rotationPeriod, double primeMeridian, double ra, double dec) {
+        updateMovingObject(celestialBody, mass);
+        celestialBody.setPrimeMeridian(Math.toRadians(primeMeridian));
+        celestialBody.setRotationPeriod(rotationPeriod * DateTimeConstants.SECONDS_PER_DAY);
+        celestialBody.setRadius(radius * 1E6);
+        celestialBody.setRa(Math.toRadians(ra));
+        celestialBody.setDec(Math.toRadians(dec));
+        Rotation axialTilt = rotationUtils.getAxialTilt(celestialBody.getRa(), celestialBody.getDec(), celestialBody.getPrimeMeridian(), true);
+        celestialBody.setAxialTilt(axialTilt);
+    }
+
+    public void addToBaryCentre(BaryCentre baryCentre, PhysicalBody physicalBody) {
+        baryCentre.getPhysicalBodies().add(physicalBody);
     }
 
     public void insertSpacecraft(Model model, Spacecraft spacecraft) {

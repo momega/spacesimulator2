@@ -63,8 +63,8 @@ public class PropagateTest {
         private InstantManager instantManager;
 
         @Override
-        public Instant compute(Model model, CelestialBody celestialBody, Timestamp newTimestamp) {
-            Instant instant = instantManager.newInstant(model, celestialBody, new CartesianState(), new KeplerianElements(), newTimestamp);
+        public Instant compute(Model model, KeplerianObject keplerianObject, Timestamp newTimestamp) {
+            Instant instant = instantManager.newInstant(model, keplerianObject, new CartesianState(), new KeplerianElements(), newTimestamp);
             return instant;
         }
 
