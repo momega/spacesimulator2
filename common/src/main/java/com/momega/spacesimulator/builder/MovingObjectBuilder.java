@@ -22,12 +22,12 @@ public class MovingObjectBuilder {
     @Autowired
     private RotationUtils rotationUtils;
 
-    public KeplerianOrbit createKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrame referenceFrame, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
+    public KeplerianOrbit createKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
         Assert.notNull(keplerianObject);
-        Assert.notNull(referenceFrame);
+        Assert.notNull(referenceFrameDefinition);
 
         KeplerianOrbit orbit = new KeplerianOrbit();
-        orbit.setReferenceFrame(referenceFrame);
+        orbit.setReferenceFrameDefinition(referenceFrameDefinition);
         orbit.setSemimajorAxis(semimajorAxis);
         orbit.setEccentricity(eccentricity);
         orbit.setArgumentOfPeriapsis(Math.toRadians(argumentOfPeriapsis));

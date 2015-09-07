@@ -3,7 +3,7 @@ package com.momega.spacesimulator.model;
 import com.momega.spacesimulator.builder.MovingObjectBuilder;
 import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.dynamic.ReferenceFrameManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.service.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
@@ -30,7 +30,7 @@ public class EarthMoonTest {
     public void earthMoonTest() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SimpleConfig.class);
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
-        ReferenceFrameManager rfm = applicationContext.getBean(ReferenceFrameManager.class);
+        ReferenceFrameFactory rff = applicationContext.getBean(ReferenceFrameFactory.class);
         ModelService modelService = applicationContext.getBean(ModelService.class);
 
         Assert.assertNotNull(mob);
@@ -44,13 +44,12 @@ public class EarthMoonTest {
         mob.updateMovingObject(earth, 5.97219, 6.378, 0.997269, 190.147d, 0d, 90d);
         mob.insertCelestialBody(model, earth, timestamp);
 
-        ReferenceFrame referenceFrame = rfm.create(earth, null);
-        model.setRootReferenceFrame(referenceFrame);
+        ReferenceFrameDefinition rootDefinition = rff.createDefinition(earth, null);
 
         CelestialBody moon = new CelestialBody();
         moon.setName("Moon");
         mob.updateMovingObject(moon, 0.07349, 1.737, 27.321, 38.3213d, 269.9949d, 66.5392d);
-        mob.createKeplerianOrbit(moon, referenceFrame, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.145, 208.1199);
+        mob.createKeplerianOrbit(moon, rootDefinition, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.145, 208.1199);
 
         mob.insertCelestialBody(model, moon, timestamp);
 
@@ -58,7 +57,7 @@ public class EarthMoonTest {
         spacecraft.setName("Satellite");
         mob.insertSpacecraft(model, spacecraft);
 
-        initSpacecrafts(applicationContext, model, spacecraft, referenceFrame, earth, timestamp);
+        initSpacecrafts(applicationContext, model, spacecraft, rootDefinition, earth, timestamp);
 
         List<MovingObject> list = new ArrayList<>();
         //list.add(moon);
@@ -75,14 +74,14 @@ public class EarthMoonTest {
         logger.info("{}, {}", i.getCartesianState(), i.getKeplerianElements());
     }
 
-    public Instant initSpacecrafts(ApplicationContext applicationContext, Model model, Spacecraft spacecraft, ReferenceFrame referenceFrame, CelestialBody earth, Timestamp timestamp) {
+    public Instant initSpacecrafts(ApplicationContext applicationContext, Model model, Spacecraft spacecraft, ReferenceFrameDefinition referenceFrameDefinition, CelestialBody earth, Timestamp timestamp) {
         CoordinateModels coordinateModels = applicationContext.getBean(CoordinateModels.class);
         InstantManager instantManager = applicationContext.getBean(InstantManager.class);
 
         KeplerianOrbit keplerianOrbit = new KeplerianOrbit();
         keplerianOrbit.setArgumentOfPeriapsis(0);
         keplerianOrbit.setAscendingNode(0);
-        keplerianOrbit.setReferenceFrame(referenceFrame);
+        keplerianOrbit.setReferenceFrameDefinition(referenceFrameDefinition);
         keplerianOrbit.setEccentricity(0.001);
         keplerianOrbit.setInclination(0);
         keplerianOrbit.setPeriod(90.0 * 60);
@@ -93,7 +92,7 @@ public class EarthMoonTest {
         ke.setKeplerianOrbit(keplerianOrbit);
         ke.setTrueAnomaly(0.0);
 
-        CartesianState cartesianState = coordinateModels.transform(ke);
+        CartesianState cartesianState = coordinateModels.transform(model, timestamp, ke);
 
         Instant instant = instantManager.newInstant(model, spacecraft, cartesianState, ke, timestamp);
         return instant;

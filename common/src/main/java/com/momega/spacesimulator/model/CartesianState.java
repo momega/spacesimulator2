@@ -8,19 +8,8 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
  */
 public class CartesianState {
 
-    public static CartesianState getZero(ReferenceFrame referenceFrame) {
-        return new CartesianState(referenceFrame, Vector3D.ZERO, Vector3D.ZERO);
-    }
-
     public CartesianState() {
         super();
-    }
-
-    public CartesianState(ReferenceFrame referenceFrame, Vector3D position, Vector3D velocity) {
-        this();
-        this.referenceFrame = referenceFrame;
-        this.position = position;
-        this.velocity = velocity;
     }
 
     private ReferenceFrame referenceFrame;

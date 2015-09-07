@@ -45,7 +45,7 @@ public class KeplerianElements {
 
     @Override
     public String toString() {
-        return "KeplerianElements [keplerianOrbit=" + keplerianOrbit
-                + ", trueAnomaly=" + trueAnomaly + "]";
+        return "KeplerianElements { keplerianOrbit=" + keplerianOrbit
+                + ", trueAnomaly=" + trueAnomaly + "}";
     }
 }

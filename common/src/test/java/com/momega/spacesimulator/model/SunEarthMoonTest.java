@@ -1,7 +1,7 @@
 package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.builder.MovingObjectBuilder;
-import com.momega.spacesimulator.dynamic.ReferenceFrameManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.service.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
@@ -28,7 +28,7 @@ public class SunEarthMoonTest {
     public void sunEarthMoonTest() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SimpleConfig.class);
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
-        ReferenceFrameManager rfm = applicationContext.getBean(ReferenceFrameManager.class);
+        ReferenceFrameFactory rff = applicationContext.getBean(ReferenceFrameFactory.class);
         ModelService modelService = applicationContext.getBean(ModelService.class);
 
         Assert.assertNotNull(mob);
@@ -42,39 +42,41 @@ public class SunEarthMoonTest {
         mob.updateMovingObject(sun, 1.989 * 1E6, 696.342, 25.05, 0d, 286.13, 63.87);
         mob.insertCelestialBody(model, sun, timestamp);
 
-        ReferenceFrame sunReferenceFrame = rfm.create(sun, null);
-        model.setRootReferenceFrame(sunReferenceFrame);
+        ReferenceFrameDefinition sunDefinition = rff.createDefinition(sun, null);
 
         BaryCentre earthMoonBarycenter = new BaryCentre();
         earthMoonBarycenter.setName("Earth-Moon Barycenter");
-        mob.createKeplerianOrbit(earthMoonBarycenter, sunReferenceFrame, 149598.261d * 1E6, 0.0166739, 287.5824, 365.256814, 2456661.138788696378, 0.0018601064, 175.395d);
+        mob.createKeplerianOrbit(earthMoonBarycenter, sunDefinition, 149598.261d * 1E6, 0.0166739, 287.5824, 365.256814, 2456661.138788696378, 0.0018601064, 175.395d);
 
         CelestialBody earth = new CelestialBody();
         earth.setName("Earth");
         mob.updateMovingObject(earth, 5.97219, 6.371, 0.997269, 0d, 90d, 190.147d);
 
         CelestialBody moon = new CelestialBody();
+        moon.setName("Moon");
         mob.updateMovingObject(moon, 0.07349, 1.737, 27.321, 269.9949, 66.5392, 38.3213);
 
         mob.addToBaryCentre(earthMoonBarycenter, earth);
         mob.addToBaryCentre(earthMoonBarycenter, moon);
 
-        ReferenceFrame earthMoonBarycenterRf = rfm.create(earthMoonBarycenter, sunReferenceFrame);
-        mob.createKeplerianOrbit(earth, earthMoonBarycenterRf, 4.686955382086 * 1E6, 0.055557, 264.7609, 27.427302, 2456796.39770, 5.241500, 208.1199);
-        mob.createKeplerianOrbit(moon, earthMoonBarycenterRf, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.241500, 208.1199);
+        ReferenceFrameDefinition earthMoonDefinition = rff.createDefinition(earthMoonBarycenter, sunDefinition);
+        mob.createKeplerianOrbit(earth, earthMoonDefinition, 4.686955382086 * 1E6, 0.055557, 264.7609, 27.427302, 2456796.39770, 5.241500, 208.1199);
+        mob.createKeplerianOrbit(moon, earthMoonDefinition, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.241500, 208.1199);
 
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(timestamp.add(60 * 60 * 24));
+        timeInterval.setEndTime(timestamp.add(60 * 60 * 24 * 2));
 
         List<MovingObject> list = new ArrayList<>();
         list.add(earthMoonBarycenter);
+        list.add(earth);
 
         PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 1);
 
-        Instant i = result.getInstants().get(earthMoonBarycenter);
-        Assert.assertNotNull(i);
+        for(Instant i : result.getInstants().values()) {
+            Assert.assertNotNull(i);
+            logger.info("Instant = {}", i);
+        }
 
-        logger.info("{}, {}", i.getCartesianState(), i.getKeplerianElements());
     }
 }

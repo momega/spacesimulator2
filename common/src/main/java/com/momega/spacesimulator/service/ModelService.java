@@ -35,7 +35,7 @@ public class ModelService {
             if (mo instanceof CelestialBody) {
                 result.add((CelestialBody) mo);
             }
-        };
+        }
         return result;
     }
 

@@ -3,24 +3,62 @@ package com.momega.spacesimulator.model;
 /**
  * Created by martin on 7/19/15.
  */
-public interface ReferenceFrame {
+public class ReferenceFrame {
 
-    /**
-     * Gets the parent reference frame
-     * @return
-     */
-    ReferenceFrame getParent();
+    private double gravitationParameter;
+    private ReferenceFrame parent;
+    private CartesianState cartesianState;
+    private boolean inertial;
+    private ReferenceFrameDefinition definition;
 
-    /**
-     * Gets the position of the frame relative to parent frame
-     * @return
-     */
-    CartesianState getCartesianState();
+    public ReferenceFrame getParent() {
+        return parent;
+    }
 
-    /**
-     * Gets the gravitation parameter of the central body of the reference frame
-     * @return
-     */
-    double getGravitationParameter();
+    public void setParent(ReferenceFrame parent) {
+        this.parent = parent;
+    }
+
+    public CartesianState getCartesianState() {
+        return cartesianState;
+    }
+
+    public void setCartesianState(CartesianState cartesianState) {
+        this.cartesianState = cartesianState;
+    }
+
+    public double getGravitationParameter() {
+        return gravitationParameter;
+    }
+
+    public void setGravitationParameter(double gravitationParameter) {
+        this.gravitationParameter = gravitationParameter;
+    }
+
+    public boolean isInertial() {
+        return inertial;
+    }
+
+    public void setInertial(boolean inertial) {
+        this.inertial = inertial;
+    }
+
+    public void setDefinition(ReferenceFrameDefinition definition) {
+        this.definition = definition;
+    }
+
+    public ReferenceFrameDefinition getDefinition() {
+        return definition;
+    }
+
+    @Override
+    public String toString() {
+        return "ReferenceFrame{" +
+                "cartesianState=" + cartesianState +
+                ", gravitationParameter=" + gravitationParameter +
+                ", inertial=" + inertial +
+                ", parent=" + parent +
+                '}';
+    }
 
 }

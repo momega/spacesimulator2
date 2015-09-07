@@ -53,4 +53,15 @@ public class Instant {
     public void setRotation(Rotation rotation) {
         this.rotation = rotation;
     }
+
+    @Override
+    public String toString() {
+        return "Instant{" +
+                " movingObject=" + movingObject +
+                ", timestamp=" + timestamp +
+                ", cartesianState=" + cartesianState +
+                ", keplerianElements=" + keplerianElements +
+                ", rotation=" + rotation +
+                '}';
+    }
 }

@@ -1,9 +1,7 @@
 package com.momega.spacesimulator.common;
 
-import com.momega.spacesimulator.model.CartesianState;
-import com.momega.spacesimulator.model.KeplerianElements;
-import com.momega.spacesimulator.model.KeplerianOrbit;
-import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.utils.KeplerianUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
@@ -17,6 +15,9 @@ import org.springframework.stereotype.Component;
 public class CoordinateModels {
 
     private final static double MINOR_ERROR = Math.pow(10, -12);
+
+    @Autowired
+    private ReferenceFrameFactory referenceFrameFactory;
 
     @Autowired
     private KeplerianUtils keplerianUtils;
@@ -95,7 +96,7 @@ public class CoordinateModels {
         KeplerianElements keplerianElements = new KeplerianElements();
         KeplerianOrbit keplerianOrbit = new KeplerianOrbit();
         keplerianElements.setKeplerianOrbit(keplerianOrbit);
-        keplerianOrbit.setReferenceFrame(cartesianState.getReferenceFrame());
+        keplerianOrbit.setReferenceFrameDefinition(cartesianState.getReferenceFrame().getDefinition());
         keplerianOrbit.setInclination(i);
         keplerianOrbit.setEccentricity(e);
         keplerianOrbit.setSemimajorAxis(a);
@@ -127,13 +128,20 @@ public class CoordinateModels {
 
     /**
      * Transfers keplerian elements to cartesian state
+     * @param model the model
+     * @param timestamp the timestamp
+     * @param keplerianElements the instance of the {@link KeplerianElements}
      * @return new instance of cartesian state
      */
-    public CartesianState transform(KeplerianElements keplerianElements) {
+    public CartesianState transform(Model model, Timestamp timestamp, KeplerianElements keplerianElements) {
         CartesianState cartesianState = new CartesianState();
         cartesianState.setPosition(keplerianUtils.getCartesianPosition(keplerianElements));
         cartesianState.setVelocity(keplerianUtils.getCartesianVelocity(keplerianElements));
-        cartesianState.setReferenceFrame(keplerianElements.getKeplerianOrbit().getReferenceFrame());
+
+        ReferenceFrameDefinition referenceFrameDefinition = keplerianElements.getKeplerianOrbit().getReferenceFrameDefinition();
+        ReferenceFrame referenceFrame = referenceFrameFactory.getFrame(referenceFrameDefinition, model, timestamp);
+
+        cartesianState.setReferenceFrame(referenceFrame);
         return cartesianState;
     }
 

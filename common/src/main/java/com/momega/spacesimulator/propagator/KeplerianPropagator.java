@@ -34,7 +34,7 @@ public class KeplerianPropagator {
         }
 
         KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(keplerianOrbit, newTimestamp);
-        CartesianState cartesianState = coordinateModels.transform(keplerianElements);
+        CartesianState cartesianState = coordinateModels.transform(model, newTimestamp, keplerianElements);
 
         Instant newInstant = instantManager.newInstant(model, keplerianObject, cartesianState, keplerianElements, newTimestamp);
         if (keplerianObject instanceof CelestialBody) {

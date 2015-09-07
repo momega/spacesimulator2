@@ -9,7 +9,7 @@ import com.momega.spacesimulator.utils.TimeUtils;
  */
 public class KeplerianOrbit {
 
-    private ReferenceFrame referenceFrame;
+    private ReferenceFrameDefinition referenceFrameDefinition;
     private double semimajorAxis; // (a)
     private double eccentricity; // epsilon
     private double argumentOfPeriapsis; // lowercase omega
@@ -19,12 +19,12 @@ public class KeplerianOrbit {
     private double period; // in seconds
     private double meanMotion; // n
 
-    public ReferenceFrame getReferenceFrame() {
-        return referenceFrame;
+    public ReferenceFrameDefinition getReferenceFrameDefinition() {
+        return referenceFrameDefinition;
     }
 
-    public void setReferenceFrame(ReferenceFrame referenceFrame) {
-        this.referenceFrame = referenceFrame;
+    public void setReferenceFrameDefinition(ReferenceFrameDefinition referenceFrameDefinition) {
+        this.referenceFrameDefinition = referenceFrameDefinition;
     }
 
     public double getSemimajorAxis() {

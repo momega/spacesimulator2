@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 /**
+ * Set of the utils to work keplerian elements
  * Created by martin on 7/19/15.
  */
 @Component
@@ -182,7 +183,7 @@ public class KeplerianUtils {
 
     public Vector3D getCartesianVelocity(KeplerianOrbit keplerianOrbit, double trueAnomaly) {
         double e = keplerianOrbit.getEccentricity();
-        double mi = keplerianOrbit.getReferenceFrame().getGravitationParameter();
+        double mi = keplerianOrbit.getReferenceFrameDefinition().getKeplerianObject().getGravitationParameter();
         Vector3D v = getCartesianVelocity(keplerianOrbit.getSemimajorAxis(), mi, trueAnomaly, e,
                 keplerianOrbit.getInclination(), keplerianOrbit.getAscendingNode(), keplerianOrbit.getArgumentOfPeriapsis());
         return v;
