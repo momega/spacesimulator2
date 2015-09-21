@@ -5,6 +5,8 @@ import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.model.GravityModel;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -15,6 +17,8 @@ import org.springframework.util.Assert;
  */
 @Component
 public class NewtonianPropagator {
+
+    private static final Logger logger = LoggerFactory.getLogger(NewtonianPropagator.class);
 
     @Autowired
     private GravityModel gravityModel;
@@ -30,8 +34,9 @@ public class NewtonianPropagator {
         Instant instant = instantManager.getInstant(model, movingObject, timestamp);
         Assert.notNull(instant);
 
-        CartesianState cartesianState = rk4Solver(model, instant, timestamp, dt);
+        CartesianState cartesianState = eulerSolver(model, instant, timestamp, dt);
         KeplerianElements keplerianElements = coordinateModels.transform(cartesianState, newTimestamp);
+        //logger.info("keplerian elements = {}", keplerianElements);
 
         Instant newInstant = instantManager.newInstant(model, movingObject, cartesianState, keplerianElements, newTimestamp);
         return newInstant;
@@ -50,7 +55,7 @@ public class NewtonianPropagator {
         ReferenceFrame referenceFrame = spacecraft.getCartesianState().getReferenceFrame();
 
         // iterate all force models
-        Vector3D acceleration = getAcceleration(model, position, timestamp);
+        Vector3D acceleration = getAcceleration(model, position, referenceFrame, timestamp);
 
         velocity = velocity.add(dt, acceleration); // velocity: v(i) = v(i) + a(i) * dt
         position = position.add(dt, velocity); // position: r(i) = r(i) * v(i) * dt
@@ -63,8 +68,8 @@ public class NewtonianPropagator {
         return result;
     }
 
-    protected Vector3D getAcceleration(Model model, Vector3D position, Timestamp timestamp) {
-        return gravityModel.getAcceleration(model, position, timestamp);
+    protected Vector3D getAcceleration(Model model, Vector3D position, ReferenceFrame referenceFrame, Timestamp timestamp) {
+        return gravityModel.getAcceleration(model, position, referenceFrame, timestamp);
     }
 
     /**
@@ -85,13 +90,13 @@ public class NewtonianPropagator {
         Timestamp halfTime = timestamp.add(dt/2);
         Timestamp newTime = timestamp.add(dt);
 
-        Vector3D k1v = getAcceleration(model, position, timestamp).scalarMultiply(dt);
+        Vector3D k1v = getAcceleration(model, position, referenceFrame, timestamp).scalarMultiply(dt);
         Vector3D k1x = velocity.scalarMultiply(dt);
-        Vector3D k2v = getAcceleration(model, position.add(dt/2, k1x), halfTime).scalarMultiply(dt);
+        Vector3D k2v = getAcceleration(model, position.add(dt/2, k1x), referenceFrame, halfTime).scalarMultiply(dt);
         Vector3D k2x = velocity.add(1.0/2, k1v).scalarMultiply(dt);
-        Vector3D k3v = getAcceleration(model, position.add(dt/2, k2x), halfTime).scalarMultiply(dt);
+        Vector3D k3v = getAcceleration(model, position.add(dt/2, k2x), referenceFrame, halfTime).scalarMultiply(dt);
         Vector3D k3x = velocity.add(1.0/2, k2v).scalarMultiply(dt);
-        Vector3D k4v = getAcceleration(model, position.add(dt, k3x), newTime).scalarMultiply(dt);
+        Vector3D k4v = getAcceleration(model, position.add(dt, k3x), referenceFrame, newTime).scalarMultiply(dt);
         Vector3D k4x = velocity.add(1.0, k3v).scalarMultiply(dt);
 
         velocity = velocity.add(rk4(k1v, k2v, k3v, k4v));

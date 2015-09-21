@@ -8,7 +8,6 @@ public class ReferenceFrame {
     private double gravitationParameter;
     private ReferenceFrame parent;
     private CartesianState cartesianState;
-    private boolean inertial;
     private ReferenceFrameDefinition definition;
 
     public ReferenceFrame getParent() {
@@ -35,14 +34,6 @@ public class ReferenceFrame {
         this.gravitationParameter = gravitationParameter;
     }
 
-    public boolean isInertial() {
-        return inertial;
-    }
-
-    public void setInertial(boolean inertial) {
-        this.inertial = inertial;
-    }
-
     public void setDefinition(ReferenceFrameDefinition definition) {
         this.definition = definition;
     }
@@ -56,7 +47,6 @@ public class ReferenceFrame {
         return "ReferenceFrame{" +
                 "cartesianState=" + cartesianState +
                 ", gravitationParameter=" + gravitationParameter +
-                ", inertial=" + inertial +
                 ", parent=" + parent +
                 '}';
     }

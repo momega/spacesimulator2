@@ -25,11 +25,11 @@ public class ReferenceFrameFactory {
     }
 
     /**
-     * The method retuns the instance of the reference frame based on the definition
+     * The method returns the instance of the reference frame based on the definition
      * @param referenceFrameDefinition the definition
      * @param model the model
      * @param timestamp
-     * @return
+     * @return new instance of the reference frame,
      */
     public ReferenceFrame getFrame(ReferenceFrameDefinition referenceFrameDefinition, Model model, Timestamp timestamp) {
         KeplerianObject keplerianObject = referenceFrameDefinition.getKeplerianObject();
@@ -39,18 +39,14 @@ public class ReferenceFrameFactory {
         referenceFrame.setDefinition(referenceFrameDefinition);
 
         if (referenceFrameDefinition.getParent() == null) {
-            if (model.getRootReferenceFrame() != null) {
-                return model.getRootReferenceFrame();
-            }
             referenceFrame.setParent(null);
-
             CartesianState cartesianState = cartesianUtils.zero();
             referenceFrame.setCartesianState(cartesianState);
-            model.setRootReferenceFrame(referenceFrame);
         } else {
             Instant instant = instantManager.getInstant(model, keplerianObject, timestamp);
             CartesianState cartesianState = instant.getCartesianState();
             referenceFrame.setCartesianState(cartesianState);
+            referenceFrame.setParent(cartesianState.getReferenceFrame());
         }
 
         return referenceFrame;

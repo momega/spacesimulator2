@@ -1,5 +1,7 @@
 package com.momega.spacesimulator.builder;
 
+import com.momega.spacesimulator.common.CoordinateModels;
+import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.utils.RotationUtils;
@@ -7,6 +9,7 @@ import com.momega.spacesimulator.utils.TimeUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -22,10 +25,13 @@ public class MovingObjectBuilder {
     @Autowired
     private RotationUtils rotationUtils;
 
-    public KeplerianOrbit createKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
-        Assert.notNull(keplerianObject);
-        Assert.notNull(referenceFrameDefinition);
+    @Autowired
+    private CoordinateModels coordinateModels;
 
+    @Autowired
+    private InstantManager instantManager;
+
+    public KeplerianOrbit createKeplerianOrbit(ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, Timestamp timeOfPeriapsis, double inclination, double ascendingNode) {
         KeplerianOrbit orbit = new KeplerianOrbit();
         orbit.setReferenceFrameDefinition(referenceFrameDefinition);
         orbit.setSemimajorAxis(semimajorAxis);
@@ -33,12 +39,28 @@ public class MovingObjectBuilder {
         orbit.setArgumentOfPeriapsis(Math.toRadians(argumentOfPeriapsis));
         orbit.setInclination(Math.toRadians(inclination));
         orbit.setAscendingNode(Math.toRadians(ascendingNode));
-        orbit.setPeriod(period * DateTimeConstants.SECONDS_PER_DAY);
-        orbit.setTimeOfPeriapsis(TimeUtils.fromJulianDay(timeOfPeriapsis));
+        orbit.setPeriod(period);
+        orbit.setTimeOfPeriapsis(timeOfPeriapsis);
         orbit.setMeanMotion(2 * Math.PI / orbit.getPeriod());
+        return orbit;
+    }
 
+    public KeplerianOrbit createAndSetKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
+        Assert.notNull(keplerianObject);
+        Assert.notNull(referenceFrameDefinition);
+
+        Timestamp t = TimeUtils.fromJulianDay(timeOfPeriapsis);
+        KeplerianOrbit orbit = createKeplerianOrbit(referenceFrameDefinition, semimajorAxis, eccentricity, argumentOfPeriapsis, period * DateTimeConstants.SECONDS_PER_DAY, t, inclination, ascendingNode);
         keplerianObject.setKeplerianOrbit(orbit);
         return orbit;
+    }
+
+    public Instant insertSpacecraft(Model model, Spacecraft spacecraft, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
+        model.getMovingObjects().add(spacecraft);
+
+        Instant instant = keplerianPropagator.computeFromOrbit(model, spacecraft, keplerianOrbit, timestamp);
+        return instant;
+
     }
 
     public void updateMovingObject(PhysicalBody physicalBody, double mass) {
@@ -60,14 +82,10 @@ public class MovingObjectBuilder {
         baryCentre.getPhysicalBodies().add(physicalBody);
     }
 
-    public void insertSpacecraft(Model model, Spacecraft spacecraft) {
-        model.getMovingObjects().add(spacecraft);
-    }
+    public void insertKeplerianObject(Model model, KeplerianObject keplerianObject, Timestamp timestamp) {
+        model.getMovingObjects().add(keplerianObject);
 
-    public void insertCelestialBody(Model model, CelestialBody celestialBody, Timestamp timestamp) {
-        model.getMovingObjects().add(celestialBody);
-
-        keplerianPropagator.compute(model, celestialBody, timestamp);
+        keplerianPropagator.compute(model, keplerianObject, timestamp);
     }
 
 }

@@ -7,6 +7,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 /**
  * Created by martin on 7/19/15.
@@ -143,6 +144,21 @@ public class CoordinateModels {
 
         cartesianState.setReferenceFrame(referenceFrame);
         return cartesianState;
+    }
+
+    public Vector3D getPositionInParentReferenceFrame(Vector3D position, ReferenceFrame referenceFrame) {
+        return referenceFrame.getCartesianState().getPosition().add(position);
+    }
+
+    public Vector3D getPositionInRootReferenceFrame(Vector3D position, ReferenceFrame referenceFrame) {
+        Assert.notNull(referenceFrame);
+        ReferenceFrame rf = referenceFrame;
+        Vector3D result = position;
+        while (rf.getParent() != null) {
+            result = getPositionInParentReferenceFrame(result, rf);
+            rf = rf.getParent();
+        }
+        return result;
     }
 
     /**

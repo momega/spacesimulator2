@@ -15,7 +15,7 @@ public class Model {
 
     private List<MovingObject> movingObjects = new ArrayList<>();
     private Map<Timestamp, Map<MovingObject, Instant>> instants = new HashMap<>();
-    private ReferenceFrame rootReferenceFrame;
+    private ReferenceFrameDefinition rootReferenceFrameDefinition;
 
     public List<MovingObject> getMovingObjects() {
         return movingObjects;
@@ -42,12 +42,12 @@ public class Model {
         instants.remove(timestamp);
     }
 
-    public void setRootReferenceFrame(ReferenceFrame rootReferenceFrame) {
-        this.rootReferenceFrame = rootReferenceFrame;
+    public ReferenceFrameDefinition getRootReferenceFrameDefinition() {
+        return rootReferenceFrameDefinition;
     }
 
-    public ReferenceFrame getRootReferenceFrame() {
-        return rootReferenceFrame;
+    public void setRootReferenceFrameDefinition(ReferenceFrameDefinition rootReferenceFrameDefinition) {
+        this.rootReferenceFrameDefinition = rootReferenceFrameDefinition;
     }
 
     public Map<Timestamp, Map<MovingObject, Instant>> getInstants() {

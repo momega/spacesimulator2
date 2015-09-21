@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by martin on 7/25/15.
@@ -34,6 +36,16 @@ public class ModelService {
         for(MovingObject mo : model.getMovingObjects()) {
             if (mo instanceof CelestialBody) {
                 result.add((CelestialBody) mo);
+            }
+        }
+        return result;
+    }
+
+    public List<KeplerianObject> findAllKeplerianObjects(Model model) {
+        List<KeplerianObject> result = new ArrayList();
+        for(MovingObject mo : model.getMovingObjects()) {
+            if (mo instanceof KeplerianObject) {
+                result.add((KeplerianObject) mo);
             }
         }
         return result;
