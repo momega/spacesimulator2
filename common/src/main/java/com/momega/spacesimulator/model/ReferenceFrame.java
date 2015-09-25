@@ -9,6 +9,7 @@ public class ReferenceFrame {
     private ReferenceFrame parent;
     private CartesianState cartesianState;
     private ReferenceFrameDefinition definition;
+    private Timestamp timestamp;
 
     public ReferenceFrame getParent() {
         return parent;
@@ -42,13 +43,18 @@ public class ReferenceFrame {
         return definition;
     }
 
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
         return "ReferenceFrame{" +
-                "cartesianState=" + cartesianState +
-                ", gravitationParameter=" + gravitationParameter +
-                ", parent=" + parent +
-                '}';
+                " definition=" + definition + "}";
     }
 
 }

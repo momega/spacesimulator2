@@ -62,11 +62,12 @@ public class ModelService {
     public PropagationResult propagateTrajectories(Model model, List<MovingObject> movingObjects, TimeInterval timeInterval, double dt) {
         PropagationResult result = new PropagationResult();
         Timestamp time = timeInterval.getStartTime();
+        logger.info("propagation started at {}", time);
         result.setStartTime(time);
         long t1 = System.nanoTime();
-        logger.info("propagation started at {}", time);
         while (!time.after(timeInterval.getEndTime())) {
             Timestamp newTime = time.add(dt);
+            logger.debug("propagation at {}", newTime);
             for(MovingObject movingObject : movingObjects) {
                 Instant instant = instantManager.getInstant(model, movingObject, newTime);
                 if (instant == null) {

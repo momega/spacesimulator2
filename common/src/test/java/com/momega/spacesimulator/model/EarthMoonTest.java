@@ -64,9 +64,9 @@ public class EarthMoonTest {
 
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(timestamp.add(90.0 * 60 - 32));
+        timeInterval.setEndTime(timestamp.add(90.0 * 60 - 24));
 
-        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.1);
+        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 1);
         Instant i = result.getInstants().get(spacecraft);
         Assert.assertNotNull(i);
 

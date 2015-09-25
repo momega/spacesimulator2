@@ -76,11 +76,15 @@ public class SunEarthMoonTest {
         KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(earthDefinition, 250 * 1E3 + earth.getRadius(), 0.001, 0, 90.0 * 60, timestamp, 0, 0);
         Instant si = mob.insertSpacecraft(model, spacecraft, craftOrbit, timestamp);
 
+        double rStart = si.getCartesianState().getPosition().getNorm();
+        logger.info("r-start = {}", rStart);
+        Assert.assertEquals(6614379.0, rStart, 1.0);
+
         logger.info("Instant = {}:{}", si.getMovingObject().getName(), si.getKeplerianElements());
 
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(timestamp.add(60 * 90+10));
+        timeInterval.setEndTime(timestamp.add(60*90));
 
         List<MovingObject> list = new ArrayList<>();
         list.add(earthMoonBarycenter);
@@ -93,6 +97,12 @@ public class SunEarthMoonTest {
             Assert.assertNotNull(i);
             logger.info("Instant = {}:{}", i.getMovingObject().getName(), i.getKeplerianElements());
         }
+
+        si = result.getInstants().get(spacecraft);
+        double rEnd = si.getCartesianState().getPosition().getNorm();
+        logger.info("r-end = {}", rEnd);
+        Assert.assertEquals(rStart, rEnd, 20.0);
+
 
     }
 }

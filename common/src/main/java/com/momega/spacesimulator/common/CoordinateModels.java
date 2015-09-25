@@ -146,17 +146,29 @@ public class CoordinateModels {
         return cartesianState;
     }
 
-    public Vector3D getPositionInParentReferenceFrame(Vector3D position, ReferenceFrame referenceFrame) {
-        return referenceFrame.getCartesianState().getPosition().add(position);
+    public CartesianState add(CartesianState c1, CartesianState c2) {
+        CartesianState result = new CartesianState();
+        result.setPosition(c1.getPosition().add(c2.getPosition()));
+        result.setVelocity(c1.getVelocity().add(c2.getVelocity()));
+        result.setReferenceFrame(c1.getReferenceFrame());
+        return result;
     }
 
-    public Vector3D getPositionInRootReferenceFrame(Vector3D position, ReferenceFrame referenceFrame) {
-        Assert.notNull(referenceFrame);
-        ReferenceFrame rf = referenceFrame;
-        Vector3D result = position;
-        while (rf.getParent() != null) {
-            result = getPositionInParentReferenceFrame(result, rf);
-            rf = rf.getParent();
+    public CartesianState transferToParent(CartesianState cartesianState) {
+        Assert.notNull(cartesianState);
+        CartesianState result = new CartesianState();
+        result.setPosition(cartesianState.getPosition().add(cartesianState.getReferenceFrame().getCartesianState().getPosition()));
+        result.setVelocity(cartesianState.getVelocity().add(cartesianState.getReferenceFrame().getCartesianState().getVelocity()));
+        result.setReferenceFrame(cartesianState.getReferenceFrame().getParent());
+        return result;
+    }
+
+    public CartesianState transferToRoot(CartesianState cartesianState) {
+        ReferenceFrame rf = cartesianState.getReferenceFrame();
+        CartesianState result = cartesianState;
+        while (rf != null) {
+            result = transferToParent(result);
+            rf = result.getReferenceFrame();
         }
         return result;
     }

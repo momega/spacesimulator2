@@ -24,4 +24,10 @@ public class ReferenceFrameDefinition {
         this.parent = parent;
     }
 
+    @Override
+    public String toString() {
+        return "ReferenceFrameDefinition{" +
+                "keplerianObject=" + keplerianObject.getName() +
+                '}';
+    }
 }

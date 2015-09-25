@@ -38,7 +38,7 @@ public class GravityModel {
      * @param timestamp the timestamp
      * @return total acceleration/force
      */
-    public Vector3D getAcceleration(Model model, Vector3D position, ReferenceFrame referenceFrame, Timestamp timestamp) {
+    public Vector3D getAcceleration(Model model, CartesianState theState, Timestamp timestamp) {
         Vector3D a = Vector3D.ZERO;
         for(KeplerianObject obj : modelService.findAllKeplerianObjects(model)) {
             Instant instant = instantManager.getInstant(model, obj, timestamp);
@@ -46,13 +46,15 @@ public class GravityModel {
                 instant = keplerianPropagator.compute(model, obj, timestamp);
             }
             if (obj.getName().equals("Earth")) {
-                Vector3D bodyPosition = coordinateModels.getPositionInRootReferenceFrame(instant.getCartesianState().getPosition(), instant.getCartesianState().getReferenceFrame());
-                Vector3D craftPosition = coordinateModels.getPositionInRootReferenceFrame(position, referenceFrame);
+                logger.debug("Earth = {}", traceCartesianState(instant.getCartesianState()));
+                logger.debug("SpaceCraft = {}", traceCartesianState(theState));
 
-                //Vector3D bodyPosition = instant.getCartesianState().getPosition();
-                //Vector3D craftPosition = position;
+                Vector3D bodyPosition = coordinateModels.transferToRoot(instant.getCartesianState()).getPosition();
+                Vector3D craftPosition = coordinateModels.transferToRoot(theState).getPosition();
 
                 Vector3D r = bodyPosition.subtract(craftPosition);
+
+                logger.debug("r={}", r.getNorm());
                 double dist3 = r.getNormSq() * r.getNorm();
                 a = a.add(obj.getGravitationParameter() / dist3, r); // a(i) = a(i) + G*M * r(i) / r^3
             }
@@ -61,6 +63,24 @@ public class GravityModel {
         logger.debug("acceleration={}", a.getNorm());
 
         return a;
+    }
+
+    protected String traceCartesianState(CartesianState cartesianState) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[C=" + cartesianState.getPosition().getNorm() + "] ");
+        sb.append(traceReferenceFrame(cartesianState.getReferenceFrame()));
+        return sb.toString();
+    }
+
+    protected String traceReferenceFrame(ReferenceFrame referenceFrame) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[" + referenceFrame.getDefinition().getKeplerianObject().getName() + " ");
+        sb.append(referenceFrame.getCartesianState().getPosition().getNorm() + " ");
+        sb.append(referenceFrame.getTimestamp() + "]");
+        if (referenceFrame.getParent()!=null) {
+            sb.append(traceReferenceFrame(referenceFrame.getParent()));
+        }
+        return sb.toString();
     }
 
 }
