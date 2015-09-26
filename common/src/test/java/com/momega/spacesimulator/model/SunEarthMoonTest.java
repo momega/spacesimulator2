@@ -51,7 +51,7 @@ public class SunEarthMoonTest {
 
         CelestialBody earth = new CelestialBody();
         earth.setName("Earth");
-        mob.updateMovingObject(earth, 5.97219, 6.371, 0.997269, 0d, 90d, 190.147d);
+        mob.updateMovingObject(earth, 5.97219, 6.378, 0.997269, 0d, 90d, 190.147d);
 
         CelestialBody moon = new CelestialBody();
         moon.setName("Moon");
@@ -78,7 +78,7 @@ public class SunEarthMoonTest {
 
         double rStart = si.getCartesianState().getPosition().getNorm();
         logger.info("r-start = {}", rStart);
-        Assert.assertEquals(6614379.0, rStart, 1.0);
+        Assert.assertEquals(6621372.0, rStart, 1.0);
 
         logger.info("Instant = {}:{}", si.getMovingObject().getName(), si.getKeplerianElements());
 
@@ -87,11 +87,11 @@ public class SunEarthMoonTest {
         timeInterval.setEndTime(timestamp.add(60*90));
 
         List<MovingObject> list = new ArrayList<>();
-        list.add(earthMoonBarycenter);
-        list.add(earth);
+        //list.add(earthMoonBarycenter);
+        //list.add(earth);
         list.add(spacecraft);
 
-        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.1);
+        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.02);
 
         for(Instant i : result.getInstants().values()) {
             Assert.assertNotNull(i);
@@ -101,7 +101,7 @@ public class SunEarthMoonTest {
         si = result.getInstants().get(spacecraft);
         double rEnd = si.getCartesianState().getPosition().getNorm();
         logger.info("r-end = {}", rEnd);
-        Assert.assertEquals(rStart, rEnd, 20.0);
+        Assert.assertEquals(rStart, rEnd, 2.0);
 
 
     }

@@ -90,16 +90,19 @@ public class NewtonianPropagator {
         // k[i]v are velocities
         // k[i]x are position
 
+        ReferenceFrameDefinition definition = referenceFrame.getDefinition();
+
         Timestamp halfTime = timestamp.add(dt/2);
-        Timestamp newTime = timestamp.add(dt);
+        ReferenceFrame halfReferenceFrame = referenceFrameFactory.getFrame(definition, model, halfTime);
+        ReferenceFrame newReferenceFrame = referenceFrameFactory.getFrame(definition, model, newTimestamp);
 
         Vector3D k1v = getAcceleration(model, position, velocity, referenceFrame, timestamp).scalarMultiply(dt);
         Vector3D k1x = velocity.scalarMultiply(dt);
-        Vector3D k2v = getAcceleration(model, position.add(dt/2, k1x), velocity.add(0.5, k1v), referenceFrame, halfTime).scalarMultiply(dt);
+        Vector3D k2v = getAcceleration(model, position.add(dt/2, k1x), velocity.add(0.5, k1v), halfReferenceFrame, halfTime).scalarMultiply(dt);
         Vector3D k2x = velocity.add(1.0/2, k1v).scalarMultiply(dt);
-        Vector3D k3v = getAcceleration(model, position.add(dt/2, k2x), velocity.add(0.5, k2v), referenceFrame, halfTime).scalarMultiply(dt);
+        Vector3D k3v = getAcceleration(model, position.add(dt/2, k2x), velocity.add(0.5, k2v), halfReferenceFrame, halfTime).scalarMultiply(dt);
         Vector3D k3x = velocity.add(1.0/2, k2v).scalarMultiply(dt);
-        Vector3D k4v = getAcceleration(model, position.add(dt, k3x), velocity.add(k3v), referenceFrame, newTime).scalarMultiply(dt);
+        Vector3D k4v = getAcceleration(model, position.add(dt, k3x), velocity.add(k3v), newReferenceFrame, newTimestamp).scalarMultiply(dt);
         Vector3D k4x = velocity.add(1.0, k3v).scalarMultiply(dt);
 
         velocity = velocity.add(rk4(k1v, k2v, k3v, k4v));
@@ -109,10 +112,7 @@ public class NewtonianPropagator {
         CartesianState result = new CartesianState();
         result.setVelocity(velocity);
         result.setPosition(position);
-
-        ReferenceFrameDefinition definition = referenceFrame.getDefinition();
-        referenceFrame = referenceFrameFactory.getFrame(definition, model, newTimestamp);
-        result.setReferenceFrame(referenceFrame);
+        result.setReferenceFrame(newReferenceFrame);
 
         return result;
     }

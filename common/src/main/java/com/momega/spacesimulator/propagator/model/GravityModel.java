@@ -24,9 +24,6 @@ public class GravityModel {
     private ModelService modelService;
 
     @Autowired
-    private InstantManager instantManager;
-
-    @Autowired
     private KeplerianPropagator keplerianPropagator;
 
     @Autowired
@@ -40,12 +37,10 @@ public class GravityModel {
      */
     public Vector3D getAcceleration(Model model, CartesianState theState, Timestamp timestamp) {
         Vector3D a = Vector3D.ZERO;
+        logger.debug("time = {}", timestamp);
         for(KeplerianObject obj : modelService.findAllKeplerianObjects(model)) {
-            Instant instant = instantManager.getInstant(model, obj, timestamp);
-            if (instant == null) {
-                instant = keplerianPropagator.compute(model, obj, timestamp);
-            }
             if (obj.getName().equals("Earth")) {
+                Instant instant = keplerianPropagator.get(model, obj, timestamp);
                 logger.debug("Earth = {}", traceCartesianState(instant.getCartesianState()));
                 logger.debug("SpaceCraft = {}", traceCartesianState(theState));
 

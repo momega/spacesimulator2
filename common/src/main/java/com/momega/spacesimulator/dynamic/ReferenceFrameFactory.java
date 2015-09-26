@@ -1,6 +1,7 @@
 package com.momega.spacesimulator.dynamic;
 
 import com.momega.spacesimulator.model.*;
+import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.utils.CartesianUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class ReferenceFrameFactory {
 
     @Autowired
-    private InstantManager instantManager;
+    private KeplerianPropagator keplerianPropagator;
 
     @Autowired
     private CartesianUtils cartesianUtils;
@@ -44,7 +45,7 @@ public class ReferenceFrameFactory {
             referenceFrame.setCartesianState(cartesianState);
             referenceFrame.setTimestamp(timestamp);
         } else {
-            Instant instant = instantManager.getInstant(model, keplerianObject, timestamp);
+            Instant instant = keplerianPropagator.get(model, keplerianObject, timestamp);
             CartesianState cartesianState = instant.getCartesianState();
             referenceFrame.setCartesianState(cartesianState);
             referenceFrame.setParent(cartesianState.getReferenceFrame());

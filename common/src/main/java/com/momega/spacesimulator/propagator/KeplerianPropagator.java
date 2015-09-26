@@ -29,6 +29,14 @@ public class KeplerianPropagator {
     @Autowired
     private ReferenceFrameFactory referenceFrameFactory;
 
+    public Instant get(Model model, KeplerianObject keplerianObject, Timestamp newTimestamp) {
+        Instant result = instantManager.getInstant(model, keplerianObject, newTimestamp);
+        if (result == null) {
+            result = compute(model, keplerianObject, newTimestamp);
+        }
+        return result;
+    }
+
     public Instant compute(Model model, KeplerianObject keplerianObject, Timestamp newTimestamp) {
         KeplerianOrbit keplerianOrbit = keplerianObject.getKeplerianOrbit();
         if (keplerianOrbit == null) {

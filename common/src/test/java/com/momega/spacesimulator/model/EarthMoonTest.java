@@ -45,7 +45,6 @@ public class EarthMoonTest {
         mob.updateMovingObject(earth, 5.97219, 6.378, 0.997269, 190.147d, 0d, 90d);
         mob.insertKeplerianObject(model, earth, timestamp);
 
-
         CelestialBody moon = new CelestialBody();
         moon.setName("Moon");
         mob.updateMovingObject(moon, 0.07349, 1.737, 27.321, 38.3213d, 269.9949d, 66.5392d);
@@ -56,21 +55,29 @@ public class EarthMoonTest {
         Spacecraft spacecraft = new Spacecraft();
         spacecraft.setName("Satellite");
         KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(rootDefinition, 250 * 1E3 + earth.getRadius(), 0.001, 0, 90.0 * 60, timestamp, 0, 0);
-        mob.insertSpacecraft(model, spacecraft, craftOrbit, timestamp);
+        Instant si = mob.insertSpacecraft(model, spacecraft, craftOrbit, timestamp);
+
+        double rStart = si.getCartesianState().getPosition().getNorm();
+        logger.info("r-start = {}", rStart);
+        Assert.assertEquals(6621372.0, rStart, 1.0);
 
         List<MovingObject> list = new ArrayList<>();
-        //list.add(moon);
         list.add(spacecraft);
 
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(timestamp.add(90.0 * 60 - 24));
+        timeInterval.setEndTime(timestamp.add(90.0 * 60));
 
-        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 1);
-        Instant i = result.getInstants().get(spacecraft);
-        Assert.assertNotNull(i);
+        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.01);
+        si = result.getInstants().get(spacecraft);
+        Assert.assertNotNull(si);
 
-        logger.info("{}, {}", i.getCartesianState(), i.getKeplerianElements());
+        logger.info("{}, {}", si.getCartesianState(), si.getKeplerianElements());
+
+        double rEnd = si.getCartesianState().getPosition().getNorm();
+        logger.info("r-end = {}", rEnd);
+
+        Assert.assertEquals(6621372.0, rEnd, 10.0);
     }
 
 }
