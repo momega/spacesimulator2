@@ -29,6 +29,8 @@ public class GravityModel {
     @Autowired
     private CoordinateModels coordinateModels;
 
+    private GravityFilter gravityFilter;
+
     /**
      * Computes the total gravitational force (acceleration) from all celestial bodies in the system for the defined instant.
      * @param model the model
@@ -39,7 +41,7 @@ public class GravityModel {
         Vector3D a = Vector3D.ZERO;
         logger.debug("time = {}", timestamp);
         for(KeplerianObject obj : modelService.findAllKeplerianObjects(model)) {
-            if (obj.getName().equals("Earth")) {
+            if (gravityFilter.filter(obj)) {
                 Instant instant = keplerianPropagator.get(model, obj, timestamp);
                 logger.debug("Earth = {}", traceCartesianState(instant.getCartesianState()));
                 logger.debug("SpaceCraft = {}", traceCartesianState(theState));
@@ -78,4 +80,7 @@ public class GravityModel {
         return sb.toString();
     }
 
+    public void setGravityFilter(GravityFilter gravityFilter) {
+        this.gravityFilter = gravityFilter;
+    }
 }

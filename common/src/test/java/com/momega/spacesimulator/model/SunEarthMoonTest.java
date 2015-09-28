@@ -2,6 +2,8 @@ package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.builder.MovingObjectBuilder;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.propagator.model.EarthGravityFilter;
+import com.momega.spacesimulator.propagator.model.GravityModel;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.service.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
@@ -30,6 +32,9 @@ public class SunEarthMoonTest {
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
         ReferenceFrameFactory rff = applicationContext.getBean(ReferenceFrameFactory.class);
         ModelService modelService = applicationContext.getBean(ModelService.class);
+
+        GravityModel gravityModel = applicationContext.getBean(GravityModel.class);
+        gravityModel.setGravityFilter(new EarthGravityFilter());
 
         Assert.assertNotNull(mob);
 
@@ -87,11 +92,11 @@ public class SunEarthMoonTest {
         timeInterval.setEndTime(timestamp.add(60*90));
 
         List<MovingObject> list = new ArrayList<>();
-        //list.add(earthMoonBarycenter);
-        //list.add(earth);
         list.add(spacecraft);
 
         PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.02);
+
+        Assert.assertEquals(5, result.getInstants().size());
 
         for(Instant i : result.getInstants().values()) {
             Assert.assertNotNull(i);

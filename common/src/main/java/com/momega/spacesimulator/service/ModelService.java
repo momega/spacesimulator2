@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by martin on 7/25/15.
@@ -80,9 +78,15 @@ public class ModelService {
             time = newTime;
         }
         result.setEndTime(time);
+        for(MovingObject mo : model.getMovingObjects()) {
+            if (mo instanceof KeplerianObject) {
+                KeplerianObject keplerianObject = (KeplerianObject) mo;
+                keplerianPropagator.compute(model, keplerianObject, time);
+            }
+        }
         long t2 = System.nanoTime();
         result.setExecTime(t2 - t1);
-        logger.info("propagation finished at {} in {}ns ", time, result.getExecTime());
+        logger.info("propagation finished at {} in {}s ", time, result.getExecTime()/1000000000.0);
         result.setInstants(instantManager.getInstants(model, time));
         return result;
     }

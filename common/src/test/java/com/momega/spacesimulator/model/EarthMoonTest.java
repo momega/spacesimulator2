@@ -2,6 +2,8 @@ package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.builder.MovingObjectBuilder;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.propagator.model.EarthGravityFilter;
+import com.momega.spacesimulator.propagator.model.GravityModel;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.service.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
@@ -30,6 +32,9 @@ public class EarthMoonTest {
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
         ReferenceFrameFactory rff = applicationContext.getBean(ReferenceFrameFactory.class);
         ModelService modelService = applicationContext.getBean(ModelService.class);
+
+        GravityModel gravityModel = applicationContext.getBean(GravityModel.class);
+        gravityModel.setGravityFilter(new EarthGravityFilter());
 
         Assert.assertNotNull(mob);
 
@@ -72,7 +77,12 @@ public class EarthMoonTest {
         si = result.getInstants().get(spacecraft);
         Assert.assertNotNull(si);
 
-        logger.info("{}, {}", si.getCartesianState(), si.getKeplerianElements());
+        Assert.assertEquals(3, result.getInstants().size());
+
+        for(Instant i : result.getInstants().values()) {
+            Assert.assertNotNull(i);
+            logger.info("Instant = {}:{}", i.getMovingObject().getName(), i.getKeplerianElements());
+        }
 
         double rEnd = si.getCartesianState().getPosition().getNorm();
         logger.info("r-end = {}", rEnd);
