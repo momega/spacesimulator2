@@ -1,5 +1,4 @@
-box: mihkels/java8-oracle@0.0.1
-
+box: feaster83/java8-oracle@1.0
 build:
     steps:
 	- script:
@@ -8,7 +7,7 @@ build:
             echo $JAVA_HOME
             java -version
             javac -version
-        - script:
+	- script:
           name: mvn clean install
           code: |
             mvn clean install
