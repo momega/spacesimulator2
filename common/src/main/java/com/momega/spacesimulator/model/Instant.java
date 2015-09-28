@@ -13,6 +13,7 @@ public class Instant {
     private Timestamp timestamp;
     private MovingObject movingObject;
     private Rotation rotation;
+    private TargetData targetData;
 
     public KeplerianElements getKeplerianElements() {
         return keplerianElements;
@@ -54,6 +55,14 @@ public class Instant {
         this.rotation = rotation;
     }
 
+    public TargetData getTargetData() {
+        return targetData;
+    }
+
+    public void setTargetData(TargetData targetData) {
+        this.targetData = targetData;
+    }
+
     @Override
     public String toString() {
         return "Instant{" +
@@ -62,6 +71,7 @@ public class Instant {
                 ", cartesianState=" + cartesianState +
                 ", keplerianElements=" + keplerianElements +
                 ", rotation=" + rotation +
+                ", targetData=" + targetData +
                 '}';
     }
 }

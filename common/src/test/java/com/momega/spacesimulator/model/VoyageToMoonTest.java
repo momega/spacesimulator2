@@ -3,9 +3,6 @@ package com.momega.spacesimulator.model;
 import com.momega.spacesimulator.builder.MovingObjectBuilder;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.model.EarthGravityFilter;
-import com.momega.spacesimulator.propagator.model.GravityModel;
-import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
 import junit.framework.Assert;
@@ -23,23 +20,20 @@ import java.util.List;
 /**
  * Created by martin on 7/19/15.
  */
-public class EarthMoonTest {
+public class VoyageToMoonTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(EarthMoonTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonTest.class);
 
     @Test
-    public void earthMoonTest() {
+    public void voyagerTest() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SimpleConfig.class);
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
         ReferenceFrameFactory rff = applicationContext.getBean(ReferenceFrameFactory.class);
         PropagatorService propagatorService = applicationContext.getBean(PropagatorService.class);
 
-        GravityModel gravityModel = applicationContext.getBean(GravityModel.class);
-        gravityModel.setGravityFilter(new EarthGravityFilter());
-
         Assert.assertNotNull(mob);
 
-        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2015, 9, 23, 12, 0, DateTimeZone.UTC));
+        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 23, 12, 0, DateTimeZone.UTC));
 
         Model model = new Model();
 
@@ -60,21 +54,24 @@ public class EarthMoonTest {
 
         Spacecraft spacecraft = new Spacecraft();
         spacecraft.setName("Satellite");
-        KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(rootDefinition, 250 * 1E3 + earth.getRadius(), 0.001, 0, 90.0 * 60, timestamp, 0, 0);
+        spacecraft.setTarget(moon);
+
+        KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(rootDefinition, 400 * 1E3 + earth.getRadius(), 0.2, 0, 90.0 * 60, timestamp, 7, 0);
         Instant si = mob.insertSpacecraft(model, spacecraft, craftOrbit, timestamp);
+
+        logger.info("Satellite start : {}", si.getCartesianState());
 
         double rStart = si.getCartesianState().getPosition().getNorm();
         logger.info("r-start = {}", rStart);
-        Assert.assertEquals(6621372.0, rStart, 1.0);
 
         List<MovingObject> list = new ArrayList<>();
         list.add(spacecraft);
 
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(timestamp.add(90.0 * 60));
+        timeInterval.setEndTime(timestamp.add(60*60*24));
 
-        PropagationResult result = propagatorService.propagateTrajectories(model, list, timeInterval, 0.01);
+        PropagationResult result = propagatorService.propagateTrajectories(model, list, timeInterval, 0.1);
         si = result.getInstants().get(spacecraft);
         Assert.assertNotNull(si);
 
@@ -85,10 +82,13 @@ public class EarthMoonTest {
             logger.info("Instant = {}:{}", i.getMovingObject().getName(), i.getKeplerianElements());
         }
 
+        logger.info("Spacecraft state = {}", si.getCartesianState());
+        logger.info("Spacecraft target data = {}", si.getTargetData());
+
         double rEnd = si.getCartesianState().getPosition().getNorm();
         logger.info("r-end = {}", rEnd);
 
-        Assert.assertEquals(6621372.0, rEnd, 10.0);
+//        Assert.assertEquals(6621372.0, rEnd, 10.0);
     }
 
 }

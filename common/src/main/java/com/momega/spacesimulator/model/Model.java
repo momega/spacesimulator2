@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.model;
 
-import org.springframework.util.Assert;
+import org.apache.commons.collections.buffer.BoundedFifoBuffer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +16,7 @@ public class Model {
     private List<MovingObject> movingObjects = new ArrayList<>();
     private Map<Timestamp, Map<MovingObject, Instant>> instants = new HashMap<>();
     private ReferenceFrameDefinition rootReferenceFrameDefinition;
+    private BoundedFifoBuffer timestamps;
 
     public List<MovingObject> getMovingObjects() {
         return movingObjects;
@@ -23,23 +24,6 @@ public class Model {
 
     public void setMovingObjects(List<MovingObject> movingObjects) {
         this.movingObjects = movingObjects;
-    }
-
-    public void addInstant(Instant instant) {
-        Assert.notNull(instant);
-        Assert.notNull(instant.getMovingObject());
-        Assert.notNull(instant.getTimestamp());
-        Map<MovingObject, Instant> map = instants.get(instant.getTimestamp());
-        if (map == null) {
-            map = new HashMap<>();
-            instants.put(instant.getTimestamp(), map);
-        }
-        map.put(instant.getMovingObject(), instant);
-    }
-
-    public void removeInstants(Timestamp timestamp) {
-        Assert.notNull(timestamp);
-        instants.remove(timestamp);
     }
 
     public ReferenceFrameDefinition getRootReferenceFrameDefinition() {
@@ -52,5 +36,17 @@ public class Model {
 
     public Map<Timestamp, Map<MovingObject, Instant>> getInstants() {
         return instants;
+    }
+
+    public void setInstants(Map<Timestamp, Map<MovingObject, Instant>> instants) {
+        this.instants = instants;
+    }
+
+    public void setTimestamps(BoundedFifoBuffer timestamps) {
+        this.timestamps = timestamps;
+    }
+
+    public BoundedFifoBuffer getTimestamps() {
+        return timestamps;
     }
 }

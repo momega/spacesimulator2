@@ -2,10 +2,11 @@ package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.builder.MovingObjectBuilder;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.propagator.PropagatorService;
 import com.momega.spacesimulator.propagator.model.EarthGravityFilter;
 import com.momega.spacesimulator.propagator.model.GravityModel;
 import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.service.PropagationResult;
+import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
 import junit.framework.Assert;
 import org.joda.time.DateTime;
@@ -31,7 +32,7 @@ public class SunEarthMoonTest {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SimpleConfig.class);
         MovingObjectBuilder mob = applicationContext.getBean(MovingObjectBuilder.class);
         ReferenceFrameFactory rff = applicationContext.getBean(ReferenceFrameFactory.class);
-        ModelService modelService = applicationContext.getBean(ModelService.class);
+        PropagatorService propagatorService = applicationContext.getBean(PropagatorService.class);
 
         GravityModel gravityModel = applicationContext.getBean(GravityModel.class);
         gravityModel.setGravityFilter(new EarthGravityFilter());
@@ -94,7 +95,7 @@ public class SunEarthMoonTest {
         List<MovingObject> list = new ArrayList<>();
         list.add(spacecraft);
 
-        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 0.02);
+        PropagationResult result = propagatorService.propagateTrajectories(model, list, timeInterval, 0.02);
 
         Assert.assertEquals(5, result.getInstants().size());
 

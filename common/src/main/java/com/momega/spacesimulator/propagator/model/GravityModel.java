@@ -1,10 +1,10 @@
 package com.momega.spacesimulator.propagator.model;
 
 import com.momega.spacesimulator.common.CoordinateModels;
-import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.service.ModelService;
+import com.momega.spacesimulator.utils.CartesianUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +27,14 @@ public class GravityModel {
     private KeplerianPropagator keplerianPropagator;
 
     @Autowired
-    private CoordinateModels coordinateModels;
+    private CartesianUtils cartesianUtils;
 
-    private GravityFilter gravityFilter;
+    private GravityFilter gravityFilter = new GravityFilter() {
+        @Override
+        public boolean filter(MovingObject movingObject) {
+            return movingObject instanceof CelestialBody;
+        }
+    };
 
     /**
      * Computes the total gravitational force (acceleration) from all celestial bodies in the system for the defined instant.
@@ -37,17 +42,17 @@ public class GravityModel {
      * @param timestamp the timestamp
      * @return total acceleration/force
      */
-    public Vector3D getAcceleration(Model model, CartesianState theState, Timestamp timestamp) {
+    public Vector3D getAcceleration(Model model, CartesianState spacecraft, Timestamp timestamp) {
         Vector3D a = Vector3D.ZERO;
         logger.debug("time = {}", timestamp);
         for(KeplerianObject obj : modelService.findAllKeplerianObjects(model)) {
             if (gravityFilter.filter(obj)) {
                 Instant instant = keplerianPropagator.get(model, obj, timestamp);
                 logger.debug("Earth = {}", traceCartesianState(instant.getCartesianState()));
-                logger.debug("SpaceCraft = {}", traceCartesianState(theState));
+                logger.debug("SpaceCraft = {}", traceCartesianState(spacecraft));
 
-                Vector3D bodyPosition = coordinateModels.transferToRoot(instant.getCartesianState()).getPosition();
-                Vector3D craftPosition = coordinateModels.transferToRoot(theState).getPosition();
+                Vector3D bodyPosition = cartesianUtils.transferToRoot(instant.getCartesianState()).getPosition();
+                Vector3D craftPosition = cartesianUtils.transferToRoot(spacecraft).getPosition();
 
                 Vector3D r = bodyPosition.subtract(craftPosition);
 

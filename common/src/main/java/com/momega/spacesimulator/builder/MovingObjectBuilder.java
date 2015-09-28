@@ -4,6 +4,7 @@ import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.utils.KeplerianUtils;
 import com.momega.spacesimulator.utils.RotationUtils;
 import com.momega.spacesimulator.utils.TimeUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
@@ -26,6 +27,9 @@ public class MovingObjectBuilder {
     private RotationUtils rotationUtils;
 
     @Autowired
+    private KeplerianUtils keplerianUtils;
+
+    @Autowired
     private CoordinateModels coordinateModels;
 
     @Autowired
@@ -44,6 +48,13 @@ public class MovingObjectBuilder {
         orbit.setMeanMotion(2 * Math.PI / orbit.getPeriod());
         return orbit;
     }
+//
+//    public void setSpacecraftCartesianState(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis, double velocity) {
+//        Vector3D position = keplerianUtils.getCartesianPosition(t, theta, inclination, ascendingNode, argumentOfPeriapsis);
+//        Vector3d top = earth.getOrientation().getV();
+//        Vector3d velocity = position.normalize().cross(top).scale(8200d).negate();
+//
+//    }
 
     public KeplerianOrbit createAndSetKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
         Assert.notNull(keplerianObject);

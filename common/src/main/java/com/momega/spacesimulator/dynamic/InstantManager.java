@@ -2,11 +2,14 @@ package com.momega.spacesimulator.dynamic;
 
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.utils.CartesianUtils;
+import org.apache.commons.collections.buffer.BoundedFifoBuffer;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,6 +17,8 @@ import java.util.Map;
  */
 @Component
 public class InstantManager {
+
+    private int historySize = 10;
 
     @Autowired
     private CartesianUtils cartesianUtils;
@@ -43,7 +48,7 @@ public class InstantManager {
         instant.setKeplerianElements(null);
         instant.setMovingObject(movingObject);
         instant.setTimestamp(timestamp);
-        model.addInstant(instant);
+        addInstant(model, instant);
         return instant;
     }
 
@@ -58,7 +63,38 @@ public class InstantManager {
         instant.setKeplerianElements(keplerianElements);
         instant.setMovingObject(movingObject);
         instant.setTimestamp(timestamp);
-        model.addInstant(instant);
+        addInstant(model, instant);
         return instant;
     }
+
+    private void addInstant(Model model, Instant instant) {
+        Assert.notNull(instant);
+        Assert.notNull(instant.getMovingObject());
+        Assert.notNull(instant.getTimestamp());
+        Map<MovingObject, Instant> map = model.getInstants().get(instant.getTimestamp());
+        if (map == null) {
+            Timestamp time = instant.getTimestamp();
+            if (model.getTimestamps()==null) {
+                model.setTimestamps(new BoundedFifoBuffer(historySize));
+            }
+            if (model.getTimestamps().isFull()) {
+                Timestamp oldestTimestamp = (Timestamp) model.getTimestamps().remove();
+                removeInstants(model, oldestTimestamp);
+            }
+            map = new HashMap<>();
+            model.getInstants().put(instant.getTimestamp(), map);
+            model.getTimestamps().add(time);
+        }
+        map.put(instant.getMovingObject(), instant);
+    }
+
+    private void removeInstants(Model model, Timestamp timestamp) {
+        Assert.notNull(timestamp);
+        model.getInstants().remove(timestamp);
+    }
+
+    public void setHistorySize(int historySize) {
+        this.historySize = historySize;
+    }
+
 }

@@ -2,12 +2,12 @@ package com.momega.spacesimulator.common;
 
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
+import com.momega.spacesimulator.utils.CartesianUtils;
 import com.momega.spacesimulator.utils.KeplerianUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 /**
  * Created by martin on 7/19/15.
@@ -23,10 +23,13 @@ public class CoordinateModels {
     @Autowired
     private KeplerianUtils keplerianUtils;
 
+    @Autowired
+    private CartesianUtils cartesianUtils;
+
     public KeplerianElements transform(CartesianState cartesianState, Timestamp timestamp) {
         Vector3D position = cartesianState.getPosition();
         Vector3D velocity = cartesianState.getVelocity();
-        Vector3D hVector = getAngularMomentum(cartesianState);
+        Vector3D hVector = cartesianUtils.getAngularMomentum(cartesianState);
 
         double h = hVector.getNorm();
         double i = FastMath.acos(hVector.getZ() / h);
@@ -144,41 +147,6 @@ public class CoordinateModels {
 
         cartesianState.setReferenceFrame(referenceFrame);
         return cartesianState;
-    }
-
-    public CartesianState add(CartesianState c1, CartesianState c2) {
-        CartesianState result = new CartesianState();
-        result.setPosition(c1.getPosition().add(c2.getPosition()));
-        result.setVelocity(c1.getVelocity().add(c2.getVelocity()));
-        result.setReferenceFrame(c1.getReferenceFrame());
-        return result;
-    }
-
-    public CartesianState transferToParent(CartesianState cartesianState) {
-        Assert.notNull(cartesianState);
-        CartesianState result = new CartesianState();
-        result.setPosition(cartesianState.getPosition().add(cartesianState.getReferenceFrame().getCartesianState().getPosition()));
-        result.setVelocity(cartesianState.getVelocity().add(cartesianState.getReferenceFrame().getCartesianState().getVelocity()));
-        result.setReferenceFrame(cartesianState.getReferenceFrame().getParent());
-        return result;
-    }
-
-    public CartesianState transferToRoot(CartesianState cartesianState) {
-        ReferenceFrame rf = cartesianState.getReferenceFrame();
-        CartesianState result = cartesianState;
-        while (rf != null) {
-            result = transferToParent(result);
-            rf = result.getReferenceFrame();
-        }
-        return result;
-    }
-
-    /**
-     * Computes angular momentum
-     * @return the angular momentum
-     */
-    public Vector3D getAngularMomentum(CartesianState cartesianState) {
-        return cartesianState.getPosition().crossProduct(cartesianState.getVelocity());
     }
 
 }

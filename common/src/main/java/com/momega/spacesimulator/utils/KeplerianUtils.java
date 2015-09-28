@@ -168,7 +168,7 @@ public class KeplerianUtils {
         return rv;
     }
 
-    private Vector3D getCartesianPosition(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis) {
+    public Vector3D getCartesianPosition(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis) {
         double u = theta + argumentOfPeriapsis;
         double x = r * (FastMath.cos(u) * FastMath.cos(ascendingNode) - FastMath.sin(u) * FastMath.cos(inclination) * FastMath.sin(ascendingNode));
         double y = r * (FastMath.cos(u) * FastMath.sin(ascendingNode) + FastMath.sin(u) * FastMath.cos(inclination) * FastMath.cos(ascendingNode));

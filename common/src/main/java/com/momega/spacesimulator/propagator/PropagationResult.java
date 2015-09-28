@@ -1,4 +1,4 @@
-package com.momega.spacesimulator.service;
+package com.momega.spacesimulator.propagator;
 
 import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.MovingObject;

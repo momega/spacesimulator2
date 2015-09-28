@@ -2,8 +2,8 @@ package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.service.PropagationResult;
+import com.momega.spacesimulator.propagator.PropagatorService;
+import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
 import junit.framework.Assert;
 import org.joda.time.DateTime;
@@ -28,10 +28,10 @@ public class PropagateTest {
         MockKeplerianPropagator keplerianPropagator = new MockKeplerianPropagator();
         keplerianPropagator.setInstantManager(instantManager);
 
-        ModelService modelService = new ModelService();
-        modelService.setInstantManager(instantManager);
+        PropagatorService propagatorService = new PropagatorService();
+        propagatorService.setInstantManager(instantManager);
 
-        modelService.setKeplerianPropagator(keplerianPropagator);
+        propagatorService.setKeplerianPropagator(keplerianPropagator);
 
         List<MovingObject> list = new ArrayList<>();
         list.add(celestialBody);
@@ -39,7 +39,7 @@ public class PropagateTest {
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2015, 9, 23, 12, 0, DateTimeZone.UTC));
         TimeInterval timeInterval = TimeUtils.createInterval(timestamp, 5);
 
-        PropagationResult result = modelService.propagateTrajectories(model, list, timeInterval, 1.0);
+        PropagationResult result = propagatorService.propagateTrajectories(model, list, timeInterval, 1.0);
 
         Instant instant = instantManager.getInstant(model, celestialBody, timestamp);
         Assert.assertNull(instant);

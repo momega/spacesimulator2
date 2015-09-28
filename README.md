@@ -14,6 +14,8 @@ Features
 
 Build Status
 ============
+
+[![Semaphore Build Status](https://semaphoreci.com/api/v1/projects/e97ee86b-ac19-4d7a-b16f-b082ba54d841/552705/badge.svg)](https://semaphoreci.com/momega/spacesimulator2)
 	
 [![wercker status](https://app.wercker.com/status/a6165f891bf3b2caf541cc15c0efe5cd/m "wercker status")](https://app.wercker.com/project/bykey/a6165f891bf3b2caf541cc15c0efe5cd)
 
