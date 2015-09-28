@@ -1,8 +1,14 @@
-box: pjvds/java@0.1.3
+box: mihkels/java8-oracle@0.0.1
 
 build:
     steps:
+	- script:
+        name: Show base information
+          code: |
+            echo $JAVA_HOME
+            java -version
+            javac -version
         - script:
-                name: mvn clean install
-                code: |
-                  mvn clean install
+          name: mvn clean install
+          code: |
+            mvn clean install
