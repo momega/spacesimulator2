@@ -1,13 +1,14 @@
 box: feaster83/java8-oracle@1.0
 build:
-    steps:
-	- script:
+  steps:
+    - script:
         name: Show base information
-          code: |
-            echo $JAVA_HOME
-            java -version
-            javac -version
-	- script:
-          name: mvn clean install
-          code: |
+        code: |
+	  echo $JAVA_HOME
+          java -version
+          javac -version
+    - script:
+        name: mvn clean install
+	code: |
             mvn clean install
+
