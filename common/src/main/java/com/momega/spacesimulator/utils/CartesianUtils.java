@@ -3,6 +3,7 @@ package com.momega.spacesimulator.utils;
 import com.momega.spacesimulator.model.CartesianState;
 import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 import org.apache.commons.math3.geometry.euclidean.threed.Plane;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,11 @@ public class CartesianUtils {
     }
 
     public CartesianState subtract(CartesianState first, CartesianState other) {
+        ReferenceFrameDefinition firstDef = first.getReferenceFrame().getDefinition();
+        ReferenceFrameDefinition otherDef = other.getReferenceFrame().getDefinition();
+        if (firstDef != otherDef) {
+            throw new IllegalStateException("incompatible Carstesian states");
+        }
         CartesianState result = new CartesianState();
         result.setPosition(first.getPosition().subtract(other.getPosition()));
         result.setVelocity(first.getVelocity().subtract(other.getVelocity()));

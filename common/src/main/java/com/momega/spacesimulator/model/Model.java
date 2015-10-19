@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The model is the POJO object containing all the data. It contains definition of moving objects and all instances of history points {@link Instant}.
+ * The force is the POJO object containing all the data. It contains definition of moving objects and all instances of history points {@link Instant}.
  * Created by martin on 5/6/14.
  */
 public class Model {

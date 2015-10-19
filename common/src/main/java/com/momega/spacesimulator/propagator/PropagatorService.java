@@ -3,7 +3,6 @@ package com.momega.spacesimulator.propagator;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.feature.PropagatorFeature;
-import com.momega.spacesimulator.service.ModelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class PropagatorService {
     /**
      * Propagates the trajectory of the moving object in the given time interval.It is assumed that starting point of the interval
      * is already calculated. The iteration is run until end time of the interval (inclusive)
-     * @param model the model
+     * @param model the force
      * @param movingObjects the set moving objects
      * @param timeInterval the time interval.
      * @param dt the step

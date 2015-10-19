@@ -132,7 +132,7 @@ public class CoordinateModels {
 
     /**
      * Transfers keplerian elements to cartesian state
-     * @param model the model
+     * @param model the force
      * @param timestamp the timestamp
      * @param keplerianElements the instance of the {@link KeplerianElements}
      * @return new instance of cartesian state

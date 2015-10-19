@@ -97,7 +97,7 @@ public class KeplerianOrbit {
 
     @Override
     public String toString() {
-        String result = String.format("(a=%6.2f, e=%6.3f, omega=%6.3f, i=%6.3f, OMEGA=%6.3f, Tp=%s)", semimajorAxis, eccentricity, argumentOfPeriapsis, inclination, ascendingNode, TimeUtils.timeAsString(timeOfPeriapsis));
+        String result = String.format("(a=%6.2f, e=%6.3f, omega=%6.3f, i=%6.3f, OMEGA=%6.3f, Tp=%s, period=%6.3f)", semimajorAxis, eccentricity, Math.toDegrees(argumentOfPeriapsis), Math.toDegrees(inclination), Math.toDegrees(ascendingNode), TimeUtils.timeAsString(timeOfPeriapsis), period);
         return result;
     }
 

@@ -1,6 +1,7 @@
 package com.momega.spacesimulator.propagator.feature;
 
 import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.service.ModelService;
@@ -15,9 +16,9 @@ import org.springframework.stereotype.Component;
  * Created by martin on 9/28/15.
  */
 @Component
-public class TargetCalculationService implements PropagatorFeature {
+public class TargetCalculationFeature implements PropagatorFeature {
 
-    private static final Logger logger = LoggerFactory.getLogger(TargetCalculationService.class);
+    private static final Logger logger = LoggerFactory.getLogger(TargetCalculationFeature.class);
 
     @Autowired
     private InstantManager instantManager;
@@ -30,6 +31,9 @@ public class TargetCalculationService implements PropagatorFeature {
 
     @Autowired
     private ModelService modelService;
+
+    @Autowired
+    private ReferenceFrameFactory referenceFrameFactory;
 
     @Override
     public void calculation(Model model, Timestamp timestamp) {
@@ -44,6 +48,7 @@ public class TargetCalculationService implements PropagatorFeature {
 
                 double angle = Vector3D.angle(sNormal, tNormal);
                 CartesianState relative = cartesianUtils.subtract(si.getCartesianState(), ti.getCartesianState());
+                relative.setReferenceFrame(referenceFrameFactory.getFrame(targetBody.getReferenceFrameDefinition(), model, timestamp));
 
                 TargetData targetData = new TargetData();
                 targetData.setCartesianState(relative);
@@ -58,4 +63,8 @@ public class TargetCalculationService implements PropagatorFeature {
         }
     }
 
+    @Override
+    public int getOrder() {
+        return 1;
+    }
 }

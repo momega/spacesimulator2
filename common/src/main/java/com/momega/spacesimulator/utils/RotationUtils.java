@@ -5,6 +5,8 @@ import org.apache.commons.math3.geometry.euclidean.threed.RotationOrder;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.springframework.stereotype.Component;
 
+import java.util.Vector;
+
 /**
  * Created by martin on 8/20/15.
  */
@@ -38,10 +40,12 @@ public class RotationUtils {
      * @return the rotation
      */
     public Vector3D getNorthPoleVector(double alpha, double delta, double primeMeridian, boolean toEcliptic) {
-        //Orientation orientation = createOrientation(alpha, delta, toEcliptic);
-        //return orientation.getV();
         Rotation r = getAxialTilt(alpha, delta, primeMeridian, toEcliptic);
-        Vector3D result = r.applyTo(Vector3D.PLUS_K);
+        return getAxisVector(r, Vector3D.PLUS_K);
+    }
+
+    public Vector3D getAxisVector(Rotation r, Vector3D axis) {
+        Vector3D result = r.applyTo(axis);
         return result;
     }
 

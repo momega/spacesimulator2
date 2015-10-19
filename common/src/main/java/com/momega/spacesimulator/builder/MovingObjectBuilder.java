@@ -2,23 +2,27 @@ package com.momega.spacesimulator.builder;
 
 import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.utils.KeplerianUtils;
 import com.momega.spacesimulator.utils.RotationUtils;
 import com.momega.spacesimulator.utils.TimeUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.joda.time.DateTimeConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 /**
  * Created by martin on 7/19/15.
  */
-@Component
-public class MovingObjectBuilder {
+public abstract class MovingObjectBuilder {
+
+    private static final Logger logger = LoggerFactory.getLogger(MovingObjectBuilder.class);
 
     @Autowired
     private KeplerianPropagator keplerianPropagator;
@@ -35,6 +39,37 @@ public class MovingObjectBuilder {
     @Autowired
     private InstantManager instantManager;
 
+    @Autowired
+    private ModelService modelService;
+
+    @Autowired
+    protected ReferenceFrameFactory referenceFrameFactory;
+
+    protected Model model = new Model();
+
+    /**
+     * Builds model and returns the instance
+     */
+    public final Model build() {
+        initModel();
+        logger.info("model initialized");
+        return model;
+    }
+
+    /**
+     * Builds model and returns the instance
+     */
+    public final Model init(Timestamp timestamp) {
+        for(KeplerianObject ko : modelService.findAllKeplerianObjects(model) ) {
+            keplerianPropagator.compute(model, ko, timestamp);
+        }
+        logger.info("keplerian objects initialized");
+        return model;
+    }
+
+
+    protected abstract void initModel();
+
     public KeplerianOrbit createKeplerianOrbit(ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, Timestamp timeOfPeriapsis, double inclination, double ascendingNode) {
         KeplerianOrbit orbit = new KeplerianOrbit();
         orbit.setReferenceFrameDefinition(referenceFrameDefinition);
@@ -48,13 +83,6 @@ public class MovingObjectBuilder {
         orbit.setMeanMotion(2 * Math.PI / orbit.getPeriod());
         return orbit;
     }
-//
-//    public void setSpacecraftCartesianState(double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis, double velocity) {
-//        Vector3D position = keplerianUtils.getCartesianPosition(t, theta, inclination, ascendingNode, argumentOfPeriapsis);
-//        Vector3d top = earth.getOrientation().getV();
-//        Vector3d velocity = position.normalize().cross(top).scale(8200d).negate();
-//
-//    }
 
     public KeplerianOrbit createAndSetKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
         Assert.notNull(keplerianObject);
@@ -66,12 +94,11 @@ public class MovingObjectBuilder {
         return orbit;
     }
 
-    public Instant insertSpacecraft(Model model, Spacecraft spacecraft, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
+    public Instant insertSpacecraft(Spacecraft spacecraft, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
         model.getMovingObjects().add(spacecraft);
 
         Instant instant = keplerianPropagator.computeFromOrbit(model, spacecraft, keplerianOrbit, timestamp);
         return instant;
-
     }
 
     public void updateMovingObject(PhysicalBody physicalBody, double mass) {
@@ -93,10 +120,24 @@ public class MovingObjectBuilder {
         baryCentre.getPhysicalBodies().add(physicalBody);
     }
 
-    public void insertKeplerianObject(Model model, KeplerianObject keplerianObject, Timestamp timestamp) {
+    public void insertKeplerianObject(KeplerianObject keplerianObject) {
         model.getMovingObjects().add(keplerianObject);
+    }
 
-        keplerianPropagator.compute(model, keplerianObject, timestamp);
+    public CartesianState constructCartesianState(CelestialBody celestialBody, Spacecraft spacecraft, Timestamp timestamp, double r, double theta, double inclination, double ascendingNode, double argumentOfPeriapsis, double velocity) {
+        Vector3D position = keplerianUtils.getCartesianPosition(r, Math.toRadians(theta), Math.toRadians(inclination), Math.toRadians(ascendingNode), Math.toRadians(argumentOfPeriapsis));
+        Rotation rotation = celestialBody.getAxialTilt();
+        Vector3D top = rotationUtils.getAxisVector(rotation, Vector3D.PLUS_K);
+        Vector3D v = position.crossProduct(top).normalize().scalarMultiply(velocity).negate();
+
+        CartesianState cartesianState = new CartesianState();
+        cartesianState.setPosition(position);
+        cartesianState.setVelocity(v);
+
+        ReferenceFrame referenceFrame = referenceFrameFactory.getFrame(celestialBody.getReferenceFrameDefinition(), model, timestamp);
+        cartesianState.setReferenceFrame(referenceFrame);
+
+        return cartesianState;
     }
 
 }

@@ -7,6 +7,7 @@ import com.momega.spacesimulator.utils.MathUtils;
  */
 public abstract class KeplerianObject extends MovingObject {
 
+    protected ReferenceFrameDefinition referenceFrameDefinition;
     private KeplerianOrbit keplerianOrbit;
     private double mi = 0;
 
@@ -16,6 +17,14 @@ public abstract class KeplerianObject extends MovingObject {
 
     public KeplerianOrbit getKeplerianOrbit() {
         return keplerianOrbit;
+    }
+
+    public ReferenceFrameDefinition getReferenceFrameDefinition() {
+        return referenceFrameDefinition;
+    }
+
+    public void setReferenceFrameDefinition(ReferenceFrameDefinition referenceFrameDefinition) {
+        this.referenceFrameDefinition = referenceFrameDefinition;
     }
 
     public abstract double getMass();

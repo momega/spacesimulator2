@@ -32,6 +32,24 @@ public class ModelService {
         return result;
     }
 
+    /**
+     * Finds the name of the keplerian object
+     * @param model the model
+     * @param name the name
+     * @return the keplerian object
+     */
+    public KeplerianObject findByName(Model model, String name) {
+        List<KeplerianObject> result = new ArrayList();
+        for(MovingObject mo : model.getMovingObjects()) {
+            if (mo instanceof KeplerianObject) {
+                if (name.equals(mo.getName())) {
+                    return (KeplerianObject) mo;
+                }
+            }
+        }
+        return null;
+    }
+
     public List<KeplerianObject> findAllKeplerianObjects(Model model) {
         List<KeplerianObject> result = new ArrayList();
         for(MovingObject mo : model.getMovingObjects()) {

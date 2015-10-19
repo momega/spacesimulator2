@@ -1,4 +1,4 @@
-package com.momega.spacesimulator.propagator.model;
+package com.momega.spacesimulator.propagator.force;
 
 import com.momega.spacesimulator.model.MovingObject;
 

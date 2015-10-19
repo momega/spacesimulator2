@@ -4,7 +4,7 @@ import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.propagator.model.GravityModel;
+import com.momega.spacesimulator.propagator.force.GravityModel;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 /**
- * The propagator computes new position of the spacecraft. It uses newtonian gravitation model
+ * The propagator computes new position of the spacecraft. It uses newtonian gravitation force
  * Created by martin on 7/21/15.
  */
 @Component

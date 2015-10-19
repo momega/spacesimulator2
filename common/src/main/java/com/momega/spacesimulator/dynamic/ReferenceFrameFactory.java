@@ -22,13 +22,14 @@ public class ReferenceFrameFactory {
         ReferenceFrameDefinition result = new ReferenceFrameDefinition();
         result.setKeplerianObject(keplerianObject);
         result.setParent(parent);
+        keplerianObject.setReferenceFrameDefinition(result);
         return result;
     }
 
     /**
      * The method returns the instance of the reference frame based on the definition
      * @param referenceFrameDefinition the definition
-     * @param model the model
+     * @param model the force
      * @param timestamp the timestamp of the reference frame
      * @return new instance of the reference frame,
      */

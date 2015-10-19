@@ -78,4 +78,5 @@ public class CelestialBody extends PhysicalBody {
     public void setAxialTilt(Rotation axialTilt) {
         this.axialTilt = axialTilt;
     }
+
 }

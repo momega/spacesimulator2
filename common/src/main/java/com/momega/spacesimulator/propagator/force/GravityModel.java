@@ -1,6 +1,5 @@
-package com.momega.spacesimulator.propagator.model;
+package com.momega.spacesimulator.propagator.force;
 
-import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.service.ModelService;
@@ -12,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * The force model of the gravitation
+ * The force force of the gravitation
  * Created by martin on 8/16/14.
  */
 @Component
@@ -38,7 +37,7 @@ public class GravityModel {
 
     /**
      * Computes the total gravitational force (acceleration) from all celestial bodies in the system for the defined instant.
-     * @param model the model
+     * @param model the force
      * @param timestamp the timestamp
      * @return total acceleration/force
      */
