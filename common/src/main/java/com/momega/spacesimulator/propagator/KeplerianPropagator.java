@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.propagator;
 
-import com.momega.spacesimulator.common.CoordinateModels;
+import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.utils.KeplerianUtils;
 import com.momega.spacesimulator.dynamic.InstantManager;
@@ -18,7 +18,7 @@ public class KeplerianPropagator {
     private KeplerianUtils keplerianUtils;
 
     @Autowired
-    private CoordinateModels coordinateModels;
+    private CoordinateService coordinateService;
 
     @Autowired
     private InstantManager instantManager;
@@ -55,7 +55,7 @@ public class KeplerianPropagator {
 
     public Instant computeFromOrbit(Model model, MovingObject movingObject, KeplerianOrbit keplerianOrbit, Timestamp newTimestamp) {
         KeplerianElements keplerianElements = keplerianUtils.fromTimestamp(keplerianOrbit, newTimestamp);
-        CartesianState cartesianState = coordinateModels.transform(model, newTimestamp, keplerianElements);
+        CartesianState cartesianState = coordinateService.transform(model, newTimestamp, keplerianElements);
 
         Instant newInstant = instantManager.newInstant(model, movingObject, cartesianState, keplerianElements, newTimestamp);
         return newInstant;

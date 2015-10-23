@@ -1,4 +1,4 @@
-package com.momega.spacesimulator.common;
+package com.momega.spacesimulator.service;
 
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * Created by martin on 7/19/15.
  */
 @Component
-public class CoordinateModels {
+public class CoordinateService {
 
     private final static double MINOR_ERROR = Math.pow(10, -12);
 

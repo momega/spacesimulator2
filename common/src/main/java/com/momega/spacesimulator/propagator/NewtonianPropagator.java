@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.propagator;
 
-import com.momega.spacesimulator.common.CoordinateModels;
+import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
@@ -25,7 +25,7 @@ public class NewtonianPropagator {
     private GravityModel gravityModel;
 
     @Autowired
-    private CoordinateModels coordinateModels;
+    private CoordinateService coordinateService;
 
     @Autowired
     private InstantManager instantManager;
@@ -39,7 +39,7 @@ public class NewtonianPropagator {
         Assert.notNull(instant);
 
         CartesianState cartesianState = eulerSolver(model, instant, timestamp, dt, newTimestamp);
-        KeplerianElements keplerianElements = coordinateModels.transform(cartesianState, newTimestamp);
+        KeplerianElements keplerianElements = coordinateService.transform(cartesianState, newTimestamp);
         //logger.info("keplerian elements = {}", keplerianElements);
 
         Instant newInstant = instantManager.newInstant(model, movingObject, cartesianState, keplerianElements, newTimestamp);

@@ -1,6 +1,5 @@
-package com.momega.spacesimulator.utils;
+package com.momega.spacesimulator.service;
 
-import com.momega.spacesimulator.common.CoordinateModels;
 import com.momega.spacesimulator.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,10 +8,10 @@ import org.springframework.stereotype.Component;
  * Created by martin on 9/28/15.
  */
 @Component
-public class ApsisUtils {
+public class ApsisService {
 
     @Autowired
-    private CoordinateModels coordinateModels;
+    private CoordinateService coordinateService;
 
     public Instant getApsis(Model model, ApsisType apsisType, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
         Apsis apsis = new Apsis();
@@ -22,7 +21,7 @@ public class ApsisUtils {
         keplerianElements.setTrueAnomaly(apsisType.getTrueAnomaly());
         keplerianElements.setKeplerianOrbit(keplerianOrbit);
 
-        CartesianState cartesianState = coordinateModels.transform(model, timestamp, keplerianElements);
+        CartesianState cartesianState = coordinateService.transform(model, timestamp, keplerianElements);
 
         Instant instant = new Instant();
         instant.setMovingObject(apsis);

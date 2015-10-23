@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.builder;
 
-import com.momega.spacesimulator.common.CoordinateModels;
+import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
@@ -34,7 +34,7 @@ public abstract class MovingObjectBuilder {
     private KeplerianUtils keplerianUtils;
 
     @Autowired
-    private CoordinateModels coordinateModels;
+    private CoordinateService coordinateService;
 
     @Autowired
     private InstantManager instantManager;
@@ -92,13 +92,6 @@ public abstract class MovingObjectBuilder {
         KeplerianOrbit orbit = createKeplerianOrbit(referenceFrameDefinition, semimajorAxis, eccentricity, argumentOfPeriapsis, period * DateTimeConstants.SECONDS_PER_DAY, t, inclination, ascendingNode);
         keplerianObject.setKeplerianOrbit(orbit);
         return orbit;
-    }
-
-    public Instant insertSpacecraft(Spacecraft spacecraft, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
-        model.getMovingObjects().add(spacecraft);
-
-        Instant instant = keplerianPropagator.computeFromOrbit(model, spacecraft, keplerianOrbit, timestamp);
-        return instant;
     }
 
     public void updateMovingObject(PhysicalBody physicalBody, double mass) {

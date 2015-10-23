@@ -1,14 +1,14 @@
 package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.builder.EarthMoonBuilder;
-import com.momega.spacesimulator.common.CoordinateModels;
+import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.propagator.PropagatorService;
 import com.momega.spacesimulator.propagator.force.GravityModel;
 import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.ApsisUtils;
+import com.momega.spacesimulator.service.ApsisService;
 import com.momega.spacesimulator.utils.TimeUtils;
 import junit.framework.Assert;
 import org.joda.time.DateTime;
@@ -49,10 +49,10 @@ public class VoyageToMoonTest {
     private GravityModel gravityModel;
 
     @Autowired
-    private CoordinateModels coordinateModels;
+    private CoordinateService coordinateService;
 
     @Autowired
-    private ApsisUtils apsisUtils;
+    private ApsisService apsisService;
 
     @Autowired
     private InstantManager instantManager;
@@ -77,7 +77,7 @@ public class VoyageToMoonTest {
 
         CartesianState cartesianState = mob.constructCartesianState(earth, spacecraft, timestamp, 300 * 1E3 + earth.getRadius(), 0, 6.0, 125, 138, 10833d);
 
-        KeplerianElements keplerianElements = coordinateModels.transform(cartesianState, timestamp);
+        KeplerianElements keplerianElements = coordinateService.transform(cartesianState, timestamp);
         Instant si = instantManager.newInstant(model, spacecraft, cartesianState, keplerianElements, timestamp);
 
         logger.info("Satellite start : {}", si.getCartesianState());
@@ -112,6 +112,9 @@ public class VoyageToMoonTest {
             logger.info("Spacecraft minimum = {}", minimumInstant.getTargetData().getCartesianState().getPosition().getNorm() / 1E6);
             logger.info("Spacecraft minimum orbit = {}", si.getKeplerianElements().getKeplerianOrbit());
         }
+
+        double minimum = minimumInstant.getTargetData().getCartesianState().getPosition().getNorm() / 1E6;
+        Assert.assertEquals(6, minimum, 1);
 
 //        logger.info("Spacecraft target data planes angle= {}", Math.toDegrees(si.getTargetData().getPlanesAngle()));
 //        logger.info("Spacecraft target data center angle= {}", Math.toDegrees(si.getTargetData().getCentreAngle()));

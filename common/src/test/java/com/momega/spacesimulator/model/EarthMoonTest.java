@@ -56,13 +56,14 @@ public class EarthMoonTest {
         Model model = mob.build();
         CelestialBody earth = (CelestialBody) modelService.findByName(model, "Earth");
 
+        Spacecraft spacecraft = new Spacecraft();
+        spacecraft.setName("Satellite");
+        model.getMovingObjects().add(spacecraft);
+
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2015, 9, 23, 12, 0, DateTimeZone.UTC));
         mob.init(timestamp);
 
-        Spacecraft spacecraft = new Spacecraft();
-        spacecraft.setName("Satellite");
         KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(earth.getReferenceFrameDefinition(), 250 * 1E3 + earth.getRadius(), 0.001, 0, 90.0 * 60, timestamp, 0, 0);
-        model.getMovingObjects().add(spacecraft);
         Instant si = keplerianPropagator.computeFromOrbit(model, spacecraft, craftOrbit, timestamp);
 
         double rStart = si.getCartesianState().getPosition().getNorm();
