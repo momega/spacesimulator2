@@ -1,28 +1,22 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.builder.EarthMoonBuilder;
-import com.momega.spacesimulator.service.CoordinateService;
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.force.GravityModel;
-import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.service.ApsisService;
 import com.momega.spacesimulator.utils.TimeUtils;
-import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * Created by martin on 7/19/15.
@@ -34,102 +28,51 @@ public class VoyageToMoonTest {
     private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonTest.class);
 
     @Autowired
-    private EarthMoonBuilder mob;
+    private ThreadPoolTaskExecutor taskExecutor;
 
     @Autowired
-    private ModelService modelService;
-
-    @Autowired
-    private PropagatorService propagatorService;
-
-    @Autowired
-    private KeplerianPropagator keplerianPropagator;
-
-    @Autowired
-    private GravityModel gravityModel;
-
-    @Autowired
-    private CoordinateService coordinateService;
-
-    @Autowired
-    private ApsisService apsisService;
-
-    @Autowired
-    private InstantManager instantManager;
+    private VoyageToMoon voyageToMoon;
 
     @Test
+    @Ignore
     public void voyagerTest() {
-        Assert.assertNotNull(mob);
-
-        Model model = mob.build();
-        CelestialBody earth = (CelestialBody) modelService.findByName(model, "Earth");
-        CelestialBody moon = (CelestialBody) modelService.findByName(model, "Moon");
-
-        Spacecraft spacecraft = new Spacecraft();
-        spacecraft.setName("Satellite");
-        spacecraft.setTarget(moon);
-        spacecraft.setThreshold(50*1E6);
-        spacecraft.setMinimalDistance(spacecraft.getThreshold());
-        model.getMovingObjects().add(spacecraft);
-
-        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 1, 20, DateTimeZone.UTC));
-        mob.init(timestamp);
-
-        CartesianState cartesianState = mob.constructCartesianState(earth, spacecraft, timestamp, 300 * 1E3 + earth.getRadius(), 0, 6.0, 125, 138, 10833d);
-
-        KeplerianElements keplerianElements = coordinateService.transform(cartesianState, timestamp);
-        Instant si = instantManager.newInstant(model, spacecraft, cartesianState, keplerianElements, timestamp);
-
-        logger.info("Satellite start : {}", si.getCartesianState());
-
-        double rStart = si.getCartesianState().getPosition().getNorm();
-        double vStart = si.getCartesianState().getVelocity().getNorm();
-        logger.info("r-start = {}, v-start = {}", rStart, vStart);
-
-        List<MovingObject> list = new ArrayList<>();
-        list.add(spacecraft);
-
-        Timestamp endTime = timestamp.add(60*60*24*5);
-        TimeInterval timeInterval = new TimeInterval();
-        timeInterval.setStartTime(timestamp);
-        timeInterval.setEndTime(endTime);
-
-        PropagationResult result = propagatorService.propagateTrajectories(model, list, timeInterval, 1);
-        si = result.getInstants().get(spacecraft);
-        Assert.assertNotNull(si);
-
-        Assert.assertEquals(3, result.getInstants().size());
-
-        for(Instant i : result.getInstants().values()) {
-            Assert.assertNotNull(i);
-            logger.info("Instant = {}:{}", i.getMovingObject().getName(), i.getKeplerianElements());
+        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 11, 12, 0, DateTimeZone.UTC));
+        Timestamp endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 13, 0, 0, DateTimeZone.UTC));
+        Timestamp t = timestamp;
+        List<Future<?>> futures = new ArrayList<>();
+        while(t.before(endTime)) {
+            for(int speed=10830; speed<10840; speed++) {
+                Future<?> f = taskExecutor.submit(new VoyageToMoonRunnable(t, (double)speed));
+                futures.add(f);
+            }
+            t = t.add(600.0);
         }
 
-        logger.info("Spacecraft state = {}", si.getCartesianState());
+        Iterator<Future<?>> i = futures.iterator();
+        while(i.hasNext()) {
+            Future<?> f = i.next();
+            try {
+                f.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-        Instant minimumInstant = spacecraft.getMinimalInstant();
-        if (minimumInstant != null) {
-            logger.info("Spacecraft minimum = {}", minimumInstant.getTargetData().getCartesianState().getPosition().getNorm() / 1E6);
-            logger.info("Spacecraft minimum orbit = {}", si.getKeplerianElements().getKeplerianOrbit());
+    class VoyageToMoonRunnable implements Runnable {
+
+        private final Timestamp timestamp;
+        private final double speed;
+
+        VoyageToMoonRunnable(Timestamp timestamp, double speed) {
+            this.timestamp = timestamp;
+            this.speed = speed;
         }
 
-        double minimum = minimumInstant.getTargetData().getCartesianState().getPosition().getNorm() / 1E6;
-        //Assert.assertEquals(6, minimum, 1);
-
-//        logger.info("Spacecraft target data planes angle= {}", Math.toDegrees(si.getTargetData().getPlanesAngle()));
-//        logger.info("Spacecraft target data center angle= {}", Math.toDegrees(si.getTargetData().getCentreAngle()));
-//        logger.info("Spacecraft target data distance= {}", si.getTargetData().getCartesianState().getPosition().getNorm() / 1E6);
-//        logger.info("Spacecraft keplerian orbit= {}", si.getKeplerianElements().getKeplerianOrbit());
-
-//        KeplerianElements ke = coordinateModels.transform(si.getTargetData().getCartesianState(), endTime);
-//        logger.info("Target keplerian elements = {}", ke);
-//
-//        double rEnd = si.getCartesianState().getPosition().getNorm();
-//        logger.info("r-end = {}", rEnd / 1E6);
-//
-//        Instant ai = apsisUtils.getApsis(model, ApsisType.APOAPSIS, si.getKeplerianElements().getKeplerianOrbit(), endTime);
-//        double a = ai.getCartesianState().getPosition().getNorm();
-//        logger.info("Apo apsis = {}, {}", a, ai.getCartesianState());
+        @Override
+        public void run() {
+            voyageToMoon.run(timestamp, speed);
+        }
     }
 
 }

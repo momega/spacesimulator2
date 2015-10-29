@@ -46,6 +46,10 @@ public class KeplerianUtils {
         return keplerianElements;
     }
 
+    /**
+     * Updates theta in keplerian elements instance
+     * @param keplerianElements
+     */
     public void solveTheta(KeplerianElements keplerianElements) {
         double EHA;
         KeplerianOrbit keplerianOrbit = keplerianElements.getKeplerianOrbit();
@@ -56,6 +60,19 @@ public class KeplerianUtils {
         }
         double theta = solveTheta(EHA, keplerianOrbit.getEccentricity());
         keplerianElements.setTrueAnomaly(theta);
+    }
+
+    public void solveEccentricAnomaly(KeplerianElements keplerianElements) {
+        KeplerianOrbit keplerianOrbit = keplerianElements.getKeplerianOrbit();
+        double e = keplerianElements.getKeplerianOrbit().getEccentricity();
+        double theta = keplerianElements.getTrueAnomaly();
+        if (keplerianOrbit.isHyperbolic()) {
+            keplerianElements.setHyperbolicAnomaly(solveHA(e, theta));
+            keplerianElements.setEccentricAnomaly(null);
+        } else {
+            keplerianElements.setEccentricAnomaly(solveEA(e, theta));
+            keplerianElements.setHyperbolicAnomaly(null);
+        }
     }
 
     /**

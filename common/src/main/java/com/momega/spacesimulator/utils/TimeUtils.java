@@ -5,6 +5,7 @@ import com.momega.spacesimulator.model.Timestamp;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeUtils;
+import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.joda.time.format.PeriodFormatter;
@@ -27,9 +28,6 @@ public class TimeUtils {
     public static DateTimeFormatter UTC_FORMATTER = ISODateTimeFormat.dateTime();
     
     private static PeriodFormatter periodFormatter = new PeriodFormatterBuilder()
-		    .appendDays()
-		    .appendSuffix(" d")
-		    .appendSeparator(" ")
 		    .appendHours()
 		    .appendSuffix(" h")
 		    .appendSeparator(" ")
@@ -105,8 +103,12 @@ public class TimeUtils {
         return calendar;
     }
 
+    public static double getDuration(Timestamp startTime, Timestamp endTime) {
+        return endTime.subtract(startTime);
+    }
+
     public static double getDuration(TimeInterval timeInterval) {
-        return timeInterval.getEndTime().subtract(timeInterval.getStartTime());
+        return getDuration(timeInterval.getEndTime(), timeInterval.getEndTime());
     }
 
     public static TimeInterval createInterval(Timestamp timestamp, double duration) {
@@ -149,15 +151,20 @@ public class TimeUtils {
         return UTC_FORMATTER.print(TimeUtils.toDateTime(timestamp));
     }
 
+    public static String durationAsString(double duration) {
+        long d = Double.valueOf(duration * DateTimeConstants.MILLIS_PER_SECOND).longValue();
+        long days = d / (DateTimeConstants.SECONDS_PER_DAY * DateTimeConstants.MILLIS_PER_SECOND);
+        long secs = d % (DateTimeConstants.SECONDS_PER_DAY * DateTimeConstants.MILLIS_PER_SECOND);
+        Period p = new Period(secs);
+        return "" + days + " d " + periodFormatter.print(p);
+    }
+
 //    public static String periodAsString(PositionProvider positionProvider, Timestamp time) {
 //        double period = getETA(positionProvider, time);
 //        if (period>DateTimeConstants.SECONDS_PER_DAY) {
 //            return timeAsString(positionProvider.getTimestamp());
 //        }
-//    	long duration = Double.valueOf(period * DateTimeConstants.MILLIS_PER_SECOND).longValue();
-//    	Period p = new Period(duration);
-//    	return periodFormatter.print(p);
-//    }
+//        }
 //
 //    /**
 //     * Returns ETA time in seconds between current time and planned time of the orbital point

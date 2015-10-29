@@ -8,6 +8,7 @@ public class TargetData {
     private CartesianState cartesianState;
     private double planesAngle;
     private double centreAngle;
+    private KeplerianElements keplerianElements;
 
     public CartesianState getCartesianState() {
         return cartesianState;
@@ -33,10 +34,19 @@ public class TargetData {
         this.centreAngle = centreAngle;
     }
 
+    public void setKeplerianElements(KeplerianElements keplerianElements) {
+        this.keplerianElements = keplerianElements;
+    }
+
+    public KeplerianElements getKeplerianElements() {
+        return keplerianElements;
+    }
+
     @Override
     public String toString() {
         return "TargetData{" +
                 "cartesianState=" + cartesianState +
+                ", keplerianElements=" + keplerianElements +
                 ", planesAngle=" + planesAngle +
                 ", centreAngle=" + centreAngle +
                 '}';

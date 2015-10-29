@@ -1,6 +1,7 @@
 package com.momega.spacesimulator.service;
 
 import com.momega.spacesimulator.model.*;
+import com.momega.spacesimulator.utils.KeplerianUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,9 @@ public class ApsisService {
     @Autowired
     private CoordinateService coordinateService;
 
+    @Autowired
+    private KeplerianUtils keplerianUtils;
+
     public Instant getApsis(Model model, ApsisType apsisType, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
         Apsis apsis = new Apsis();
         apsis.setType(apsisType);
@@ -20,11 +24,14 @@ public class ApsisService {
         KeplerianElements keplerianElements = new KeplerianElements();
         keplerianElements.setTrueAnomaly(apsisType.getTrueAnomaly());
         keplerianElements.setKeplerianOrbit(keplerianOrbit);
+        keplerianUtils.solveEccentricAnomaly(keplerianElements);
 
-        CartesianState cartesianState = coordinateService.transform(model, timestamp, keplerianElements);
+        Timestamp apsisTime = keplerianUtils.timeToAngle(keplerianElements, timestamp, apsisType.getTrueAnomaly(), true);
+        CartesianState cartesianState = coordinateService.transform(model, apsisTime, keplerianElements);
 
         Instant instant = new Instant();
         instant.setMovingObject(apsis);
+        instant.setTimestamp(apsisTime);
         instant.setCartesianState(cartesianState);
         instant.setKeplerianElements(keplerianElements);
 

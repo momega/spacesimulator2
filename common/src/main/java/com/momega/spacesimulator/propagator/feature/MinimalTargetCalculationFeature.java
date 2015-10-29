@@ -22,7 +22,6 @@ public class MinimalTargetCalculationFeature implements PropagatorFeature {
     public void calculation(Model model, Timestamp timestamp) {
         for(Spacecraft spacecraft : modelService.findAllSpacecrafts(model)) {
             if (spacecraft.getTarget() != null && spacecraft.getThreshold()>0) {
-                CelestialBody targetBody = spacecraft.getTarget();
                 Instant si = instantManager.getInstant(model, spacecraft, timestamp);
                 TargetData targetData = si.getTargetData();
 

@@ -4,6 +4,7 @@ import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.utils.CartesianUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -33,6 +34,9 @@ public class TargetCalculationFeature implements PropagatorFeature {
     private ModelService modelService;
 
     @Autowired
+    private CoordinateService coordinateService;
+
+    @Autowired
     private ReferenceFrameFactory referenceFrameFactory;
 
     @Override
@@ -53,6 +57,8 @@ public class TargetCalculationFeature implements PropagatorFeature {
                 TargetData targetData = new TargetData();
                 targetData.setCartesianState(relative);
                 targetData.setPlanesAngle(angle);
+                KeplerianElements relativeKe =  coordinateService.transform(relative, timestamp);
+                targetData.setKeplerianElements(relativeKe);
 
                 double centerAngle = Vector3D.angle(ti.getCartesianState().getPosition(), si.getCartesianState().getPosition());
                 targetData.setCentreAngle(centerAngle);
