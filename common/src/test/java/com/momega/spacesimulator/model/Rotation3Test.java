@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Rotation3Test {
 
-    private static final Logger logger = LoggerFactory.getLogger(Rotation3Test.class);
-
     private RotationUtils rotationUtils = new RotationUtils();
 
     @Test

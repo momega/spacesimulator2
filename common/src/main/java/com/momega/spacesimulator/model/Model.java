@@ -1,11 +1,11 @@
 package com.momega.spacesimulator.model;
 
-import org.apache.commons.collections.buffer.BoundedFifoBuffer;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections.buffer.BoundedFifoBuffer;
 
 /**
  * The force is the POJO object containing all the data. It contains definition of moving objects and all instances of history points {@link Instant}.

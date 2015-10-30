@@ -5,8 +5,6 @@ import org.apache.commons.math3.geometry.euclidean.threed.RotationOrder;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.springframework.stereotype.Component;
 
-import java.util.Vector;
-
 /**
  * Created by martin on 8/20/15.
  */

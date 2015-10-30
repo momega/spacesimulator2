@@ -1,13 +1,20 @@
 package com.momega.spacesimulator.service;
 
-import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.utils.CartesianUtils;
-import com.momega.spacesimulator.utils.KeplerianUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.KeplerianElements;
+import com.momega.spacesimulator.model.KeplerianOrbit;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.utils.CartesianUtils;
+import com.momega.spacesimulator.utils.KeplerianUtils;
 
 /**
  * Created by martin on 7/19/15.

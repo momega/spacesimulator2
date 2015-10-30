@@ -1,10 +1,11 @@
 package com.momega.spacesimulator.builder;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.momega.spacesimulator.model.BaryCentre;
 import com.momega.spacesimulator.model.CelestialBody;
 import com.momega.spacesimulator.model.ReferenceFrameDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by martin on 10/23/15.

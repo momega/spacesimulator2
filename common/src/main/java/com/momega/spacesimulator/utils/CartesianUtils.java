@@ -1,13 +1,14 @@
 package com.momega.spacesimulator.utils;
 
-import com.momega.spacesimulator.model.CartesianState;
-import com.momega.spacesimulator.model.Instant;
-import com.momega.spacesimulator.model.ReferenceFrame;
-import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 import org.apache.commons.math3.geometry.euclidean.threed.Plane;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 
 /**
  * Created by martin on 9/2/15.

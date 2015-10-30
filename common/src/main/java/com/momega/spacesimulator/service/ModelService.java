@@ -1,10 +1,15 @@
 package com.momega.spacesimulator.service;
 
-import com.momega.spacesimulator.model.*;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.KeplerianObject;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.MovingObject;
+import com.momega.spacesimulator.model.Spacecraft;
 
 /**
  * Created by martin on 7/25/15.
@@ -13,7 +18,7 @@ import java.util.List;
 public class ModelService {
 
     public List<CelestialBody> findAllCelestialBodies(Model model) {
-        List<CelestialBody> result = new ArrayList();
+        List<CelestialBody> result = new ArrayList<CelestialBody>();
         for(MovingObject mo : model.getMovingObjects()) {
             if (mo instanceof CelestialBody) {
                 result.add((CelestialBody) mo);
@@ -23,7 +28,7 @@ public class ModelService {
     }
 
     public List<Spacecraft> findAllSpacecrafts(Model model) {
-        List<Spacecraft> result = new ArrayList();
+        List<Spacecraft> result = new ArrayList<Spacecraft>();
         for(MovingObject mo : model.getMovingObjects()) {
             if (mo instanceof Spacecraft) {
                 result.add((Spacecraft) mo);
@@ -39,7 +44,6 @@ public class ModelService {
      * @return the keplerian object
      */
     public KeplerianObject findByName(Model model, String name) {
-        List<KeplerianObject> result = new ArrayList();
         for(MovingObject mo : model.getMovingObjects()) {
             if (mo instanceof KeplerianObject) {
                 if (name.equals(mo.getName())) {
@@ -51,7 +55,7 @@ public class ModelService {
     }
 
     public List<KeplerianObject> findAllKeplerianObjects(Model model) {
-        List<KeplerianObject> result = new ArrayList();
+        List<KeplerianObject> result = new ArrayList<KeplerianObject>();
         for(MovingObject mo : model.getMovingObjects()) {
             if (mo instanceof KeplerianObject) {
                 result.add((KeplerianObject) mo);

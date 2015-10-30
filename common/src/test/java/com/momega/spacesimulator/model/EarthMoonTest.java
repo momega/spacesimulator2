@@ -1,15 +1,10 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.builder.EarthMoonBuilder;
-import com.momega.spacesimulator.builder.MovingObjectBuilder;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.force.EarthGravityFilter;
-import com.momega.spacesimulator.propagator.force.GravityModel;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.TimeUtils;
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Assert;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
@@ -17,13 +12,17 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.momega.spacesimulator.builder.EarthMoonBuilder;
+import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.propagator.PropagationResult;
+import com.momega.spacesimulator.propagator.PropagatorService;
+import com.momega.spacesimulator.propagator.force.EarthGravityFilter;
+import com.momega.spacesimulator.propagator.force.GravityModel;
+import com.momega.spacesimulator.service.ModelService;
+import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
  * Created by martin on 7/19/15.

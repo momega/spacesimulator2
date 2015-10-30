@@ -1,12 +1,23 @@
 package com.momega.spacesimulator.propagator;
 
-import com.momega.spacesimulator.service.CoordinateService;
-import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
-import com.momega.spacesimulator.utils.KeplerianUtils;
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianElements;
+import com.momega.spacesimulator.model.KeplerianObject;
+import com.momega.spacesimulator.model.KeplerianOrbit;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.MovingObject;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.service.CoordinateService;
+import com.momega.spacesimulator.utils.KeplerianUtils;
 
 /**
  * Created by martin on 7/19/15.

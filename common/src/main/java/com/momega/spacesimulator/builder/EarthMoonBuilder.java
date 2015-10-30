@@ -1,10 +1,10 @@
 package com.momega.spacesimulator.builder;
 
-import com.momega.spacesimulator.model.CelestialBody;
-import com.momega.spacesimulator.model.ReferenceFrameDefinition;
-import com.momega.spacesimulator.model.Timestamp;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 
 /**
  * Created by martin on 10/19/15.

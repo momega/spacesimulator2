@@ -1,16 +1,22 @@
 package com.momega.spacesimulator.propagator;
 
-import com.momega.spacesimulator.service.CoordinateService;
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.propagator.force.GravityModel;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianElements;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.MovingObject;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.propagator.force.GravityModel;
+import com.momega.spacesimulator.service.CoordinateService;
 
 /**
  * The propagator computes new position of the spacecraft. It uses newtonian gravitation force
@@ -18,8 +24,6 @@ import org.springframework.util.Assert;
  */
 @Component
 public class NewtonianPropagator {
-
-    private static final Logger logger = LoggerFactory.getLogger(NewtonianPropagator.class);
 
     @Autowired
     private GravityModel gravityModel;

@@ -1,5 +1,16 @@
 package com.momega.spacesimulator.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
 import com.momega.spacesimulator.builder.EarthMoonBuilder;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
@@ -10,21 +21,6 @@ import com.momega.spacesimulator.service.ApsisService;
 import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.utils.TimeUtils;
-import junit.framework.Assert;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by martin on 7/19/15.

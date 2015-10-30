@@ -1,14 +1,5 @@
 package com.momega.spacesimulator.builder;
 
-import com.momega.spacesimulator.service.CoordinateService;
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.KeplerianUtils;
-import com.momega.spacesimulator.utils.RotationUtils;
-import com.momega.spacesimulator.utils.TimeUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.joda.time.DateTimeConstants;
@@ -16,6 +7,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+
+import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
+import com.momega.spacesimulator.model.BaryCentre;
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.KeplerianObject;
+import com.momega.spacesimulator.model.KeplerianOrbit;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.PhysicalBody;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
+import com.momega.spacesimulator.model.Spacecraft;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.service.CoordinateService;
+import com.momega.spacesimulator.service.ModelService;
+import com.momega.spacesimulator.utils.KeplerianUtils;
+import com.momega.spacesimulator.utils.RotationUtils;
+import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
  * Created by martin on 7/19/15.

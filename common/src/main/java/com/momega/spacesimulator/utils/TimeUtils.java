@@ -1,7 +1,7 @@
 package com.momega.spacesimulator.utils;
 
-import com.momega.spacesimulator.model.TimeInterval;
-import com.momega.spacesimulator.model.Timestamp;
+import java.util.Calendar;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeUtils;
@@ -12,7 +12,8 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.util.Assert;
 
-import java.util.Calendar;
+import com.momega.spacesimulator.model.TimeInterval;
+import com.momega.spacesimulator.model.Timestamp;
 
 /**
  * Set of the function working with time

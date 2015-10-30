@@ -1,12 +1,15 @@
 package com.momega.spacesimulator.utils;
 
-import com.momega.spacesimulator.model.*;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.RotationOrder;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import com.momega.spacesimulator.model.KeplerianElements;
+import com.momega.spacesimulator.model.KeplerianOrbit;
+import com.momega.spacesimulator.model.Timestamp;
 
 /**
  * Set of the utils to work keplerian elements

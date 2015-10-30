@@ -1,16 +1,21 @@
 package com.momega.spacesimulator.dynamic;
 
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.utils.CartesianUtils;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.collections.buffer.BoundedFifoBuffer;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianElements;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.MovingObject;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.utils.CartesianUtils;
 
 /**
  * Created by martin on 7/22/15.

@@ -1,9 +1,17 @@
 package com.momega.spacesimulator.service;
 
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.utils.KeplerianUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.model.Apsis;
+import com.momega.spacesimulator.model.ApsisType;
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianElements;
+import com.momega.spacesimulator.model.KeplerianOrbit;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.utils.KeplerianUtils;
 
 /**
  * Created by martin on 9/28/15.

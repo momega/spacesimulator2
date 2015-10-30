@@ -1,13 +1,16 @@
 package com.momega.spacesimulator.propagator;
 
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.utils.MathUtils;
-import com.momega.spacesimulator.utils.TimeUtils;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.utils.MathUtils;
+import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
  * Rotation propagator is used to 

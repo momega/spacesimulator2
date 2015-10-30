@@ -1,10 +1,10 @@
 package com.momega.spacesimulator.propagator;
 
+import java.util.Map;
+
 import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.MovingObject;
 import com.momega.spacesimulator.model.Timestamp;
-
-import java.util.Map;
 
 /**
  * Created by martin on 8/11/15.

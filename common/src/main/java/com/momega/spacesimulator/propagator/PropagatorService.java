@@ -1,15 +1,22 @@
 package com.momega.spacesimulator.propagator;
 
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.propagator.feature.PropagatorFeature;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianObject;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.MovingObject;
+import com.momega.spacesimulator.model.Spacecraft;
+import com.momega.spacesimulator.model.TimeInterval;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.propagator.feature.PropagatorFeature;
 
 /**
  * Created by martin on 9/28/15.

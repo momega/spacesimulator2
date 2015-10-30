@@ -1,10 +1,17 @@
 package com.momega.spacesimulator.dynamic;
 
-import com.momega.spacesimulator.model.*;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.utils.CartesianUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.model.CartesianState;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianObject;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.ReferenceFrame;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.utils.CartesianUtils;
 
 /**
  * Created by martin on 9/6/15.
