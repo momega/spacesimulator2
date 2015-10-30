@@ -1,6 +1,8 @@
 package com.momega.spacesimulator.propagator;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -24,6 +26,8 @@ import com.momega.spacesimulator.service.CoordinateService;
  */
 @Component
 public class NewtonianPropagator {
+	
+	private static final Logger logger = LoggerFactory.getLogger(NewtonianPropagator.class);
 
     @Autowired
     private GravityModel gravityModel;
@@ -44,7 +48,7 @@ public class NewtonianPropagator {
 
         CartesianState cartesianState = eulerSolver(model, instant, timestamp, dt, newTimestamp);
         KeplerianElements keplerianElements = coordinateService.transform(cartesianState, newTimestamp);
-        //logger.info("keplerian elements = {}", keplerianElements);
+        logger.debug("keplerian elements = {}", keplerianElements);
 
         Instant newInstant = instantManager.newInstant(model, movingObject, cartesianState, keplerianElements, newTimestamp);
         return newInstant;

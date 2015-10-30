@@ -117,12 +117,6 @@ public class VoyageToMoon {
             double diff = TimeUtils.getDuration(timeInterval.getStartTime(), tMin);
             logger.debug("Duration to min {}", TimeUtils.durationAsString(diff));
 
-//            Instant ai = apsisService.getApsis(model, ApsisType.PERIAPSIS, minOrbit, tMin);
-//            double apsisP = ai.getCartesianState().getPosition().getNorm();
-//            double apsisV = ai.getCartesianState().getVelocity().getNorm();
-
-//            double aiTime = TimeUtils.getDuration(timeInterval.getStartTime(), ai.getTimestamp());
-
             logger.warn("Start at = {}, speed = {}, Dist = {}, velocity = {}, e = {}, at {}", TimeUtils.toDateTime(timestamp).toString(), speed, minimum, minumumVel, minOrbit.getEccentricity(), TimeUtils.durationAsString(diff));
         }
 

@@ -34,14 +34,13 @@ public class VoyageToMoonTest {
     private VoyageToMoon voyageToMoon;
 
     @Test
-    @Ignore
     public void voyagerTest() {
-        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 11, 12, 0, DateTimeZone.UTC));
+        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 11, 22, 0, DateTimeZone.UTC));
         Timestamp endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 13, 0, 0, DateTimeZone.UTC));
         Timestamp t = timestamp;
         List<Future<?>> futures = new ArrayList<>();
         while(t.before(endTime)) {
-            for(int speed=10830; speed<10840; speed++) {
+            for(int speed=10834; speed<10848; speed++) {
                 Future<?> f = taskExecutor.submit(new VoyageToMoonRunnable(t, (double)speed));
                 futures.add(f);
             }

@@ -26,7 +26,7 @@ import com.momega.spacesimulator.utils.CartesianUtils;
  */
 @Component
 public class TargetCalculationFeature implements PropagatorFeature {
-
+	
     private static final Logger logger = LoggerFactory.getLogger(TargetCalculationFeature.class);
 
     @Autowired
