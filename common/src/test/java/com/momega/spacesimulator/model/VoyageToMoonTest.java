@@ -34,6 +34,7 @@ public class VoyageToMoonTest {
     private VoyageToMoon voyageToMoon;
 
     @Test
+    @Ignore
     public void voyagerTest() {
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 11, 22, 0, DateTimeZone.UTC));
         Timestamp endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 13, 0, 0, DateTimeZone.UTC));
