@@ -1,13 +1,13 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.utils.MathUtils;
-import com.momega.spacesimulator.utils.RotationUtils;
 import junit.framework.Assert;
+
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.momega.spacesimulator.utils.MathUtils;
+import com.momega.spacesimulator.utils.RotationUtils;
 
 /**
  * Created by martin on 10/17/14.

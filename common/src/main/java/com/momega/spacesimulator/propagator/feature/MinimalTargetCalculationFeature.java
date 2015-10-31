@@ -26,12 +26,13 @@ public class MinimalTargetCalculationFeature implements PropagatorFeature {
     @Override
     public void calculation(Model model, Timestamp timestamp) {
         for(Spacecraft spacecraft : modelService.findAllSpacecrafts(model)) {
-            if (spacecraft.getTarget() != null && spacecraft.getThreshold()>0) {
+            if (spacecraft.getTarget() != null && spacecraft.getThreshold()>0  && spacecraft.getEccentricityThreshold()>0) {
                 Instant si = instantManager.getInstant(model, spacecraft, timestamp);
                 TargetData targetData = si.getTargetData();
 
                 double dist = targetData.getCartesianState().getPosition().getNorm();
-                if (dist < spacecraft.getThreshold() && dist < spacecraft.getMinimalDistance()) {
+                double e = targetData.getKeplerianElements().getKeplerianOrbit().getEccentricity();
+                if (dist < spacecraft.getThreshold() && dist < spacecraft.getMinimalDistance() && e<spacecraft.getEccentricityThreshold()) {
                     spacecraft.setMinimalDistance(dist);
                     spacecraft.setMinimalInstant(si);
                 }

@@ -9,6 +9,7 @@ public class Spacecraft extends MovingObject {
 
     private Instant minimalInstant;
     private double minimalDistance;
+    private double eccentricityThreshold;
     private double threshold;
 
     public CelestialBody getTarget() {
@@ -42,4 +43,12 @@ public class Spacecraft extends MovingObject {
     public double getThreshold() {
         return threshold;
     }
+    
+    public void setEccentricityThreshold(double eccentricityThreshold) {
+		this.eccentricityThreshold = eccentricityThreshold;
+	}
+    
+    public double getEccentricityThreshold() {
+		return eccentricityThreshold;
+	}
 }

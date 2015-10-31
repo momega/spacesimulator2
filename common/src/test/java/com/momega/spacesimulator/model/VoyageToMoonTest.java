@@ -1,22 +1,22 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.utils.TimeUtils;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.Future;
+import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
  * Created by martin on 7/19/15.
@@ -24,8 +24,6 @@ import java.util.concurrent.Future;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SimpleConfig.class})
 public class VoyageToMoonTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonTest.class);
 
     @Autowired
     private ThreadPoolTaskExecutor taskExecutor;
@@ -36,12 +34,12 @@ public class VoyageToMoonTest {
     @Test
     @Ignore
     public void voyagerTest() {
-        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 11, 22, 0, DateTimeZone.UTC));
+        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 0, DateTimeZone.UTC));
         Timestamp endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 13, 0, 0, DateTimeZone.UTC));
         Timestamp t = timestamp;
         List<Future<?>> futures = new ArrayList<>();
         while(t.before(endTime)) {
-            for(int speed=10834; speed<10848; speed++) {
+            for(int speed=10843; speed<10850; speed++) {
                 Future<?> f = taskExecutor.submit(new VoyageToMoonRunnable(t, (double)speed));
                 futures.add(f);
             }
@@ -57,6 +55,15 @@ public class VoyageToMoonTest {
                 e.printStackTrace();
             }
         }
+    }
+    
+    @Test
+    public void simpleVoyagerTest() throws InterruptedException, ExecutionException {
+        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 0, DateTimeZone.UTC));
+        double speed = 10844.0;
+        
+        Future<?> f = taskExecutor.submit(new VoyageToMoonRunnable(timestamp, (double)speed));
+        f.get();
     }
 
     class VoyageToMoonRunnable implements Runnable {

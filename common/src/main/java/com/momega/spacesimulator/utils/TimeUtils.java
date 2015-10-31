@@ -5,6 +5,7 @@ import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeUtils;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -149,7 +150,7 @@ public class TimeUtils {
         if (timestamp == null) {
             return null;
         }
-        return UTC_FORMATTER.print(TimeUtils.toDateTime(timestamp));
+        return UTC_FORMATTER.withZone(DateTimeZone.UTC).print(TimeUtils.toDateTime(timestamp));
     }
 
     public static String durationAsString(double duration) {

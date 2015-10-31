@@ -68,6 +68,7 @@ public class VoyageToMoon {
         spacecraft.setName("Satellite");
         spacecraft.setTarget(moon);
         spacecraft.setThreshold(1E6);
+        spacecraft.setEccentricityThreshold(1.02);
         spacecraft.setMinimalDistance(spacecraft.getThreshold());
         model.getMovingObjects().add(spacecraft);
 
@@ -117,7 +118,7 @@ public class VoyageToMoon {
             double diff = TimeUtils.getDuration(timeInterval.getStartTime(), tMin);
             logger.debug("Duration to min {}", TimeUtils.durationAsString(diff));
 
-            logger.warn("Start at = {}, speed = {}, Dist = {}, velocity = {}, e = {}, at {}", TimeUtils.toDateTime(timestamp).toString(), speed, minimum, minumumVel, minOrbit.getEccentricity(), TimeUtils.durationAsString(diff));
+            logger.warn("Start at = {}, speed = {}, Dist = {}, velocity = {}, e = {}, at {}", TimeUtils.timeAsString(timestamp), speed, minimum, minumumVel, minOrbit.getEccentricity(), TimeUtils.durationAsString(diff));
         }
 
     }
