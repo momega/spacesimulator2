@@ -1,5 +1,7 @@
 package com.momega.spacesimulator.propagator;
 
+import com.momega.spacesimulator.model.*;
+import com.momega.spacesimulator.propagator.force.AccelerationResult;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,14 +11,6 @@ import org.springframework.util.Assert;
 
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
-import com.momega.spacesimulator.model.CartesianState;
-import com.momega.spacesimulator.model.Instant;
-import com.momega.spacesimulator.model.KeplerianElements;
-import com.momega.spacesimulator.model.Model;
-import com.momega.spacesimulator.model.MovingObject;
-import com.momega.spacesimulator.model.ReferenceFrame;
-import com.momega.spacesimulator.model.ReferenceFrameDefinition;
-import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.propagator.force.GravityModel;
 import com.momega.spacesimulator.service.CoordinateService;
 
@@ -56,18 +50,19 @@ public class NewtonianPropagator {
 
     /**
      * Solves the velocity and position by the simple Euler method
-     * @param spacecraft the spacecraft instance
+     * @param instant the spacecraft instance
      * @param dt time interval
      * @return new cartesian state
      */
-    protected CartesianState eulerSolver(Model model, Instant spacecraft, Timestamp timestamp, double dt, Timestamp newTimestamp) {
+    protected CartesianState eulerSolver(Model model, Instant instant, Timestamp timestamp, double dt, Timestamp newTimestamp) {
         // Euler's method
-        Vector3D position = spacecraft.getCartesianState().getPosition();
-        Vector3D velocity = spacecraft.getCartesianState().getVelocity();
-        ReferenceFrame referenceFrame = spacecraft.getCartesianState().getReferenceFrame();
+        Vector3D position = instant.getCartesianState().getPosition();
+        Vector3D velocity = instant.getCartesianState().getVelocity();
+        ReferenceFrame referenceFrame = instant.getCartesianState().getReferenceFrame();
+        Spacecraft spacecraft = (Spacecraft) instant.getMovingObject();
 
         // iterate all force models
-        Vector3D acceleration = getAcceleration(model, spacecraft.getCartesianState(), timestamp);
+        Vector3D acceleration = getAcceleration(model, spacecraft, instant.getCartesianState(), timestamp, dt);
 
         velocity = velocity.add(dt, acceleration); // velocity: v(i) = v(i) + a(i) * dt
         position = position.add(dt, velocity); // position: r(i) = r(i) * v(i) * dt
@@ -85,15 +80,15 @@ public class NewtonianPropagator {
 
     /**
      * Solves the velocity and position by RK4 method (Runge-Kutta method, 4th order)
-     * @param spacecraft the spacecraft instance
+     * @param instant the spacecraft instance
      * @param timestamp the timestamp
      * @param dt time interval
      * @return new position
      */
-    protected CartesianState rk4Solver(Model model, Instant spacecraft, Timestamp timestamp, double dt, Timestamp newTimestamp) {
-        Vector3D position = spacecraft.getCartesianState().getPosition();
-        Vector3D velocity = spacecraft.getCartesianState().getVelocity();
-        ReferenceFrame referenceFrame = spacecraft.getCartesianState().getReferenceFrame();
+    protected CartesianState rk4Solver(Model model, Spacecraft spacecraft, Instant instant, Timestamp timestamp, double dt, Timestamp newTimestamp) {
+        Vector3D position = instant.getCartesianState().getPosition();
+        Vector3D velocity = instant.getCartesianState().getVelocity();
+        ReferenceFrame referenceFrame = instant.getCartesianState().getReferenceFrame();
 
         // k[i]v are velocities
         // k[i]x are position
@@ -104,13 +99,13 @@ public class NewtonianPropagator {
         ReferenceFrame halfReferenceFrame = referenceFrameFactory.getFrame(definition, model, halfTime);
         ReferenceFrame newReferenceFrame = referenceFrameFactory.getFrame(definition, model, newTimestamp);
 
-        Vector3D k1v = getAcceleration(model, position, velocity, referenceFrame, timestamp).scalarMultiply(dt);
+        Vector3D k1v = getAcceleration(model, spacecraft, position, velocity, referenceFrame, timestamp, dt/2).scalarMultiply(dt);
         Vector3D k1x = velocity.scalarMultiply(dt);
-        Vector3D k2v = getAcceleration(model, position.add(dt/2, k1x), velocity.add(0.5, k1v), halfReferenceFrame, halfTime).scalarMultiply(dt);
+        Vector3D k2v = getAcceleration(model, spacecraft, position.add(dt/2, k1x), velocity.add(0.5, k1v), halfReferenceFrame, halfTime, dt/2).scalarMultiply(dt);
         Vector3D k2x = velocity.add(1.0/2, k1v).scalarMultiply(dt);
-        Vector3D k3v = getAcceleration(model, position.add(dt/2, k2x), velocity.add(0.5, k2v), halfReferenceFrame, halfTime).scalarMultiply(dt);
+        Vector3D k3v = getAcceleration(model, spacecraft, position.add(dt/2, k2x), velocity.add(0.5, k2v), halfReferenceFrame, halfTime, dt/2).scalarMultiply(dt);
         Vector3D k3x = velocity.add(1.0/2, k2v).scalarMultiply(dt);
-        Vector3D k4v = getAcceleration(model, position.add(dt, k3x), velocity.add(k3v), newReferenceFrame, newTimestamp).scalarMultiply(dt);
+        Vector3D k4v = getAcceleration(model, spacecraft, position.add(dt, k3x), velocity.add(k3v), newReferenceFrame, newTimestamp, dt/2).scalarMultiply(dt);
         Vector3D k4x = velocity.add(1.0, k3v).scalarMultiply(dt);
 
         velocity = velocity.add(rk4(k1v, k2v, k3v, k4v));
@@ -129,17 +124,18 @@ public class NewtonianPropagator {
         return u1.add(2, u2).add(2, u3).add(u4).scalarMultiply(1.0 / 6);
     }
 
-    protected Vector3D getAcceleration(Model model, CartesianState currentState, Timestamp timestamp) {
-        return gravityModel.getAcceleration(model, currentState, timestamp);
+    protected Vector3D getAcceleration(Model model, Spacecraft spacecraft, CartesianState currentState, Timestamp timestamp, double dt) {
+        AccelerationResult accelerationResult = gravityModel.getAcceleration(model, spacecraft, currentState, timestamp, dt);
+        return accelerationResult.getAcceleration();
     }
 
-    protected Vector3D getAcceleration(Model model, Vector3D position, Vector3D velocity, ReferenceFrame referenceFrame, Timestamp timestamp) {
+    protected Vector3D getAcceleration(Model model, Spacecraft spacecraft, Vector3D position, Vector3D velocity, ReferenceFrame referenceFrame, Timestamp timestamp, double dt) {
         CartesianState cartesianState = new CartesianState();
         cartesianState.setPosition(position);
         cartesianState.setVelocity(velocity);
         cartesianState.setReferenceFrame(referenceFrame);
-        return gravityModel.getAcceleration(model, cartesianState, timestamp);
+        AccelerationResult accelerationResult = gravityModel.getAcceleration(model, spacecraft, cartesianState, timestamp, dt);
+        return accelerationResult.getAcceleration();
     }
-
 
 }

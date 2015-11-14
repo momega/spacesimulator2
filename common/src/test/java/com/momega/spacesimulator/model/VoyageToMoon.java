@@ -109,7 +109,7 @@ public class VoyageToMoon {
         Instant minimumInstant = spacecraft.getMinimalInstant();
         if (minimumInstant != null) {
             double minimum = minimumInstant.getTargetData().getCartesianState().getPosition().getNorm() / 1E6;
-            double minumumVel = minimumInstant.getTargetData().getCartesianState().getVelocity().getNorm();
+            double minimumVel = minimumInstant.getTargetData().getCartesianState().getVelocity().getNorm();
             KeplerianOrbit minOrbit = minimumInstant.getTargetData().getKeplerianElements().getKeplerianOrbit();
             logger.debug("Spacecraft minimum = {}", minimum);
             logger.debug("Spacecraft minimum orbit = {}", minOrbit);
@@ -118,7 +118,7 @@ public class VoyageToMoon {
             double diff = TimeUtils.getDuration(timeInterval.getStartTime(), tMin);
             logger.debug("Duration to min {}", TimeUtils.durationAsString(diff));
 
-            logger.warn("Start at = {}, speed = {}, Dist = {}, velocity = {}, e = {}, at {}", TimeUtils.timeAsString(timestamp), speed, minimum, minumumVel, minOrbit.getEccentricity(), TimeUtils.durationAsString(diff));
+            logger.warn("Start at = {}, speed = {}, Dist = {}, velocity = {}, e = {}, at {}", TimeUtils.timeAsString(timestamp), speed, minimum, minimumVel, minOrbit.getEccentricity(), TimeUtils.durationAsString(diff));
         }
 
     }

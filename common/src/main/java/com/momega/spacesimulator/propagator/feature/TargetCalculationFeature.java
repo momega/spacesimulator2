@@ -73,6 +73,15 @@ public class TargetCalculationFeature implements PropagatorFeature {
 
                 si.setTargetData(targetData);
                 logger.debug("target data = {}", targetData);
+
+                if (spacecraft.getThreshold()>0  && spacecraft.getEccentricityThreshold()>0) {
+                    double dist = targetData.getCartesianState().getPosition().getNorm();
+                    double e = targetData.getKeplerianElements().getKeplerianOrbit().getEccentricity();
+                    if (dist < spacecraft.getThreshold() && dist < spacecraft.getMinimalDistance() && e < spacecraft.getEccentricityThreshold()) {
+                        spacecraft.setMinimalDistance(dist);
+                        spacecraft.setMinimalInstant(si);
+                    }
+                }
             }
         }
     }

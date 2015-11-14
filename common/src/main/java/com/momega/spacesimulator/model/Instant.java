@@ -14,6 +14,7 @@ public class Instant {
     private MovingObject movingObject;
     private Rotation rotation;
     private TargetData targetData;
+    private SpacecraftState spacecraftState;
 
     public KeplerianElements getKeplerianElements() {
         return keplerianElements;
@@ -63,6 +64,14 @@ public class Instant {
         this.targetData = targetData;
     }
 
+    public SpacecraftState getSpacecraftState() {
+        return spacecraftState;
+    }
+
+    public void setSpacecraftState(SpacecraftState spacecraftState) {
+        this.spacecraftState = spacecraftState;
+    }
+
     @Override
     public String toString() {
         return "Instant{" +
@@ -72,6 +81,7 @@ public class Instant {
                 ", keplerianElements=" + keplerianElements +
                 ", rotation=" + rotation +
                 ", targetData=" + targetData +
+                ", spacecraftState=" + spacecraftState +
                 '}';
     }
 }

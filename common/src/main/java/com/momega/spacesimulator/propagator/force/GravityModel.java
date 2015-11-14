@@ -1,19 +1,12 @@
 package com.momega.spacesimulator.propagator.force;
 
+import com.momega.spacesimulator.model.*;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.momega.spacesimulator.model.CartesianState;
-import com.momega.spacesimulator.model.CelestialBody;
-import com.momega.spacesimulator.model.Instant;
-import com.momega.spacesimulator.model.KeplerianObject;
-import com.momega.spacesimulator.model.Model;
-import com.momega.spacesimulator.model.MovingObject;
-import com.momega.spacesimulator.model.ReferenceFrame;
-import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.utils.CartesianUtils;
@@ -23,7 +16,7 @@ import com.momega.spacesimulator.utils.CartesianUtils;
  * Created by martin on 8/16/14.
  */
 @Component
-public class GravityModel {
+public class GravityModel implements ForceModel {
 
     private static final Logger logger = LoggerFactory.getLogger(GravityModel.class);
 
@@ -49,17 +42,15 @@ public class GravityModel {
      * @param timestamp the timestamp
      * @return total acceleration/force
      */
-    public Vector3D getAcceleration(Model model, CartesianState spacecraft, Timestamp timestamp) {
+    public AccelerationResult getAcceleration(Model model, Spacecraft spacecraft, CartesianState currentState, Timestamp timestamp, double dt) {
         Vector3D a = Vector3D.ZERO;
         logger.debug("time = {}", timestamp);
         for(KeplerianObject obj : modelService.findAllKeplerianObjects(model)) {
             if (gravityFilter.filter(obj)) {
                 Instant instant = keplerianPropagator.get(model, obj, timestamp);
-                logger.debug("Earth = {}", traceCartesianState(instant.getCartesianState()));
-                logger.debug("SpaceCraft = {}", traceCartesianState(spacecraft));
 
                 Vector3D bodyPosition = cartesianUtils.transferToRoot(instant.getCartesianState()).getPosition();
-                Vector3D craftPosition = cartesianUtils.transferToRoot(spacecraft).getPosition();
+                Vector3D craftPosition = cartesianUtils.transferToRoot(currentState).getPosition();
 
                 Vector3D r = bodyPosition.subtract(craftPosition);
 
@@ -71,26 +62,28 @@ public class GravityModel {
 
         logger.debug("acceleration={}", a.getNorm());
 
-        return a;
+        AccelerationResult result = new AccelerationResult();
+        result.setAcceleration(a);
+        return result;
     }
 
-    protected String traceCartesianState(CartesianState cartesianState) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[C=" + cartesianState.getPosition().getNorm() + "] ");
-        sb.append(traceReferenceFrame(cartesianState.getReferenceFrame()));
-        return sb.toString();
-    }
-
-    protected String traceReferenceFrame(ReferenceFrame referenceFrame) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[" + referenceFrame.getDefinition().getKeplerianObject().getName() + " ");
-        sb.append(referenceFrame.getCartesianState().getPosition().getNorm() + " ");
-        sb.append(referenceFrame.getTimestamp() + "]");
-        if (referenceFrame.getParent()!=null) {
-            sb.append(traceReferenceFrame(referenceFrame.getParent()));
-        }
-        return sb.toString();
-    }
+//    protected String traceCartesianState(CartesianState cartesianState) {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("[C=" + cartesianState.getPosition().getNorm() + "] ");
+//        sb.append(traceReferenceFrame(cartesianState.getReferenceFrame()));
+//        return sb.toString();
+//    }
+//
+//    protected String traceReferenceFrame(ReferenceFrame referenceFrame) {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("[" + referenceFrame.getDefinition().getKeplerianObject().getName() + " ");
+//        sb.append(referenceFrame.getCartesianState().getPosition().getNorm() + " ");
+//        sb.append(referenceFrame.getTimestamp() + "]");
+//        if (referenceFrame.getParent()!=null) {
+//            sb.append(traceReferenceFrame(referenceFrame.getParent()));
+//        }
+//        return sb.toString();
+//    }
 
     public void setGravityFilter(GravityFilter gravityFilter) {
         this.gravityFilter = gravityFilter;
