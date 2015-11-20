@@ -119,6 +119,14 @@ public class TimeUtils {
         timeInterval.setEndTime(timestamp.add(duration));
         return timeInterval;
     }
+    
+    public static TimeInterval createInterval(Timestamp timestamp, Timestamp endTime) {
+        TimeInterval timeInterval = new TimeInterval();
+        timeInterval.setStartTime(timestamp);
+        timeInterval.setEndTime(endTime);
+        return timeInterval;
+    }
+
 
     public static boolean isTimestampInInterval(Timestamp timestamp, TimeInterval interval) {
         Assert.notNull(timestamp);

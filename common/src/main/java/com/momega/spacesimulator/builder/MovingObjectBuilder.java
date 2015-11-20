@@ -13,13 +13,16 @@ import com.momega.spacesimulator.dynamic.ReferenceFrameFactory;
 import com.momega.spacesimulator.model.BaryCentre;
 import com.momega.spacesimulator.model.CartesianState;
 import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.KeplerianObject;
 import com.momega.spacesimulator.model.KeplerianOrbit;
 import com.momega.spacesimulator.model.Model;
 import com.momega.spacesimulator.model.PhysicalBody;
+import com.momega.spacesimulator.model.Propulsion;
 import com.momega.spacesimulator.model.ReferenceFrame;
 import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 import com.momega.spacesimulator.model.Spacecraft;
+import com.momega.spacesimulator.model.SpacecraftState;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.service.CoordinateService;
@@ -143,5 +146,13 @@ public abstract class MovingObjectBuilder {
 
         return cartesianState;
     }
+    
+
+	public void initSpacecraftState(Spacecraft spacecraft, Propulsion propulsion, Instant instant) {
+		SpacecraftState spacecraftState = new SpacecraftState();
+		spacecraftState.setFuel(propulsion.getTotalFuel());
+		spacecraftState.setMass(spacecraft.getInitialMass());
+		instant.setSpacecraftState(spacecraftState);
+	}
 
 }

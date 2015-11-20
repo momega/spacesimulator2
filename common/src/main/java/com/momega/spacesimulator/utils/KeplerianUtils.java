@@ -48,6 +48,14 @@ public class KeplerianUtils {
         solveTheta(keplerianElements);
         return keplerianElements;
     }
+    
+    public double periapsisVelocity(KeplerianOrbit keplerianOrbit) {
+    	double mi = keplerianOrbit.getReferenceFrameDefinition().getKeplerianObject().getGravitationParameter();
+    	double a = keplerianOrbit.getSemimajorAxis();
+    	double e = keplerianOrbit.getEccentricity();
+    	double vp = FastMath.sqrt(mi/a*(1+e)/(1-e));
+    	return vp;
+    }
 
     /**
      * Updates theta in keplerian elements instance

@@ -5,15 +5,22 @@ import com.momega.spacesimulator.model.*;
 import com.momega.spacesimulator.service.ManeuverService;
 import com.momega.spacesimulator.utils.MathUtils;
 import com.momega.spacesimulator.utils.RotationUtils;
+
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.RotationOrder;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by martin on 11/1/15.
  */
+@Component
 public class ThrustModel implements ForceModel {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ThrustModel.class);
 
     @Autowired
     private RotationUtils rotationUtils;
@@ -44,6 +51,8 @@ public class ThrustModel implements ForceModel {
             result.setAcceleration(Vector3D.ZERO);
             return result;
         }
+        
+        logger.info("burst at {}", timestamp);
 
         double dm = propulsion.getMassFlow() * maneuver.getThrottle() * dt;
         double thrust = propulsion.getMassFlow() * maneuver.getThrottle() * propulsion.getSpecificImpulse() * MathUtils.G0;
@@ -56,6 +65,8 @@ public class ThrustModel implements ForceModel {
         Rotation r = new Rotation(RotationOrder.XZY, 0, maneuver.getThrottleAlpha(), maneuver.getThrottleDelta());
 
         Vector3D acceleration = r.applyTo(velocity.normalize()).scalarMultiply(a);
+        
+        logger.warn("burst at {} with acceleration {}", timestamp, acceleration);
 
         result.setSpacecraftState(newSpacecraftState);
         result.setAcceleration(acceleration);

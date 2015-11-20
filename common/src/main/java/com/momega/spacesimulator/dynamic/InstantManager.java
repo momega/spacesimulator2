@@ -56,6 +56,17 @@ public class InstantManager {
         addInstant(model, instant);
         return instant;
     }
+    
+    public Instant newInstant(Model model, MovingObject movingObject, Timestamp timestamp) {
+        Assert.notNull(model);
+        Assert.notNull(movingObject);
+        Assert.notNull(timestamp);
+        Instant instant = new Instant();
+        instant.setMovingObject(movingObject);
+        instant.setTimestamp(timestamp);
+        addInstant(model, instant);
+        return instant;
+    }
 
     public Instant newInstant(Model model, MovingObject movingObject, CartesianState cartesianState, KeplerianElements keplerianElements, Timestamp timestamp) {
         Assert.notNull(model);

@@ -4,7 +4,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.ReferenceFrameDefinition;
+import com.momega.spacesimulator.model.Spacecraft;
 
 /**
  * Created by martin on 10/19/15.
@@ -31,5 +33,6 @@ public class EarthMoonBuilder extends MovingObjectBuilder {
         insertKeplerianObject(earth);
         insertKeplerianObject(moon);
     }
+
 
 }
