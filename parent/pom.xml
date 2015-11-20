@@ -8,9 +8,9 @@
 
    <properties>
         <swt.version>4.4</swt.version>
-        <spring.version>4.2.2.RELEASE</spring.version>
+        <spring.version>4.2.3.RELEASE</spring.version>
         <jogl.version>2.2.4</jogl.version>
-        <joda.version>2.9</joda.version>
+        <joda.version>2.9.1</joda.version>
         <slf.version>1.7.12</slf.version>
         <gson.version>2.3.1</gson.version>
         <apache.math.version>3.5</apache.math.version>
