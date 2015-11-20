@@ -1,7 +1,7 @@
 package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.utils.KeplerianUtils;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.junit.Test;
 

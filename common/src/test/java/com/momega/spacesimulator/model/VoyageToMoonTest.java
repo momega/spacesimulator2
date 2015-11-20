@@ -62,7 +62,7 @@ public class VoyageToMoonTest {
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 0, DateTimeZone.UTC));
         double speed = 10844.0;
         
-        Future<?> f = taskExecutor.submit(new VoyageToMoonRunnable(timestamp, (double)speed));
+        Future<?> f = taskExecutor.submit(new VoyageToMoonRunnable(timestamp, speed));
         f.get();
     }
 

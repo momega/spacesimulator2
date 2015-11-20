@@ -11,7 +11,7 @@ import com.momega.spacesimulator.service.ApsisService;
 import com.momega.spacesimulator.service.CoordinateService;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.utils.TimeUtils;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;

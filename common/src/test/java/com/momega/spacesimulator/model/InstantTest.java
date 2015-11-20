@@ -2,7 +2,7 @@ package com.momega.spacesimulator.model;
 
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.utils.TimeUtils;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;

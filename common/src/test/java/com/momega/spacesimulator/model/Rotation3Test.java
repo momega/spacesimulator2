@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.model;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;

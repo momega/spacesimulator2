@@ -3,7 +3,7 @@ package com.momega.spacesimulator.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

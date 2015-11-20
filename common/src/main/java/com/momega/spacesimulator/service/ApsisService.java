@@ -8,7 +8,6 @@ import com.momega.spacesimulator.model.ApsisType;
 import com.momega.spacesimulator.model.CartesianState;
 import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.KeplerianElements;
-import com.momega.spacesimulator.model.KeplerianOrbit;
 import com.momega.spacesimulator.model.Model;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.utils.KeplerianUtils;
@@ -25,14 +24,9 @@ public class ApsisService {
     @Autowired
     private KeplerianUtils keplerianUtils;
 
-    public Instant getApsis(Model model, ApsisType apsisType, KeplerianOrbit keplerianOrbit, Timestamp timestamp) {
+    public Instant getApsis(Model model, ApsisType apsisType, KeplerianElements keplerianElements, Timestamp timestamp) {
         Apsis apsis = new Apsis();
         apsis.setType(apsisType);
-
-        KeplerianElements keplerianElements = new KeplerianElements();
-        keplerianElements.setTrueAnomaly(apsisType.getTrueAnomaly());
-        keplerianElements.setKeplerianOrbit(keplerianOrbit);
-        keplerianUtils.solveEccentricAnomaly(keplerianElements);
 
         Timestamp apsisTime = keplerianUtils.timeToAngle(keplerianElements, timestamp, apsisType.getTrueAnomaly(), true);
         CartesianState cartesianState = coordinateService.transform(model, apsisTime, keplerianElements);

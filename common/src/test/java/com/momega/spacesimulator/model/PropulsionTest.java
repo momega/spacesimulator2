@@ -3,10 +3,9 @@ package com.momega.spacesimulator.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -97,12 +96,6 @@ public class PropulsionTest {
         m.setInterval(TimeUtils.createInterval(timestamp.add(60*10), 120));
         maneuverService.addManeuver(m, spacecraft);
         
-        Maneuver m2 = new Maneuver();
-        m2.setThrottle(1.0);
-        m2.setThrottleAlpha(Math.PI);
-        m2.setInterval(TimeUtils.createInterval(timestamp.add(60*60*14), 120));
-        maneuverService.addManeuver(m2, spacecraft);
-        
         CartesianState cartesianState = mob.constructCartesianState(earth, spacecraft, timestamp, 300 * 1E3 + earth.getRadius(), 0, 6.0, 125, 138, speed);
 
         KeplerianElements keplerianElements = coordinateService.transform(cartesianState, timestamp);
@@ -124,10 +117,19 @@ public class PropulsionTest {
         logger.warn("end keplerian elements = {}", ei.getKeplerianElements());
         logger.warn("end velocity = {}", ei.getCartesianState().getVelocity().getNorm());
         double evp = keplerianUtils.periapsisVelocity(ei.getKeplerianElements().getKeplerianOrbit());
-        logger.warn("end velocity 2 = {}", evp);
+        logger.warn("end periapsis velocity = {}", evp);
         
         Assert.assertTrue("end velocity has to be greater than initial", evp>ivp);
-        
+
+        Instant apsis = apsisService.getApsis(model, ApsisType.PERIAPSIS, ei.getKeplerianElements(), timeInterval.getEndTime());
+        logger.warn("apsis timestamp = {}", TimeUtils.timeAsString(apsis.getTimestamp()));
+
+        Maneuver m2 = new Maneuver();
+        m2.setThrottle(1.0);
+        m2.setThrottleAlpha(Math.PI);
+        m2.setInterval(TimeUtils.createInterval(apsis.getTimestamp(), 30));
+        maneuverService.addManeuver(m2, spacecraft);
+
         Timestamp endTime2 = timestamp.add(60*60*17);
         TimeInterval timeInterval2 = TimeUtils.createInterval(endTime, endTime2);
         
@@ -137,6 +139,9 @@ public class PropulsionTest {
         logger.warn("end keplerian elements = {}", ei2.getKeplerianElements());
         logger.warn("end velocity = {}", ei2.getCartesianState().getVelocity().getNorm());
         double evp2 = keplerianUtils.periapsisVelocity(ei2.getKeplerianElements().getKeplerianOrbit());
-        logger.warn("end velocity 2 = {}", evp2);
+        logger.warn("end periapsis velocity = {}", evp2);
+
+        Assert.assertTrue("end velocity has to be smaller than velocity after the first burn", evp2<evp);
+        Assert.assertTrue("end velocity has to be greater than the initial velocity", evp2>ivp);
     }
 }

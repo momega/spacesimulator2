@@ -5,7 +5,7 @@ import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.propagator.PropagatorService;
 import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.utils.TimeUtils;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
