@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.momega.spacesimulator.builder.EarthMoonBuilder;
+import com.momega.spacesimulator.builder.VoyageToMoonBuilder;
 import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.propagator.PropagationResult;
@@ -26,9 +26,14 @@ import com.momega.spacesimulator.utils.TimeUtils;
  * Created by martin on 7/19/15.
  */
 @Component
-public class VoyageToMoon {
+@Scope("prototype")
+public class VoyageToMoonRunnable implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(VoyageToMoon.class);
+    private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonRunnable.class);
+    
+    private Timestamp timestamp;
+    
+    private double speed;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -54,30 +59,20 @@ public class VoyageToMoon {
     @Autowired
     private InstantManager instantManager;
 
-    public void run(Timestamp timestamp, double speed) {
+    public void run() {
         logger.info("Start at = {}", TimeUtils.toDateTime(timestamp).toString());
 
-        EarthMoonBuilder mob = applicationContext.getBean(EarthMoonBuilder.class);
+        VoyageToMoonBuilder mob = applicationContext.getBean(VoyageToMoonBuilder.class);
+        mob.setSpeed(speed);
         Assert.assertNotNull(mob);
 
         Model model = mob.build();
-        CelestialBody earth = (CelestialBody) modelService.findByName(model, "Earth");
-        CelestialBody moon = (CelestialBody) modelService.findByName(model, "Moon");
+        mob.computeInitInstants(timestamp);
+        
+        Spacecraft spacecraft = modelService.findAllSpacecrafts(model).get(0);
+        Assert.assertNotNull(spacecraft);
 
-        Spacecraft spacecraft = new Spacecraft();
-        spacecraft.setName("Satellite");
-        spacecraft.setTarget(moon);
-        spacecraft.setThreshold(1E6);
-        spacecraft.setEccentricityThreshold(1.02);
-        spacecraft.setMinimalDistance(spacecraft.getThreshold());
-        model.getMovingObjects().add(spacecraft);
-
-        mob.init(timestamp);
-
-        CartesianState cartesianState = mob.constructCartesianState(earth, spacecraft, timestamp, 300 * 1E3 + earth.getRadius(), 0, 6.0, 125, 138, speed);
-
-        KeplerianElements keplerianElements = coordinateService.transform(cartesianState, timestamp);
-        Instant si = instantManager.newInstant(model, spacecraft, cartesianState, keplerianElements, timestamp);
+        Instant si = instantManager.getInstant(model, spacecraft, timestamp);
 
         logger.info("Satellite start : {}", si.getCartesianState());
 
@@ -115,6 +110,7 @@ public class VoyageToMoon {
             logger.debug("Spacecraft minimum orbit = {}", minOrbit);
 
             Timestamp tMin = minimumInstant.getTimestamp();
+            logger.warn("timestamp at minimum = {}", TimeUtils.timeAsString(tMin));
             double diff = TimeUtils.getDuration(timeInterval.getStartTime(), tMin);
             logger.debug("Duration to min {}", TimeUtils.durationAsString(diff));
 
@@ -122,5 +118,13 @@ public class VoyageToMoon {
         }
 
     }
+    
+    public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+    
+    public void setSpeed(double speed) {
+		this.speed = speed;
+	}
 
 }

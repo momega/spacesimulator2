@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.momega.spacesimulator.model.BaryCentre;
 import com.momega.spacesimulator.model.CelestialBody;
-import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 
 /**
  * Created by martin on 10/23/15.
@@ -15,17 +14,15 @@ import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 public class SunEarthMoonBuilder extends MovingObjectBuilder {
 
     @Override
-    protected void initModel() {
+    protected void buildModel() {
         CelestialBody sun = new CelestialBody();
         sun.setName("Sun");
         updateMovingObject(sun, 1.989 * 1E6, 696.342, 25.05, 0d, 286.13, 63.87);
-
-        ReferenceFrameDefinition sunDefinition = referenceFrameFactory.createDefinition(sun, null);
-        model.setRootReferenceFrameDefinition(sunDefinition);
+        createReferenceFrameDefinition(sun);
 
         BaryCentre earthMoonBarycenter = new BaryCentre();
         earthMoonBarycenter.setName("Earth-Moon Barycenter");
-        createAndSetKeplerianOrbit(earthMoonBarycenter, sunDefinition, 149598.261d * 1E6, 0.0166739, 287.5824, 365.256814, 2456661.138788696378, 0.0018601064, 175.395d);
+        createAndSetKeplerianOrbit(earthMoonBarycenter, sun, 149598.261d * 1E6, 0.0166739, 287.5824, 365.256814, 2456661.138788696378, 0.0018601064, 175.395d);
 
         CelestialBody earth = new CelestialBody();
         earth.setName("Earth");
@@ -38,11 +35,8 @@ public class SunEarthMoonBuilder extends MovingObjectBuilder {
         addToBaryCentre(earthMoonBarycenter, earth);
         addToBaryCentre(earthMoonBarycenter, moon);
 
-        ReferenceFrameDefinition earthMoonDefinition = referenceFrameFactory.createDefinition(earthMoonBarycenter, sunDefinition);
-        createAndSetKeplerianOrbit(earth, earthMoonDefinition, 4.686955382086 * 1E6, 0.055557, 264.7609, 27.427302, 2456796.39770, 5.241500, 208.1199);
-        createAndSetKeplerianOrbit(moon, earthMoonDefinition, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.241500, 208.1199);
-
-        referenceFrameFactory.createDefinition(earth, earthMoonDefinition);
+        createAndSetKeplerianOrbit(earth, earthMoonBarycenter, 4.686955382086 * 1E6, 0.055557, 264.7609, 27.427302, 2456796.39770, 5.241500, 208.1199);
+        createAndSetKeplerianOrbit(moon, earthMoonBarycenter, 384.399 * 1E6, 0.055557, 84.7609, 27.427302, 2456796.39770989, 5.241500, 208.1199);
 
         insertKeplerianObject(sun);
         insertKeplerianObject(earthMoonBarycenter);

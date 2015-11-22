@@ -29,13 +29,6 @@ public class GravityModel implements ForceModel {
     @Autowired
     private CartesianUtils cartesianUtils;
 
-    private GravityFilter gravityFilter = new GravityFilter() {
-        @Override
-        public boolean filter(MovingObject movingObject) {
-            return movingObject instanceof CelestialBody;
-        }
-    };
-
     /**
      * Computes the total gravitational force (acceleration) from all celestial bodies in the system for the defined instant.
      * @param model the force
@@ -46,7 +39,7 @@ public class GravityModel implements ForceModel {
         Vector3D a = Vector3D.ZERO;
         logger.debug("time = {}", timestamp);
         for(KeplerianObject obj : modelService.findAllKeplerianObjects(model)) {
-            if (gravityFilter.filter(obj)) {
+            if (obj instanceof CelestialBody) {
                 Instant instant = keplerianPropagator.get(model, obj, timestamp);
 
                 Vector3D bodyPosition = cartesianUtils.transferToRoot(instant.getCartesianState()).getPosition();
@@ -85,7 +78,4 @@ public class GravityModel implements ForceModel {
 //        return sb.toString();
 //    }
 
-    public void setGravityFilter(GravityFilter gravityFilter) {
-        this.gravityFilter = gravityFilter;
-    }
 }

@@ -1,19 +1,11 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.builder.SunEarthMoonBuilder;
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.force.EarthGravityFilter;
-import com.momega.spacesimulator.propagator.force.GravityModel;
-import com.momega.spacesimulator.service.ApsisService;
-import com.momega.spacesimulator.service.CoordinateService;
-import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.TimeUtils;
-import org.junit.Assert;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,14 +14,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.momega.spacesimulator.builder.SunEarthMoonBuilder;
+import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.propagator.PropagationResult;
+import com.momega.spacesimulator.propagator.PropagatorService;
+import com.momega.spacesimulator.propagator.force.GravityModel;
+import com.momega.spacesimulator.service.ApsisService;
+import com.momega.spacesimulator.service.CoordinateService;
+import com.momega.spacesimulator.service.ModelService;
+import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
  * Created by martin on 8/25/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SimpleConfig.class})
+@ContextConfiguration(classes = {TestConfig.class})
 public class SunEarthMoonTest {
 
     private static final Logger logger = LoggerFactory.getLogger(EarthMoonTest.class);
@@ -60,7 +60,6 @@ public class SunEarthMoonTest {
 
     @Test
     public void sunEarthMoonTest() {
-        gravityModel.setGravityFilter(new EarthGravityFilter());
         Assert.assertNotNull(mob);
 
         Model model = mob.build();
@@ -71,7 +70,7 @@ public class SunEarthMoonTest {
         model.getMovingObjects().add(spacecraft);
 
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2015, 9, 23, 12, 0, DateTimeZone.UTC));
-        mob.init(timestamp);
+        mob.computeInitInstants(timestamp);
 
         KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(earth.getReferenceFrameDefinition(), 250 * 1E3 + earth.getRadius(), 0.001, 0, 90.0 * 60, timestamp, 0, 0);
         Instant si = keplerianPropagator.computeFromOrbit(model, spacecraft, craftOrbit, timestamp);
@@ -101,7 +100,7 @@ public class SunEarthMoonTest {
         si = result.getInstants().get(spacecraft);
         double rEnd = si.getCartesianState().getPosition().getNorm();
         logger.info("r-end = {}", rEnd);
-        Assert.assertEquals(rStart, rEnd, 2.0);
+        Assert.assertEquals(rStart, rEnd, 500.0);
 
 
     }

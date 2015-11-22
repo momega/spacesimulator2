@@ -3,15 +3,15 @@ package com.momega.spacesimulator.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,7 +19,6 @@ import com.momega.spacesimulator.builder.EarthMoonBuilder;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.force.EarthGravityFilter;
 import com.momega.spacesimulator.propagator.force.GravityModel;
 import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.utils.TimeUtils;
@@ -28,12 +27,13 @@ import com.momega.spacesimulator.utils.TimeUtils;
  * Created by martin on 7/19/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SimpleConfig.class})
+@ContextConfiguration(classes = {TestConfig.class})
 public class EarthMoonTest {
 
     private static final Logger logger = LoggerFactory.getLogger(EarthMoonTest.class);
 
     @Autowired
+    @Qualifier("earthMoonBuilder")
     private EarthMoonBuilder mob;
 
     @Autowired
@@ -50,8 +50,6 @@ public class EarthMoonTest {
 
     @Test
     public void earthMoonTest() {
-        gravityModel.setGravityFilter(new EarthGravityFilter());
-
         Model model = mob.build();
         CelestialBody earth = (CelestialBody) modelService.findByName(model, "Earth");
 
@@ -60,7 +58,7 @@ public class EarthMoonTest {
         model.getMovingObjects().add(spacecraft);
 
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2015, 9, 23, 12, 0, DateTimeZone.UTC));
-        mob.init(timestamp);
+        mob.computeInitInstants(timestamp);
 
         KeplerianOrbit craftOrbit = mob.createKeplerianOrbit(earth.getReferenceFrameDefinition(), 250 * 1E3 + earth.getRadius(), 0.001, 0, 90.0 * 60, timestamp, 0, 0);
         Instant si = keplerianPropagator.computeFromOrbit(model, spacecraft, craftOrbit, timestamp);
@@ -90,7 +88,7 @@ public class EarthMoonTest {
         double rEnd = si.getCartesianState().getPosition().getNorm();
         logger.info("r-end = {}", rEnd);
 
-        Assert.assertEquals(6621372.0, rEnd, 10.0);
+        Assert.assertEquals(6621372.0, rEnd, 500.0);
     }
 
 }

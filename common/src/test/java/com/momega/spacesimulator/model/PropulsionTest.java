@@ -32,7 +32,7 @@ import com.momega.spacesimulator.utils.TimeUtils;
  * Created by martin on 11/1/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SimpleConfig.class})
+@ContextConfiguration(classes = {TestConfig.class})
 public class PropulsionTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PropulsionTest.class);
@@ -72,7 +72,7 @@ public class PropulsionTest {
     	Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2016, 1, 1, 0, 0, DateTimeZone.UTC));
         double speed = 8200;
 
-        EarthMoonBuilder mob = applicationContext.getBean(EarthMoonBuilder.class);
+        EarthMoonBuilder mob = applicationContext.getBean("earthMoonBuilder", EarthMoonBuilder.class);
         Assert.assertNotNull(mob);
 
         Model model = mob.build();
@@ -89,7 +89,7 @@ public class PropulsionTest {
         propulsion.setTotalFuel(28000);
         spacecraft.setPropulsion(propulsion);
 
-        mob.init(timestamp);
+        mob.computeInitInstants(timestamp);
         
         Maneuver m = new Maneuver();
         m.setThrottle(1.0);
@@ -97,10 +97,10 @@ public class PropulsionTest {
         maneuverService.addManeuver(m, spacecraft);
         
         CartesianState cartesianState = mob.constructCartesianState(earth, spacecraft, timestamp, 300 * 1E3 + earth.getRadius(), 0, 6.0, 125, 138, speed);
-
-        KeplerianElements keplerianElements = coordinateService.transform(cartesianState, timestamp);
+        Instant si = mob.computeSpacecraftInstant(spacecraft, cartesianState, timestamp);
+        
+        KeplerianElements keplerianElements = si.getKeplerianElements();
         logger.warn("init keplerian elements = {}", keplerianElements);
-        Instant si = instantManager.newInstant(model, spacecraft, cartesianState, keplerianElements, timestamp);
         mob.initSpacecraftState(spacecraft, propulsion, si);
         logger.warn("init velocity = {}", si.getCartesianState().getVelocity().getNorm());
         double ivp = keplerianUtils.periapsisVelocity(keplerianElements.getKeplerianOrbit());

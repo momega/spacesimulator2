@@ -51,8 +51,6 @@ public class ThrustModel implements ForceModel {
             result.setAcceleration(Vector3D.ZERO);
             return result;
         }
-        
-        logger.info("burst at {}", timestamp);
 
         double dm = propulsion.getMassFlow() * maneuver.getThrottle() * dt;
         double thrust = propulsion.getMassFlow() * maneuver.getThrottle() * propulsion.getSpecificImpulse() * MathUtils.G0;
@@ -61,15 +59,17 @@ public class ThrustModel implements ForceModel {
         SpacecraftState newSpacecraftState = new SpacecraftState();
         newSpacecraftState.setMass(spacecraftState.getMass() - dm);
         newSpacecraftState.setFuel(spacecraftState.getFuel() - dm);
+        newSpacecraftState.setEngineActived(true);
 
         Rotation r = new Rotation(RotationOrder.XZY, 0, maneuver.getThrottleAlpha(), maneuver.getThrottleDelta());
 
         Vector3D acceleration = r.applyTo(velocity.normalize()).scalarMultiply(a);
         
-        logger.warn("burst at {} with acceleration {}", timestamp, acceleration);
+        logger.debug("burst at {} with acceleration {}", timestamp, acceleration);
 
         result.setSpacecraftState(newSpacecraftState);
         result.setAcceleration(acceleration);
+        
         return result;
     }
 }

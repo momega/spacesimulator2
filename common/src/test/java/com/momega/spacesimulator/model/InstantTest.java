@@ -47,6 +47,7 @@ public class InstantTest {
         for(int i=0; i<10; i++) {
             time = timestamp.add(i);
             Instant newInstant = instantManager.newInstant(model, movingObject, cartesianState, keplerianElements, time);
+            Assert.assertNotNull(newInstant);
         }
 
         Instant i1 = instantManager.getInstant(model, movingObject, time);

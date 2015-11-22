@@ -7,6 +7,7 @@ public class SpacecraftState {
 
     private double fuel;
     private double mass;
+    private boolean engineActived = false;
 
     public double getFuel() {
         return fuel;
@@ -23,4 +24,19 @@ public class SpacecraftState {
     public void setMass(double mass) {
         this.mass = mass;
     }
+    
+    public boolean isEngineActived() {
+		return engineActived;
+	}
+    
+    public void setEngineActived(boolean engineActived) {
+		this.engineActived = engineActived;
+	}
+
+	@Override
+	public String toString() {
+		return "SpacecraftState [mass=" + mass + ", fuel=" + fuel
+				+ ", engineActived=" + engineActived + "]";
+	}
+    
 }

@@ -51,7 +51,7 @@ public class KeplerianPropagator {
     public Instant compute(Model model, KeplerianObject keplerianObject, Timestamp newTimestamp) {
         KeplerianOrbit keplerianOrbit = keplerianObject.getKeplerianOrbit();
         if (keplerianOrbit == null) {
-            ReferenceFrameDefinition rfDef = model.getRootReferenceFrameDefinition();
+            ReferenceFrameDefinition rfDef = keplerianObject.getReferenceFrameDefinition();
             ReferenceFrame referenceFrame = referenceFrameFactory.getFrame(rfDef, model, newTimestamp);
             Instant instant = instantManager.newZeroInstance(model, keplerianObject, referenceFrame, newTimestamp);
             return instant;

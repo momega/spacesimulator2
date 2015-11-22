@@ -14,6 +14,7 @@ import com.momega.spacesimulator.model.BaryCentre;
 import com.momega.spacesimulator.model.CartesianState;
 import com.momega.spacesimulator.model.CelestialBody;
 import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianElements;
 import com.momega.spacesimulator.model.KeplerianObject;
 import com.momega.spacesimulator.model.KeplerianOrbit;
 import com.momega.spacesimulator.model.Model;
@@ -54,18 +55,19 @@ public abstract class MovingObjectBuilder {
     private InstantManager instantManager;
 
     @Autowired
-    private ModelService modelService;
+    protected ModelService modelService;
 
     @Autowired
-    protected ReferenceFrameFactory referenceFrameFactory;
+    private ReferenceFrameFactory referenceFrameFactory;
 
-    protected Model model = new Model();
+    protected Model model;
 
     /**
      * Builds model and returns the instance
      */
     public final Model build() {
-        initModel();
+    	model = new Model();
+        buildModel();
         logger.info("model initialized");
         return model;
     }
@@ -73,16 +75,23 @@ public abstract class MovingObjectBuilder {
     /**
      * Builds model and returns the instance
      */
-    public final Model init(Timestamp timestamp) {
+    public final Model computeInitInstants(Timestamp timestamp) {
         for(KeplerianObject ko : modelService.findAllKeplerianObjects(model) ) {
             keplerianPropagator.compute(model, ko, timestamp);
+        }
+        for(Spacecraft spacecraft : modelService.findAllSpacecrafts(model)) {
+        	initSpacecraft(spacecraft, timestamp);
         }
         logger.info("keplerian objects initialized");
         return model;
     }
 
 
-    protected abstract void initModel();
+    protected void initSpacecraft(Spacecraft spacecraft, Timestamp timestamp) {
+		// do nothing, ready for override
+	}
+
+	protected abstract void buildModel();
 
     public KeplerianOrbit createKeplerianOrbit(ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, Timestamp timeOfPeriapsis, double inclination, double ascendingNode) {
         KeplerianOrbit orbit = new KeplerianOrbit();
@@ -98,13 +107,15 @@ public abstract class MovingObjectBuilder {
         return orbit;
     }
 
-    public KeplerianOrbit createAndSetKeplerianOrbit(KeplerianObject keplerianObject, ReferenceFrameDefinition referenceFrameDefinition, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
+    public KeplerianOrbit createAndSetKeplerianOrbit(KeplerianObject keplerianObject, KeplerianObject parentKeplerianObject, double semimajorAxis, double eccentricity, double argumentOfPeriapsis, double period, double timeOfPeriapsis, double inclination, double ascendingNode) {
         Assert.notNull(keplerianObject);
-        Assert.notNull(referenceFrameDefinition);
+        Assert.notNull(parentKeplerianObject);
 
+        ReferenceFrameDefinition referenceFrameDefinition = parentKeplerianObject.getReferenceFrameDefinition();
         Timestamp t = TimeUtils.fromJulianDay(timeOfPeriapsis);
         KeplerianOrbit orbit = createKeplerianOrbit(referenceFrameDefinition, semimajorAxis, eccentricity, argumentOfPeriapsis, period * DateTimeConstants.SECONDS_PER_DAY, t, inclination, ascendingNode);
         keplerianObject.setKeplerianOrbit(orbit);
+        createReferenceFrameDefinition(keplerianObject, parentKeplerianObject);
         return orbit;
     }
 
@@ -146,13 +157,31 @@ public abstract class MovingObjectBuilder {
 
         return cartesianState;
     }
-    
 
 	public void initSpacecraftState(Spacecraft spacecraft, Propulsion propulsion, Instant instant) {
 		SpacecraftState spacecraftState = new SpacecraftState();
-		spacecraftState.setFuel(propulsion.getTotalFuel());
+		double fuel = (propulsion == null) ? 0 : propulsion.getTotalFuel();
+		spacecraftState.setFuel(fuel);
 		spacecraftState.setMass(spacecraft.getInitialMass());
 		instant.setSpacecraftState(spacecraftState);
+	}
+	
+	public Instant computeSpacecraftInstant(Spacecraft spacecraft, CartesianState cartesianState, Timestamp timestamp) {
+		KeplerianElements keplerianElements = coordinateService.transform(cartesianState, timestamp);
+        Instant result = instantManager.newInstant(model, spacecraft, cartesianState, keplerianElements, timestamp);
+		initSpacecraftState(spacecraft, spacecraft.getPropulsion(), result);
+        return result;
+	}
+	
+	protected ReferenceFrameDefinition createReferenceFrameDefinition(KeplerianObject keplerianObject) {
+		return createReferenceFrameDefinition(keplerianObject, null);
+	}
+	
+	private ReferenceFrameDefinition createReferenceFrameDefinition(KeplerianObject keplerianObject, KeplerianObject parentKeplerianObject) {
+		ReferenceFrameDefinition parent =  (parentKeplerianObject == null) ? null : parentKeplerianObject.getReferenceFrameDefinition();
+		ReferenceFrameDefinition result = referenceFrameFactory.createDefinition(keplerianObject, parent);
+		keplerianObject.setReferenceFrameDefinition(result);
+		return result;
 	}
 
 }

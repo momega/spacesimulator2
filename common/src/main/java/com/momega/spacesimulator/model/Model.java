@@ -15,7 +15,6 @@ public class Model {
 
     private List<MovingObject> movingObjects = new ArrayList<>();
     private Map<Timestamp, Map<MovingObject, Instant>> instants = new HashMap<>();
-    private ReferenceFrameDefinition rootReferenceFrameDefinition;
     private BoundedFifoBuffer timestamps;
 
     public List<MovingObject> getMovingObjects() {
@@ -24,14 +23,6 @@ public class Model {
 
     public void setMovingObjects(List<MovingObject> movingObjects) {
         this.movingObjects = movingObjects;
-    }
-
-    public ReferenceFrameDefinition getRootReferenceFrameDefinition() {
-        return rootReferenceFrameDefinition;
-    }
-
-    public void setRootReferenceFrameDefinition(ReferenceFrameDefinition rootReferenceFrameDefinition) {
-        this.rootReferenceFrameDefinition = rootReferenceFrameDefinition;
     }
 
     public Map<Timestamp, Map<MovingObject, Instant>> getInstants() {
