@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import com.momega.spacesimulator.builder.VoyageToMoonBuilder;
 import com.momega.spacesimulator.dynamic.InstantManager;
@@ -72,7 +72,7 @@ public class VoyageToMoonRunnable implements Callable<VoyageToMoonResult> {
 
         VoyageToMoonBuilder mob = applicationContext.getBean(VoyageToMoonBuilder.class);
         mob.setSpeed(speed);
-        Assert.assertNotNull(mob);
+        Assert.notNull(mob);
 
         Model model = mob.build();
         mob.computeInitInstants(timestamp);
@@ -80,7 +80,7 @@ public class VoyageToMoonRunnable implements Callable<VoyageToMoonResult> {
         CelestialBody moon = (CelestialBody) modelService.findByName(model, "Moon");
         
         Spacecraft spacecraft = modelService.findAllSpacecrafts(model).get(0);
-        Assert.assertNotNull(spacecraft);
+        Assert.notNull(spacecraft);
 
         Instant si = instantManager.getInstant(model, spacecraft, timestamp);
 
@@ -100,12 +100,12 @@ public class VoyageToMoonRunnable implements Callable<VoyageToMoonResult> {
 
         PropagationResult propagationResult = propagatorService.propagateTrajectories(model, list, timeInterval, 1);
         si = propagationResult.getInstants().get(spacecraft);
-        Assert.assertNotNull(si);
+        Assert.notNull(si);
 
-        Assert.assertEquals(3, propagationResult.getInstants().size());
+        Assert.isTrue(3 == propagationResult.getInstants().size());
 
         for(Instant i : propagationResult.getInstants().values()) {
-            Assert.assertNotNull(i);
+            Assert.notNull(i);
             logger.debug("Instant = {}:{}", i.getMovingObject().getName(), i.getKeplerianElements());
         }
 

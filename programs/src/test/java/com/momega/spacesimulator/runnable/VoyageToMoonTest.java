@@ -18,7 +18,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.momega.spacesimulator.runnable.TestConfig;
+import com.momega.spacesimulator.runnable.RunnableConfig;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.utils.TimeUtils;
 
@@ -26,7 +26,7 @@ import com.momega.spacesimulator.utils.TimeUtils;
  * Created by martin on 7/19/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestConfig.class})
+@ContextConfiguration(classes = {RunnableConfig.class})
 public class VoyageToMoonTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonTest.class);
@@ -70,6 +70,7 @@ public class VoyageToMoonTest {
     }
     
     @Test
+    @Ignore	
     public void indicativeVoyagerTest() {
     	VoyageToMoonResult min = new VoyageToMoonResult();
     	min.distance = Double.MAX_VALUE;

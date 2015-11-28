@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import com.momega.spacesimulator.builder.VoyageToMoonBuilder;
 import com.momega.spacesimulator.dynamic.InstantManager;
@@ -71,7 +71,7 @@ public class MoonOrbitRunnable implements Callable<MoonOrbitResult> {
         
         VoyageToMoonBuilder mob = applicationContext.getBean(VoyageToMoonBuilder.class);
         mob.setSpeed(speed);
-        Assert.assertNotNull(mob);
+        Assert.notNull(mob);
 
         Model model = mob.build();
         mob.computeInitInstants(timestamp);
@@ -79,7 +79,7 @@ public class MoonOrbitRunnable implements Callable<MoonOrbitResult> {
         CelestialBody moon = (CelestialBody) modelService.findByName(model, "Moon");
         
         Spacecraft spacecraft = modelService.findAllSpacecrafts(model).get(0);
-        Assert.assertNotNull(spacecraft);
+        Assert.notNull(spacecraft);
 
         Instant si = instantManager.getInstant(model, spacecraft, timestamp);
 
@@ -105,7 +105,7 @@ public class MoonOrbitRunnable implements Callable<MoonOrbitResult> {
         
         PropagationResult result = propagatorService.propagateTrajectories(model, list, timeInterval, 1);
         si = result.getInstants().get(spacecraft);
-        Assert.assertNotNull(si);
+        Assert.notNull(si);
       
         KeplerianElements burnKe = si.getTargetData().getKeplerianElements();
         logger.info("orbit at start of the burn = {}", burnKe);
@@ -115,7 +115,7 @@ public class MoonOrbitRunnable implements Callable<MoonOrbitResult> {
 
         result = propagatorService.propagateTrajectories(model, list, m.getInterval(), 1);
         si = result.getInstants().get(spacecraft);
-        Assert.assertNotNull(si);
+        Assert.notNull(si);
         
         KeplerianElements endKe = si.getTargetData().getKeplerianElements();
         velocity = si.getTargetData().getCartesianState().getVelocity().getNorm();
