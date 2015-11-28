@@ -33,6 +33,8 @@ public class InstantManager {
     }
 
     public Instant getInstant(Model model, MovingObject movingObject, Timestamp timestamp) {
+    	Assert.notNull(model);
+    	Assert.notNull(movingObject);
         Map<MovingObject, Instant> map = getInstants(model, timestamp);
         if (map == null) {
             return null;

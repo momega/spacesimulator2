@@ -1,4 +1,4 @@
-package com.momega.spacesimulator.model;
+package com.momega.spacesimulator.runnable;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,8 +13,8 @@ public class TestConfig {
     @Bean
     public ThreadPoolTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(100);
+        executor.setCorePoolSize(4);
+        executor.setMaxPoolSize(20);
         return executor;
     }
 

@@ -43,12 +43,10 @@ public class ModelService {
      * @param name the name
      * @return the keplerian object
      */
-    public KeplerianObject findByName(Model model, String name) {
+    public MovingObject findByName(Model model, String name) {
         for(MovingObject mo : model.getMovingObjects()) {
-            if (mo instanceof KeplerianObject) {
-                if (name.equals(mo.getName())) {
-                    return (KeplerianObject) mo;
-                }
+            if (name.equals(mo.getName())) {
+                return mo;
             }
         }
         return null;

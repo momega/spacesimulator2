@@ -16,6 +16,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.momega.spacesimulator.builder.SunEarthMoonBuilder;
 import com.momega.spacesimulator.dynamic.InstantManager;
+import com.momega.spacesimulator.model.CelestialBody;
+import com.momega.spacesimulator.model.Instant;
+import com.momega.spacesimulator.model.KeplerianOrbit;
+import com.momega.spacesimulator.model.Model;
+import com.momega.spacesimulator.model.MovingObject;
+import com.momega.spacesimulator.model.Spacecraft;
+import com.momega.spacesimulator.model.TimeInterval;
+import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.propagator.PropagationResult;
 import com.momega.spacesimulator.propagator.PropagatorService;
@@ -101,7 +109,5 @@ public class SunEarthMoonTest {
         double rEnd = si.getCartesianState().getPosition().getNorm();
         logger.info("r-end = {}", rEnd);
         Assert.assertEquals(rStart, rEnd, 500.0);
-
-
     }
 }

@@ -32,8 +32,8 @@ public class VoyageToMoonBuilder extends EarthMoonBuilder {
         spacecraft.setName("Satellite");
         spacecraft.setInitialMass(30000);
         spacecraft.setTarget(moon);
-        spacecraft.setThreshold(1E6);
-        spacecraft.setEccentricityThreshold(1.02);
+        spacecraft.setThreshold(2.5E6);
+        spacecraft.setEccentricityThreshold(1.25);
         spacecraft.setMinimalDistance(spacecraft.getThreshold());
         
         Propulsion propulsion = new Propulsion();
