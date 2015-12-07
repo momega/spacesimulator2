@@ -33,26 +33,26 @@ import com.momega.spacesimulator.utils.TimeUtils;
 @ContextConfiguration(classes = {VoyageToMoonConfig.class})
 public class MoonOrbitTest {
 	
-//	private static final Logger logger = LoggerFactory.getLogger(MoonOrbitTest.class);
-//	
-//	@Autowired
-//    private ThreadPoolTaskExecutor taskExecutor;
-//	
+	private static final Logger logger = LoggerFactory.getLogger(MoonOrbitTest.class);
+	
+	@Autowired
+    private ThreadPoolTaskExecutor taskExecutor;
+	
 //	@Autowired
 //    private VoyageToMoonRunnable voyageToMoonRunnable;
-//	
-//	@Autowired
-//    private MoonOrbitRunnable moonOrbitRunnable;
-//	
-//	@Autowired
-//    private InstantManager instantManager;
-//	
-//	@Autowired
-//    private ModelService modelService;
-//
-//    @Test
-//    @Ignore
-//    public void earthToMoonTest() throws InterruptedException, ExecutionException {
+	
+	@Autowired
+    private MoonOrbitRunnable moonOrbitRunnable;
+	
+	@Autowired
+    private InstantManager instantManager;
+	
+	@Autowired
+    private ModelService modelService;
+
+    @Test
+    @Ignore
+    public void earthToMoonTest() throws InterruptedException, ExecutionException {
 //        Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 0, DateTimeZone.UTC));
 //        double speed = 10844.0;
 //        
@@ -60,7 +60,7 @@ public class MoonOrbitTest {
 //    	voyageToMoonRunnable.setSpeed(speed);
 //        Future<?> f = taskExecutor.submit(voyageToMoonRunnable);
 //        f.get();
-//    }
+    }
 //    
 //    @Test
 //    @Ignore
