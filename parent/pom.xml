@@ -40,6 +40,11 @@
                 <artifactId>spacesimulator-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.momega.spacesimulator</groupId>
+                <artifactId>spacesimulator-programs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
