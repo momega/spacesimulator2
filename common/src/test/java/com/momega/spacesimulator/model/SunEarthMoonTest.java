@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.momega.spacesimulator.builder.SunEarthMoonBuilder;
-import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.CelestialBody;
 import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.KeplerianOrbit;
@@ -24,14 +22,16 @@ import com.momega.spacesimulator.model.MovingObject;
 import com.momega.spacesimulator.model.Spacecraft;
 import com.momega.spacesimulator.model.TimeInterval;
 import com.momega.spacesimulator.model.Timestamp;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.force.GravityModel;
 import com.momega.spacesimulator.service.ApsisService;
 import com.momega.spacesimulator.service.CoordinateService;
+import com.momega.spacesimulator.service.InstantManager;
 import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.builder.SunEarthMoonBuilder;
+import com.momega.spacesimulator.service.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.service.propagator.PropagationResult;
+import com.momega.spacesimulator.service.propagator.PropagatorService;
+import com.momega.spacesimulator.service.propagator.force.GravityModel;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * Created by martin on 8/25/15.

@@ -18,19 +18,20 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.momega.spacesimulator.dynamic.InstantManager;
+
+//import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.simulation.voyagetomoon.VoyageToMoonConfig;
+import com.momega.spacesimulator.service.utils.TimeUtils;
+import com.momega.spacesimulator.simulation.TestConfig;
 import com.momega.spacesimulator.simulation.voyagetomoon.VoyageToMoonCallable;
-import com.momega.spacesimulator.utils.TimeUtils;
 
 /**
  * @author martin
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {VoyageToMoonConfig.class})
+@ContextConfiguration(classes = {TestConfig.class})
 public class MoonOrbitTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MoonOrbitTest.class);
@@ -44,8 +45,8 @@ public class MoonOrbitTest {
 	@Autowired
     private MoonOrbitRunnable moonOrbitRunnable;
 	
-	@Autowired
-    private InstantManager instantManager;
+//	@Autowired
+//    private InstantManager instantManager;
 	
 	@Autowired
     private ModelService modelService;

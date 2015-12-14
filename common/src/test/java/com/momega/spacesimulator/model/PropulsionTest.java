@@ -15,18 +15,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.momega.spacesimulator.builder.EarthMoonBuilder;
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.force.GravityModel;
 import com.momega.spacesimulator.service.ApsisService;
 import com.momega.spacesimulator.service.CoordinateService;
+import com.momega.spacesimulator.service.InstantManager;
 import com.momega.spacesimulator.service.ManeuverService;
 import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.KeplerianUtils;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.builder.EarthMoonBuilder;
+import com.momega.spacesimulator.service.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.service.propagator.PropagationResult;
+import com.momega.spacesimulator.service.propagator.PropagatorService;
+import com.momega.spacesimulator.service.propagator.force.GravityModel;
+import com.momega.spacesimulator.service.utils.KeplerianUtils;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * Created by martin on 11/1/15.

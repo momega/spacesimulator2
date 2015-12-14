@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * Keplerian orbit contains all elements which defines single orbit. There multi infinite positions

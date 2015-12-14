@@ -1,10 +1,11 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.propagator.KeplerianPropagator;
-import com.momega.spacesimulator.propagator.PropagatorService;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.InstantManager;
+import com.momega.spacesimulator.service.propagator.KeplerianPropagator;
+import com.momega.spacesimulator.service.propagator.PropagationResult;
+import com.momega.spacesimulator.service.propagator.PropagatorService;
+import com.momega.spacesimulator.service.utils.TimeUtils;
+
 import org.junit.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

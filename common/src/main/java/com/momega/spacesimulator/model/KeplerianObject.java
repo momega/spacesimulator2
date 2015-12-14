@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.utils.MathUtils;
+import com.momega.spacesimulator.service.utils.MathUtils;
 
 /**
  * Created by martin on 8/25/15.

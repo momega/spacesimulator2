@@ -1,0 +1,67 @@
+package com.momega.spacesimulator.service.utils;
+
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.util.FastMath;
+
+/**
+ * Set of mathematical helper functions
+ *
+ * Created by martin on 5/6/14.
+ */
+public class MathUtils {
+	
+    /**
+     * Astronomical unit
+     */
+    public static final double AU = 149597870700d;
+    public static final double UNIVERSE_SIZE = AU * 100;
+
+    /**
+     * Gravitational constant
+     */
+    public static final double G = 6.67384*1E-11;
+
+    /**
+     * Standard gravity constant
+     */
+    public static final double G0 = 9.80665d;
+    
+    public static double fmod(double numer, double denom) {
+        double z = FastMath.floor(numer / denom);
+        numer = numer - z * denom;
+        return numer;
+    }
+    
+    
+    public static Double toDegrees(Double rad) {
+    	if (rad == null) {
+    		return null;
+    	}
+    	return Math.toDegrees(rad);
+    }    
+
+    /**
+     * Normalize angle between 0..2pi
+     * @param angle the angle
+     * @return the normalized angle
+     */
+    public static double normalizeAngle(double angle) {
+        return fmod(angle, 2 * Math.PI);
+    }
+
+    public static double[] solveQuadraticFunction(double a, double b, double c) {
+    	double D = b*b - 4*a*c;
+    	if (D<0) {
+    		return new double[] {};
+    	} else if (D == 0) {
+    		return new double[] { -b / 2 / a };
+    	} else {
+    		return new double[] { (-b - FastMath.sqrt(D)) / 2 / a, (-b + FastMath.sqrt(D)) / 2 / a };
+    	}
+    }
+
+    public static boolean equals(Vector3D v1, Vector3D v2, double precision) {
+        return v1.subtract(v2).getNorm()<precision;
+    }
+
+}

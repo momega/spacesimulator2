@@ -5,7 +5,8 @@ import com.momega.spacesimulator.model.Spacecraft;
 import com.momega.spacesimulator.model.TimeInterval;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.ManeuverService;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.utils.TimeUtils;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;

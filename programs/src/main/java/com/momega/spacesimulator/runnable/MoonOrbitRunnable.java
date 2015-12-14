@@ -15,8 +15,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import com.momega.spacesimulator.builder.VoyageToMoonBuilder;
-import com.momega.spacesimulator.dynamic.InstantManager;
 import com.momega.spacesimulator.model.CelestialBody;
 import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.KeplerianElements;
@@ -26,11 +24,13 @@ import com.momega.spacesimulator.model.MovingObject;
 import com.momega.spacesimulator.model.Spacecraft;
 import com.momega.spacesimulator.model.TimeInterval;
 import com.momega.spacesimulator.model.Timestamp;
-import com.momega.spacesimulator.propagator.PropagationResult;
-import com.momega.spacesimulator.propagator.PropagatorService;
+import com.momega.spacesimulator.service.InstantManager;
 import com.momega.spacesimulator.service.ManeuverService;
 import com.momega.spacesimulator.service.ModelService;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.builder.VoyageToMoonBuilder;
+import com.momega.spacesimulator.service.propagator.PropagationResult;
+import com.momega.spacesimulator.service.propagator.PropagatorService;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * @author martin

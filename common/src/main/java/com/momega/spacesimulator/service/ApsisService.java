@@ -10,7 +10,7 @@ import com.momega.spacesimulator.model.Instant;
 import com.momega.spacesimulator.model.KeplerianElements;
 import com.momega.spacesimulator.model.Model;
 import com.momega.spacesimulator.model.Timestamp;
-import com.momega.spacesimulator.utils.KeplerianUtils;
+import com.momega.spacesimulator.service.utils.KeplerianUtils;
 
 /**
  * Created by martin on 9/28/15.

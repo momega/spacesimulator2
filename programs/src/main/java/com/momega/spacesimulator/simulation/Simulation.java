@@ -1,28 +1,39 @@
 package com.momega.spacesimulator.simulation;
 
-import java.io.File;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class Simulation<I> implements Runnable {
+@Scope("prototype")
+public abstract class Simulation<P, I> implements Callable<List<I>> {
 	
 	private final static Logger logger = LoggerFactory.getLogger(Simulation.class);
 	
-	private Class<? extends SimulationCallable<I>> simulationClass;
+	private final Class<? extends SimulationCallable<I>> simulationClass;
+
+	private P parameters;
 	
+	protected Simulation(String name, P parameters, Class<? extends SimulationCallable<I>> simulationClass) {
+		super();
+		this.name = name;
+		this.parameters = parameters;
+		this.simulationClass = simulationClass;
+	}
+
 	@Autowired
     private ThreadPoolTaskExecutor taskExecutor;
 	
@@ -33,35 +44,52 @@ public abstract class Simulation<I> implements Runnable {
 	
 	private List<I> outputs = new ArrayList<I>();
 	
-	private File outputFile;
+	private String name;
+	private Date startedAt = null;
+	private Date finishedAt = null;
+	private int totalInputs = 0;
+	private int completedInputs = 0;
 	
-	public final void run() {
+	public final List<I> call() {
+		logger.info("Simulation {} started", simulationClass);
+		this.startedAt = new Date();
 		List<I> inputs = generateInputs();
 		for(I input : inputs) {
 			submitInput(input);
 		}
+		this.totalInputs = inputs.size();
+		this.completedInputs = 0;
 		
 		Predicate<I> testPredicate = createPredicate();
-		PrintWriter writer = null;
-		try {
-	        writer = new PrintWriter(new PrintWriter(outputFile, "UTF-8"), true);
-			Iterator<Future<I>> i = futures.iterator();
-	        while(i.hasNext()) {
-	            Future<I> f = i.next();
-	            try {
-	                I output = f.get();
-	                if (output!=null && testPredicate.test(output)) {
-	                	logger.warn("simulation output: {}", output);
-	                	writer.println(output.toString());
-	                	outputs.add(output);
-	                }
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        }
-		} catch (Exception e) {
-			IOUtils.closeQuietly(writer);
-		}
+		Iterator<Future<I>> i = futures.iterator();
+        while(i.hasNext()) {
+            Future<I> f = i.next();
+            try {
+                I output = f.get();
+                if (output!=null && testPredicate.test(output)) {
+                	logger.warn("output = {}", output);
+                	outputs.add(output);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            completedInputs++;
+        }
+		this.finishedAt = new Date();
+		logger.info("Simulation {} completed", simulationClass);
+		return getOutputs();
+	}
+	
+	public List<I> getOutputs() {
+		return Collections.unmodifiableList(outputs);
+	}
+	
+	public int getTotalInputs() {
+		return totalInputs;
+	}
+	
+	public int getCompletedInputs() {
+		return completedInputs;
 	}
 	
 	protected abstract Predicate<I> createPredicate();
@@ -75,11 +103,24 @@ public abstract class Simulation<I> implements Runnable {
 		futures.add(f);
 	}
 	
-	public void setSimulationClass(Class<? extends SimulationCallable<I>> simulationClass) {
-		this.simulationClass = simulationClass;
+	public P getParameters() {
+		return parameters;
 	}
 	
-	public void setOutputFile(File outputFile) {
-		this.outputFile = outputFile;
+	public boolean isRunning() {
+		return (this.startedAt != null);
 	}
+	
+	public Date getStarted() {
+		return startedAt;
+	}
+	
+	public Date getFinished() {
+		return finishedAt;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 }

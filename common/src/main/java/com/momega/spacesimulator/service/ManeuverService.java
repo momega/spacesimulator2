@@ -3,7 +3,8 @@ package com.momega.spacesimulator.service;
 import com.momega.spacesimulator.model.Maneuver;
 import com.momega.spacesimulator.model.Spacecraft;
 import com.momega.spacesimulator.model.Timestamp;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.utils.TimeUtils;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 

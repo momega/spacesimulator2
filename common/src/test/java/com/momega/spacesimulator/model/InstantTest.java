@@ -1,7 +1,8 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.dynamic.InstantManager;
-import com.momega.spacesimulator.utils.TimeUtils;
+import com.momega.spacesimulator.service.InstantManager;
+import com.momega.spacesimulator.service.utils.TimeUtils;
+
 import org.junit.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

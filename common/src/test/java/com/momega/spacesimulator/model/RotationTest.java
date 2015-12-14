@@ -1,7 +1,8 @@
 package com.momega.spacesimulator.model;
 
-import com.momega.spacesimulator.utils.MathUtils;
-import com.momega.spacesimulator.utils.RotationUtils;
+import com.momega.spacesimulator.service.utils.MathUtils;
+import com.momega.spacesimulator.service.utils.RotationUtils;
+
 import org.junit.Assert;
 import org.apache.commons.math3.geometry.euclidean.threed.SphericalCoordinates;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
