@@ -17,6 +17,7 @@ import com.momega.spacesimulator.model.TimeInterval;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.InstantManager;
 import com.momega.spacesimulator.service.propagator.feature.PropagatorFeature;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * Created by martin on 9/28/15.
@@ -49,7 +50,7 @@ public class PropagatorService {
     public PropagationResult propagateTrajectories(Model model, List<MovingObject> movingObjects, TimeInterval timeInterval, double dt) {
         PropagationResult result = new PropagationResult();
         Timestamp time = timeInterval.getStartTime();
-        logger.info("propagation started at {}", time);
+        logger.debug("propagation started at {}", TimeUtils.timeAsString(time));
         result.setStartTime(time);
         long t1 = System.nanoTime();
         while (!time.after(timeInterval.getEndTime())) {
@@ -80,7 +81,7 @@ public class PropagatorService {
         }
         long t2 = System.nanoTime();
         result.setExecTime(t2 - t1);
-        logger.info("propagation finished at {} in {}s ", time, result.getExecTime()/1000000000.0);
+        logger.debug("propagation finished at {} in {}s ", TimeUtils.timeAsString(time), result.getExecTime()/1000000000.0);
         result.setInstants(instantManager.getInstants(model, time));
         return result;
     }

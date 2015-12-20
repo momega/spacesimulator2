@@ -1,44 +1,156 @@
 [
   {
     "timestamp": {
-      "value": 1.41052125E9
+      "value": 1.41053732E9
     },
-    "speed": 10838.0,
-    "eccentricity": 1.241575224356818,
-    "distance": 1818656.4727922701,
-    "velocity": 2458.687552484419,
+    "speed": 10841.0,
+    "eccentricity": 1.2699155268147162,
+    "distance": 1858314.6304349157,
+    "velocity": 2447.6383192112044,
     "minTimestamp": {
-      "value": 1.410856769E9
+      "value": 1.410852149E9
     },
-    "duration": 335519.0,
-    "surface": 81656.47279227013
+    "duration": 314829.0,
+    "surface": 121314.63043491566
   },
   {
     "timestamp": {
-      "value": 1.41052126E9
+      "value": 1.41053733E9
     },
-    "speed": 10838.0,
-    "eccentricity": 1.2418433730774485,
-    "distance": 1820641.1811985956,
-    "velocity": 2457.494035395861,
+    "speed": 10841.0,
+    "eccentricity": 1.2703051586005674,
+    "distance": 1860958.6435402012,
+    "velocity": 2446.1088448536884,
     "minTimestamp": {
-      "value": 1.410856771E9
+      "value": 1.410852152E9
     },
-    "duration": 335511.0,
-    "surface": 83641.18119859556
+    "duration": 314822.0,
+    "surface": 123958.64354020124
   },
   {
     "timestamp": {
-      "value": 1.41052127E9
+      "value": 1.41053734E9
     },
-    "speed": 10838.0,
-    "eccentricity": 1.242111675258304,
-    "distance": 1822626.9772626217,
-    "velocity": 2456.3018908858517,
+    "speed": 10841.0,
+    "eccentricity": 1.2706969820274578,
+    "distance": 1863604.269293539,
+    "velocity": 2444.5828610756935,
     "minTimestamp": {
-      "value": 1.410856773E9
+      "value": 1.410852156E9
     },
-    "duration": 335503.0,
-    "surface": 85626.97726262175
+    "duration": 314816.0,
+    "surface": 126604.269293539
+  },
+  {
+    "timestamp": {
+      "value": 1.41053735E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2710871377131636,
+    "distance": 1866251.474790548,
+    "velocity": 2443.0583297927114,
+    "minTimestamp": {
+      "value": 1.410852159E9
+    },
+    "duration": 314809.0,
+    "surface": 129251.47479054797
+  },
+  {
+    "timestamp": {
+      "value": 1.41053736E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2714775577016733,
+    "distance": 1868900.620986865,
+    "velocity": 2441.5360647255056,
+    "minTimestamp": {
+      "value": 1.410852162E9
+    },
+    "duration": 314802.0,
+    "surface": 131900.6209868649
+  },
+  {
+    "timestamp": {
+      "value": 1.41053737E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2718701541629183,
+    "distance": 1871551.100350095,
+    "velocity": 2440.017422685992,
+    "minTimestamp": {
+      "value": 1.410852166E9
+    },
+    "duration": 314796.0,
+    "surface": 134551.10035009496
+  },
+  {
+    "timestamp": {
+      "value": 1.41053738E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2722610973795963,
+    "distance": 1874203.4374796762,
+    "velocity": 2438.500066974933,
+    "minTimestamp": {
+      "value": 1.410852169E9
+    },
+    "duration": 314789.0,
+    "surface": 137203.4374796762
+  },
+  {
+    "timestamp": {
+      "value": 1.41053739E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2726542071495086,
+    "distance": 1876857.5053341372,
+    "velocity": 2436.986087467163,
+    "minTimestamp": {
+      "value": 1.410852173E9
+    },
+    "duration": 314783.0,
+    "surface": 139857.50533413724
+  },
+  {
+    "timestamp": {
+      "value": 1.4105374E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2730456731527338,
+    "distance": 1879513.0319315065,
+    "velocity": 2435.4736186723026,
+    "minTimestamp": {
+      "value": 1.410852176E9
+    },
+    "duration": 314776.0,
+    "surface": 142513.03193150647
+  },
+  {
+    "timestamp": {
+      "value": 1.41053741E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2734374028372346,
+    "distance": 1882170.4982824936,
+    "velocity": 2433.9633899173214,
+    "minTimestamp": {
+      "value": 1.410852179E9
+    },
+    "duration": 314769.0,
+    "surface": 145170.49828249356
+  },
+  {
+    "timestamp": {
+      "value": 1.41053742E9
+    },
+    "speed": 10841.0,
+    "eccentricity": 1.2738312841964952,
+    "distance": 1884829.3895905297,
+    "velocity": 2432.4566839299428,
+    "minTimestamp": {
+      "value": 1.410852183E9
+    },
+    "duration": 314763.0,
+    "surface": 147829.38959052972
   }
 ]

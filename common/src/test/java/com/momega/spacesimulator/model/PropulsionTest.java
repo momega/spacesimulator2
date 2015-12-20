@@ -93,6 +93,7 @@ public class PropulsionTest {
         
         Maneuver m = new Maneuver();
         m.setThrottle(1.0);
+        m.setReferenceFrameDefinition(earth.getReferenceFrameDefinition());
         m.setInterval(TimeUtils.createInterval(timestamp.add(60*10), 120));
         maneuverService.addManeuver(m, spacecraft);
         
@@ -126,6 +127,7 @@ public class PropulsionTest {
 
         Maneuver m2 = new Maneuver();
         m2.setThrottle(1.0);
+        m2.setReferenceFrameDefinition(earth.getReferenceFrameDefinition());
         m2.setThrottleAlpha(Math.PI);
         m2.setInterval(TimeUtils.createInterval(apsis.getTimestamp(), 30));
         maneuverService.addManeuver(m2, spacecraft);

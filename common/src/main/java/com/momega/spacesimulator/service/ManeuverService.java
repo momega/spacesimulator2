@@ -20,6 +20,7 @@ public class ManeuverService {
      * @param spacecraft the spacecraft
      */
     public void addManeuver(Maneuver maneuver, Spacecraft spacecraft) {
+    	Assert.notNull(maneuver.getReferenceFrameDefinition());
         spacecraft.getManeuvers().add(maneuver);
     }
 

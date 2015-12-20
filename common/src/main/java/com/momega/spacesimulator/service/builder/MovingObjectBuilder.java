@@ -68,7 +68,7 @@ public abstract class MovingObjectBuilder {
     public final Model build() {
     	model = new Model();
         buildModel();
-        logger.info("model initialized");
+        logger.debug("model initialized");
         return model;
     }
 
@@ -82,7 +82,7 @@ public abstract class MovingObjectBuilder {
         for(Spacecraft spacecraft : modelService.findAllSpacecrafts(model)) {
         	initSpacecraft(spacecraft, timestamp);
         }
-        logger.info("keplerian objects initialized");
+        logger.debug("keplerian objects initialized");
         return model;
     }
 

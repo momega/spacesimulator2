@@ -49,7 +49,7 @@ public class VoyageToMoonSimulation extends Simulation<VoyageToMoonParameters, V
 		return new Predicate<VoyageToMoonResult>() {
 			@Override
 			public boolean test(VoyageToMoonResult output) {
-				return output.getSurface()>80E3 && output.getSurface()<200E3;
+				return output.getSurface()>120E3 && output.getSurface()<150E3;
 			}
 		};
 	}

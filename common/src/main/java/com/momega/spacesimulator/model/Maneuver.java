@@ -9,6 +9,7 @@ public class Maneuver {
     private double throttleAlpha;
     private double throttleDelta;
     private TimeInterval interval;
+    private ReferenceFrameDefinition referenceFrameDefinition; 
 
     public double getThrottle() {
         return throttle;
@@ -41,4 +42,12 @@ public class Maneuver {
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
     }
+    
+    public void setReferenceFrameDefinition(ReferenceFrameDefinition referenceFrameDefinition) {
+		this.referenceFrameDefinition = referenceFrameDefinition;
+	}
+    
+    public ReferenceFrameDefinition getReferenceFrameDefinition() {
+		return referenceFrameDefinition;
+	}
 }

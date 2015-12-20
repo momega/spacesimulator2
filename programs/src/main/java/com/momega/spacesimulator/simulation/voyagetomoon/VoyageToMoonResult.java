@@ -3,7 +3,6 @@
  */
 package com.momega.spacesimulator.simulation.voyagetomoon;
 
-import com.momega.spacesimulator.model.KeplerianElements;
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.utils.TimeUtils;
 

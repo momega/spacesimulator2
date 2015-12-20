@@ -20,6 +20,7 @@ import com.momega.spacesimulator.service.ModelService;
 import com.momega.spacesimulator.service.ReferenceFrameFactory;
 import com.momega.spacesimulator.service.propagator.KeplerianPropagator;
 import com.momega.spacesimulator.service.utils.CartesianUtils;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * Created by martin on 9/28/15.
@@ -78,6 +79,7 @@ public class TargetCalculationFeature implements PropagatorFeature {
                     double dist = targetData.getCartesianState().getPosition().getNorm();
                     double e = targetData.getKeplerianElements().getKeplerianOrbit().getEccentricity();
                     if (dist < spacecraft.getThreshold() && dist < spacecraft.getMinimalDistance() && e < spacecraft.getEccentricityThreshold()) {
+                    	logger.debug("threshold reached = {} at {}, distance = {}, velocity={}", relativeKe, TimeUtils.timeAsString(timestamp), dist - targetBody.getRadius(), si.getCartesianState().getVelocity().getNorm());
                         spacecraft.setMinimalDistance(dist);
                         spacecraft.setMinimalInstant(si);
                     }

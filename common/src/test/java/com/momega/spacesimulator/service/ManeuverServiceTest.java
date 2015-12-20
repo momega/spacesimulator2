@@ -1,6 +1,7 @@
 package com.momega.spacesimulator.service;
 
 import com.momega.spacesimulator.model.Maneuver;
+import com.momega.spacesimulator.model.ReferenceFrameDefinition;
 import com.momega.spacesimulator.model.Spacecraft;
 import com.momega.spacesimulator.model.TimeInterval;
 import com.momega.spacesimulator.model.Timestamp;
@@ -18,6 +19,8 @@ import org.junit.Test;
 public class ManeuverServiceTest {
 
     private ManeuverService maneuverService = new ManeuverService();
+    
+    ReferenceFrameDefinition rfd = new ReferenceFrameDefinition();
 
     @Test
     public void addTest() {
@@ -25,6 +28,7 @@ public class ManeuverServiceTest {
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 0, DateTimeZone.UTC));
         TimeInterval i1 = TimeUtils.createInterval(timestamp, 120);
         Maneuver m1 =  new Maneuver();
+        m1.setReferenceFrameDefinition(rfd);
         m1.setInterval(i1);
         m1.setThrottle(1.0);
 
@@ -43,6 +47,7 @@ public class ManeuverServiceTest {
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 0, DateTimeZone.UTC));
         TimeInterval i1 = TimeUtils.createInterval(timestamp, 120);
         Maneuver m1 =  new Maneuver();
+        m1.setReferenceFrameDefinition(rfd);
         m1.setInterval(i1);
         m1.setThrottle(1.0);
 
@@ -50,6 +55,7 @@ public class ManeuverServiceTest {
 
         TimeInterval i2 = TimeUtils.createInterval(timestamp.add(240), 60);
         Maneuver m2 =  new Maneuver();
+        m2.setReferenceFrameDefinition(rfd);
         m2.setInterval(i2);
         m2.setThrottle(1.0);
 
@@ -65,6 +71,7 @@ public class ManeuverServiceTest {
         Timestamp timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 0, DateTimeZone.UTC));
         TimeInterval i1 = TimeUtils.createInterval(timestamp, 120);
         Maneuver m1 =  new Maneuver();
+        m1.setReferenceFrameDefinition(rfd);
         m1.setInterval(i1);
         m1.setThrottle(1.0);
 
@@ -72,6 +79,7 @@ public class ManeuverServiceTest {
 
         TimeInterval i2 = TimeUtils.createInterval(timestamp.add(240), 60);
         Maneuver m2 =  new Maneuver();
+        m2.setReferenceFrameDefinition(rfd);
         m2.setInterval(i2);
         m2.setThrottle(1.0);
 

@@ -16,6 +16,5 @@ public class VoyageToMoonParameters {
 	public int startSpeed;
 	public int endSpeed;
 	public double stepInSeconds;
-	
 
 }
