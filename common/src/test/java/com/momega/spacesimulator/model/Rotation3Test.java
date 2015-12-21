@@ -1,8 +1,8 @@
 package com.momega.spacesimulator.model;
 
-import org.junit.Assert;
 import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.momega.spacesimulator.service.utils.MathUtils;
@@ -35,4 +35,17 @@ public class Rotation3Test {
 
         Assert.assertEquals(45, angle, 0.0001);
     }
+    
+    @Test
+    public void backwardTest() {
+    	Vector3D v = new Vector3D(774.1760814968, 1455.17306494, -315.4483668424);
+    	Vector3D vvv = v.negate();
+    	Rotation r = new Rotation(v, vvv);
+    	Vector3D vv = r.applyTo(v);
+    	
+    	Assert.assertTrue(vv.getX()<0);
+    	Assert.assertTrue(vv.getY()<0);
+    	Assert.assertTrue(vv.getZ()>0);
+    }
+
 }

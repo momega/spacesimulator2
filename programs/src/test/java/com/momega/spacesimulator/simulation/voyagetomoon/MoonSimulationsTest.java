@@ -40,11 +40,11 @@ public class MoonSimulationsTest {
     @Test
     public void moonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	MoonOrbitParameters parameters = new MoonOrbitParameters();
-    	parameters.timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 39, 00, DateTimeZone.UTC));
+    	parameters.timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 0, 00, DateTimeZone.UTC));
     	parameters.speed = 10841.0;
-    	parameters.minTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 58, 33, DateTimeZone.UTC));
+    	parameters.minTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 29, 23, DateTimeZone.UTC));
     	
-    	parameters.minBurnTime = 360;
+    	parameters.minBurnTime = 362;
     	parameters.maxBurnTime = parameters.minBurnTime+10;
     	parameters.burnTimeStep = 10;
     	

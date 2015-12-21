@@ -8,6 +8,7 @@ public class Maneuver {
     private double throttle;
     private double throttleAlpha;
     private double throttleDelta;
+    private boolean inverse;
     private TimeInterval interval;
     private ReferenceFrameDefinition referenceFrameDefinition; 
 
@@ -49,5 +50,13 @@ public class Maneuver {
     
     public ReferenceFrameDefinition getReferenceFrameDefinition() {
 		return referenceFrameDefinition;
+	}
+    
+    public void setInverse(boolean inverse) {
+		this.inverse = inverse;
+	}
+    
+    public boolean isInverse() {
+		return inverse;
 	}
 }

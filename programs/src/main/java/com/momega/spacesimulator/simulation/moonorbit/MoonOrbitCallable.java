@@ -69,7 +69,7 @@ public class MoonOrbitCallable extends SimulationCallable<MoonOrbitResult> {
 		double burnTime = input.burnTime;
 		Timestamp startBurnTime = input.startBurnTime;
 		
-        logger.info("Start at = {}", TimeUtils.toDateTime(timestamp).toString());
+        logger.info("Start at = {}", TimeUtils.timeAsString(timestamp));
         
         VoyageToMoonBuilder mob = applicationContext.getBean(VoyageToMoonBuilder.class);
         mob.setSpeed(speed);
@@ -102,7 +102,7 @@ public class MoonOrbitCallable extends SimulationCallable<MoonOrbitResult> {
         Maneuver m = new Maneuver();
         m.setThrottle(1.0);
         m.setInterval(TimeUtils.createInterval(tBurn, burnTime));
-        m.setThrottleAlpha(Math.PI);
+        m.setInverse(true);
         m.setReferenceFrameDefinition(moon.getReferenceFrameDefinition());
         maneuverService.addManeuver(m, spacecraft);
         

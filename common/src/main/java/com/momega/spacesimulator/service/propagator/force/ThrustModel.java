@@ -21,6 +21,7 @@ import com.momega.spacesimulator.service.ManeuverService;
 import com.momega.spacesimulator.service.utils.CartesianUtils;
 import com.momega.spacesimulator.service.utils.MathUtils;
 import com.momega.spacesimulator.service.utils.RotationUtils;
+import com.momega.spacesimulator.service.utils.TimeUtils;
 
 /**
  * Created by martin on 11/1/15.
@@ -63,6 +64,8 @@ public class ThrustModel implements ForceModel {
         }
         
         Vector3D velocity = instant.getCartesianState().getVelocity();
+        
+        logger.debug("velocity = |{}| or {}", velocity.getNorm(), velocity);
 
         double dm = propulsion.getMassFlow() * maneuver.getThrottle() * dt;
         double thrust = propulsion.getMassFlow() * maneuver.getThrottle() * propulsion.getSpecificImpulse() * MathUtils.G0;
@@ -73,11 +76,15 @@ public class ThrustModel implements ForceModel {
         newSpacecraftState.setFuel(spacecraftState.getFuel() - dm);
         newSpacecraftState.setEngineActived(true);
 
-        Rotation r = new Rotation(RotationOrder.XZY, 0, maneuver.getThrottleAlpha(), maneuver.getThrottleDelta());
-
-        Vector3D acceleration = r.applyTo(velocity.normalize()).scalarMultiply(a);
+        Vector3D acceleration;
+        if (maneuver.isInverse()) {
+        	acceleration = velocity.negate().normalize().scalarMultiply(a);
+        } else {
+        	Rotation r = new Rotation(RotationOrder.ZXZ, 0, maneuver.getThrottleAlpha(), maneuver.getThrottleDelta());
+        	acceleration = r.applyTo(velocity.normalize()).scalarMultiply(a);
+        }
         
-        logger.debug("burst at {} with acceleration {}", timestamp, acceleration);
+        logger.debug("burst at {} with acceleration |{}| or vector {} ", TimeUtils.timeAsString(timestamp), acceleration.getNorm(), acceleration);
 
         result.setSpacecraftState(newSpacecraftState);
         result.setAcceleration(acceleration);
