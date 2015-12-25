@@ -6,6 +6,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.momega.spacesimulator.model.Timestamp;
 
 /**
  * Created by martin on 7/19/15.
@@ -25,6 +26,7 @@ public class TestConfig {
     public Gson createGsonHttpMessageConverter() {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
+                .registerTypeAdapter(Timestamp.class, new TimestampTypeAdapter())
                 .serializeNulls()
                 .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
                 .create();

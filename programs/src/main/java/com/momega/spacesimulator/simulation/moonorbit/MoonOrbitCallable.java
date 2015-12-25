@@ -69,7 +69,7 @@ public class MoonOrbitCallable extends SimulationCallable<MoonOrbitResult> {
 		double burnTime = input.burnTime;
 		Timestamp startBurnTime = input.startBurnTime;
 		
-        logger.info("Start at = {}", TimeUtils.timeAsString(timestamp));
+        logger.info("Start at = {}, start burn time = {}", TimeUtils.timeAsString(timestamp), TimeUtils.timeAsString(startBurnTime));
         
         VoyageToMoonBuilder mob = applicationContext.getBean(VoyageToMoonBuilder.class);
         mob.setSpeed(speed);
@@ -134,7 +134,6 @@ public class MoonOrbitCallable extends SimulationCallable<MoonOrbitResult> {
         r.period = endKe.getKeplerianOrbit().getPeriod();
         r.perilune = endKe.getKeplerianOrbit().getSemimajorAxis() * (1 - endKe.getKeplerianOrbit().getEccentricity()) - moon.getRadius();
         r.apolune = endKe.getKeplerianOrbit().getSemimajorAxis() * (1 + endKe.getKeplerianOrbit().getEccentricity()) - moon.getRadius();
-        r.ke = endKe;
         r.velocity = velocity;
         logger.info("final ellipses {}km by {}km", r.perilune / 1000, r.apolune/1000);
         logger.info("start burn = {}, burn time = {}, orbit at end of the burn = {}, end vel = {}, perilune {}km, apolune= {}km", TimeUtils.timeAsString(r.startBurnTime), r.burnTime, endKe, r.velocity, r.perilune / 1000, r.apolune/1000);

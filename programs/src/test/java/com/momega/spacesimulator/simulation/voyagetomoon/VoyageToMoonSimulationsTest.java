@@ -72,7 +72,7 @@ public class VoyageToMoonSimulationsTest {
     }
     
     @Test
-    //@Ignore
+    @Ignore
     public void shortVoyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	VoyageToMoonParameters parameters = new VoyageToMoonParameters();
     	parameters.startTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 50, DateTimeZone.UTC));

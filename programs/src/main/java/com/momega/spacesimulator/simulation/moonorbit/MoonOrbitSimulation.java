@@ -30,7 +30,7 @@ public class MoonOrbitSimulation extends Simulation<MoonOrbitParameters, MoonOrb
 		return new Predicate<MoonOrbitResult>() {
 			@Override
 			public boolean test(MoonOrbitResult m) {
-				return m.eccentricity<0.7 && m.perilune>70E3 && m.perilune<150E3;
+				return m.eccentricity<0.4 && m.perilune>70E3 && m.apolune<1770E3;
 			}
 		};
 	}
@@ -38,19 +38,24 @@ public class MoonOrbitSimulation extends Simulation<MoonOrbitParameters, MoonOrb
 	@Override
 	protected List<MoonOrbitResult> generateInputs() {
 		MoonOrbitParameters parameters = getParameters();
-		double speed = parameters.speed;
-		Timestamp startTime = parameters.timestamp;
-		Timestamp minTime = parameters.minTime;
-		
         List<MoonOrbitResult> inputs = new ArrayList<>();
-        //for(int burnTime=parameters.minBurnTime; burnTime<parameters.maxBurnTime; burnTime+=parameters.burnTimeStep) {
-    		MoonOrbitResult mor = new MoonOrbitResult();
-    		mor.timestamp = startTime;
-    		mor.speed = speed;
-    		mor.startBurnTime = minTime;
-    		mor.burnTime = parameters.minBurnTime;
-    		inputs.add(mor);
-    	//}
+        
+		Timestamp t = parameters.startTime;
+        while(t.before(parameters.endTime)) {
+        	Timestamp bt = parameters.startBurnTime;
+        	while (bt.before(parameters.endBurnTime)) {
+        		MoonOrbitResult mor = new MoonOrbitResult();
+        		mor.timestamp = t;
+        		mor.speed = parameters.speed; 
+        		mor.startBurnTime = bt;
+        		mor.burnTime = parameters.burnTime;
+        		inputs.add(mor);
+        		
+        		bt = bt.add(parameters.stepTime);
+        	}
+        	t = t.add(parameters.stepTime);
+        }
+    		
         return inputs;
 	}
 

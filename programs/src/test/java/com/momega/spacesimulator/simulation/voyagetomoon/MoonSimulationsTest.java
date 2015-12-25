@@ -9,6 +9,7 @@ import java.util.concurrent.Future;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +39,46 @@ public class MoonSimulationsTest {
     private Gson gson;
     
     @Test
-    public void moonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
+    public void shortMoonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	MoonOrbitParameters parameters = new MoonOrbitParameters();
-    	parameters.timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 0, 00, DateTimeZone.UTC));
+    	parameters.startTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 49, 22, DateTimeZone.UTC));
+    	parameters.endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 49, 23, DateTimeZone.UTC));
     	parameters.speed = 10841.0;
-    	parameters.minTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 29, 23, DateTimeZone.UTC));
-    	
-    	parameters.minBurnTime = 362;
-    	parameters.maxBurnTime = parameters.minBurnTime+10;
-    	parameters.burnTimeStep = 10;
-    	
-//    	parameters.timestamp = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 31, 50, DateTimeZone.UTC));
-//    	parameters.speed = 10838.0;
-//    	parameters.minTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 8, 40, 22, DateTimeZone.UTC));
-//    	parameters.minBurnTime = 1000;
-//    	parameters.maxBurnTime = 2400;
-//    	parameters.burnTimeStep = 10;    	
+    	parameters.startBurnTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 48, 30, DateTimeZone.UTC));
+    	parameters.endBurnTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 48, 31, DateTimeZone.UTC));
+    	parameters.stepTime = 1.0;
+    	parameters.burnTime = 362.0;
     	
     	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationsHolder.createSimulation(MoonOrbitSimulation.class, parameters);
 		Future<List<MoonOrbitResult>> f = simulationsHolder.getFuture(simulation);
+		
 		List<MoonOrbitResult> results = f.get();
-//    	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));
-//    	gson.toJson(results, writer);
-//    	writer.flush();
-//    	writer.close();
+    	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));
+    	gson.toJson(results, writer);
+    	writer.flush();
+    	writer.close();
+    }    
+    
+    @Test
+    @Ignore
+    public void moonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
+    	MoonOrbitParameters parameters = new MoonOrbitParameters();
+    	parameters.startTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 40, 0, DateTimeZone.UTC));
+    	parameters.endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 59, 0, DateTimeZone.UTC));
+    	parameters.speed = 10841.0;
+    	parameters.startBurnTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 45, 0, DateTimeZone.UTC));
+    	parameters.endBurnTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 52, 0, DateTimeZone.UTC));
+    	parameters.stepTime = 10.0;
+    	parameters.burnTime = 362.0;
+    	
+    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationsHolder.createSimulation(MoonOrbitSimulation.class, parameters);
+		Future<List<MoonOrbitResult>> f = simulationsHolder.getFuture(simulation);
+		
+		List<MoonOrbitResult> results = f.get();
+    	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));
+    	gson.toJson(results, writer);
+    	writer.flush();
+    	writer.close();
     }
 
 }

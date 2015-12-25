@@ -126,6 +126,11 @@ public class TimeUtils {
         timeInterval.setEndTime(endTime);
         return timeInterval;
     }
+    
+    public static Timestamp parseTimestamp(String value) {
+    	DateTime dt = UTC_FORMATTER.parseDateTime(value);
+    	return fromDateTime(dt);
+    }
 
 
     public static boolean isTimestampInInterval(Timestamp timestamp, TimeInterval interval) {

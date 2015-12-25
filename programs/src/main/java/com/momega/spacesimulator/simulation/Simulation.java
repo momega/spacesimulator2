@@ -67,13 +67,14 @@ public abstract class Simulation<P, I> implements Callable<List<I>> {
             try {
                 I output = f.get();
                 if (output!=null && testPredicate.test(output)) {
-                	logger.info("output = {}", output);
+                	logger.warn("output = {}", output);
                 	outputs.add(output);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             completedInputs++;
+            logger.info("{}/{}", completedInputs, totalInputs);
         }
 		this.finishedAt = new Date();
 		logger.info("Simulation {} completed", simulationClass);
