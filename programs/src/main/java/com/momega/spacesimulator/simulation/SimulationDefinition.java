@@ -37,8 +37,18 @@ public abstract class SimulationDefinition {
         PropertyDescriptor[] descriptors = BeanUtils.getPropertyDescriptors(parametersClass);
         Map<String, String> result = new HashMap<>();
         for(PropertyDescriptor d : descriptors) {
-            result.put(d.getName(), d.getPropertyType().getName());
+        	if (!d.getName().equals("class")) {
+        		result.put(d.getName(), d.getPropertyType().getName());
+        	}
         }
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "SimulationDefinition [name=" + name + ", simulationClass="
+				+ simulationClass + ", parametersClass=" + parametersClass
+				+ "]";
+	}
+    
 }

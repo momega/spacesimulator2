@@ -39,11 +39,11 @@ public class VoyageToMoonSimulationsTest {
     @Ignore
     public void indicativeVoyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	VoyageToMoonParameters parameters = new VoyageToMoonParameters();
-    	parameters.startTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 7, 0, DateTimeZone.UTC));
-    	parameters.endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 18, 0, DateTimeZone.UTC));
-    	parameters.startSpeed = 10835;
-    	parameters.endSpeed = 10842;
-    	parameters.stepInSeconds = 120.0;
+    	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 7, 0, DateTimeZone.UTC)));
+    	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 18, 0, DateTimeZone.UTC)));
+    	parameters.setStartSpeed(10835);
+    	parameters.setEndSpeed(10842);
+    	parameters.setStepInSeconds(120.0);
     	
     	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
 		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
@@ -56,11 +56,11 @@ public class VoyageToMoonSimulationsTest {
     @Ignore
     public void voyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	VoyageToMoonParameters parameters = new VoyageToMoonParameters();
-    	parameters.startTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 30, DateTimeZone.UTC));
-    	parameters.endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 36, DateTimeZone.UTC));
-    	parameters.startSpeed = 10837;
-    	parameters.endSpeed = 10840;
-    	parameters.stepInSeconds = 10.0;
+    	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 30, DateTimeZone.UTC)));
+    	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 36, DateTimeZone.UTC)));
+    	parameters.setStartSpeed(10837);
+    	parameters.setEndSpeed(10840);
+    	parameters.setStepInSeconds(10.0);
     	
     	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
 		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
@@ -75,11 +75,11 @@ public class VoyageToMoonSimulationsTest {
     @Ignore
     public void shortVoyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	VoyageToMoonParameters parameters = new VoyageToMoonParameters();
-    	parameters.startTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 50, DateTimeZone.UTC));
-    	parameters.endTime = TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 00, DateTimeZone.UTC));
-    	parameters.startSpeed = 10839;
-    	parameters.endSpeed = 10843;
-    	parameters.stepInSeconds = 10.0;
+    	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 50, DateTimeZone.UTC)));
+    	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 16, 00, DateTimeZone.UTC)));
+    	parameters.setStartSpeed(10839);
+    	parameters.setEndSpeed(10843);
+    	parameters.setStepInSeconds(10.0);
     	
     	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
 		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);

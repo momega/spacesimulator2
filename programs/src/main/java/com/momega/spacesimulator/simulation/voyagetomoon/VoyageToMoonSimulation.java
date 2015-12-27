@@ -27,18 +27,18 @@ public class VoyageToMoonSimulation extends Simulation<VoyageToMoonParameters, V
 	@Override
 	protected List<VoyageToMoonResult> generateInputs() {
 		VoyageToMoonParameters parameters = getParameters();
-		Timestamp timestamp = parameters.startTime;
-        Timestamp endTime = parameters.endTime;
+		Timestamp timestamp = parameters.getStartTime();
+        Timestamp endTime = parameters.getEndTime();
         Timestamp t = timestamp;
         List<VoyageToMoonResult> result = new ArrayList<>();
         while(t.before(endTime)) {
-            for(int speed=parameters.startSpeed; speed<parameters.endSpeed; speed++) {
+            for(int speed=parameters.getStartSpeed(); speed<parameters.getEndSpeed(); speed++) {
             	VoyageToMoonResult input = new VoyageToMoonResult();
             	input.setTimestamp(t);
             	input.setSpeed(speed);
             	result.add(input);
             }
-            t = t.add(parameters.stepInSeconds);
+            t = t.add(parameters.getStepInSeconds());
         }
         return result;
 	}
