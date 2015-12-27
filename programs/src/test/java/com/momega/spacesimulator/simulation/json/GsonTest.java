@@ -5,14 +5,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import com.momega.spacesimulator.simulation.test.TestSimulationResult;
+import com.momega.spacesimulator.simulation.test.TestResult;
 
 public class GsonTest {
 
 	@Test
 	public void basicTest() {
 		Gson gson = new Gson();
-		TestSimulationResult r = new TestSimulationResult();
+		TestResult r = new TestResult();
 		r.setFinished(true);
 		r.setNumber(1);
 		String s = gson.toJson(r);

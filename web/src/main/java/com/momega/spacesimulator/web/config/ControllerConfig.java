@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"com.momega.spacesimulator.web.controller"})
-public class ControllerConfiguration extends WebMvcConfigurerAdapter {
+public class ControllerConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

@@ -21,8 +21,8 @@ import com.momega.spacesimulator.simulation.Simulation;
 @Scope("prototype")
 public class MoonOrbitSimulation extends Simulation<MoonOrbitParameters, MoonOrbitResult> {
 
-	protected MoonOrbitSimulation(MoonOrbitParameters parameters) {
-		super("Moon Orbit", parameters, MoonOrbitCallable.class);
+	protected MoonOrbitSimulation() {
+		super("Moon Orbit", MoonOrbitCallable.class);
 	}
 
 	@Override
@@ -40,20 +40,20 @@ public class MoonOrbitSimulation extends Simulation<MoonOrbitParameters, MoonOrb
 		MoonOrbitParameters parameters = getParameters();
         List<MoonOrbitResult> inputs = new ArrayList<>();
         
-		Timestamp t = parameters.startTime;
-        while(t.before(parameters.endTime)) {
-        	Timestamp bt = parameters.startBurnTime;
-        	while (bt.before(parameters.endBurnTime)) {
+		Timestamp t = parameters.getStartTime();
+        while(t.before(parameters.getEndTime())) {
+        	Timestamp bt = parameters.getStartBurnTime();
+        	while (bt.before(parameters.getEndBurnTime())) {
         		MoonOrbitResult mor = new MoonOrbitResult();
         		mor.timestamp = t;
-        		mor.speed = parameters.speed; 
+        		mor.speed = parameters.getSpeed();
         		mor.startBurnTime = bt;
-        		mor.burnTime = parameters.burnTime;
+        		mor.burnTime = parameters.getBurnTime();
         		inputs.add(mor);
         		
-        		bt = bt.add(parameters.stepTime);
+        		bt = bt.add(parameters.getStepTime());
         	}
-        	t = t.add(parameters.stepTime);
+        	t = t.add(parameters.getStepTime());
         }
     		
         return inputs;

@@ -25,11 +25,11 @@ public class TestSimulationTest {
 	
 	@Test
 	public void runSimulation() throws InterruptedException, ExecutionException, FileNotFoundException {
-		TestSimulationParameters parameters = new TestSimulationParameters();
+		TestParameters parameters = new TestParameters();
 		parameters.count = 10;
-		Simulation<TestSimulationParameters, TestSimulationResult> simulation = simulationsHolder.createSimulation(TestSimulation.class, parameters);
-		Future<List<TestSimulationResult>> f = simulationsHolder.getFuture(simulation);
-		List<TestSimulationResult> list = f.get();
+		Simulation<TestParameters, TestResult> simulation = simulationsHolder.createAndRunSimulation(TestSimulation.class, parameters);
+		Future<List<TestResult>> f = simulationsHolder.getFuture(simulation);
+		List<TestResult> list = f.get();
 		Assert.assertNotNull(list);
 		Assert.assertEquals(10, list.size());
 	}

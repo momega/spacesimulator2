@@ -25,7 +25,7 @@ public abstract class SimulationCallable<I> implements Callable<I>, Function<I, 
 	}
 
 	@Override
-	public I call() throws Exception {
+	public final I call() throws Exception {
 		return apply(input);
 	}
 

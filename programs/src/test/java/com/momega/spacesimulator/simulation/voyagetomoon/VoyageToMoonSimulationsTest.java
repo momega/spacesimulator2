@@ -45,7 +45,7 @@ public class VoyageToMoonSimulationsTest {
     	parameters.endSpeed = 10842;
     	parameters.stepInSeconds = 120.0;
     	
-    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createSimulation(VoyageToMoonSimulation.class, parameters);
+    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
 		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
 		List<VoyageToMoonResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
@@ -62,7 +62,7 @@ public class VoyageToMoonSimulationsTest {
     	parameters.endSpeed = 10840;
     	parameters.stepInSeconds = 10.0;
     	
-    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createSimulation(VoyageToMoonSimulation.class, parameters);
+    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
 		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
 		List<VoyageToMoonResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
@@ -81,7 +81,7 @@ public class VoyageToMoonSimulationsTest {
     	parameters.endSpeed = 10843;
     	parameters.stepInSeconds = 10.0;
     	
-    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createSimulation(VoyageToMoonSimulation.class, parameters);
+    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
 		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
 		List<VoyageToMoonResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));

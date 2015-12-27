@@ -1,5 +1,6 @@
 package com.momega.spacesimulator.simulation;
 
+import com.momega.spacesimulator.simulation.json.TimestampTypeAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

@@ -3,15 +3,14 @@
  */
 package com.momega.spacesimulator.simulation.voyagetomoon;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
+import com.momega.spacesimulator.model.Timestamp;
+import com.momega.spacesimulator.simulation.Simulation;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.momega.spacesimulator.model.Timestamp;
-import com.momega.spacesimulator.simulation.Simulation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Martin Vanek
@@ -21,8 +20,8 @@ import com.momega.spacesimulator.simulation.Simulation;
 @Scope("prototype")
 public class VoyageToMoonSimulation extends Simulation<VoyageToMoonParameters, VoyageToMoonResult> {
 	
-	public VoyageToMoonSimulation(VoyageToMoonParameters parameters) {
-		super("Voyage To Moon", parameters, VoyageToMoonCallable.class);
+	public VoyageToMoonSimulation() {
+		super("Voyage To Moon", VoyageToMoonCallable.class);
 	}
 
 	@Override

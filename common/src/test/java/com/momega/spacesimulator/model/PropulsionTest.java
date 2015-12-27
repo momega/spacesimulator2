@@ -129,6 +129,7 @@ public class PropulsionTest {
         m2.setThrottle(1.0);
         m2.setReferenceFrameDefinition(earth.getReferenceFrameDefinition());
         m2.setThrottleAlpha(Math.PI);
+        m2.setInverse(true);
         m2.setInterval(TimeUtils.createInterval(apsis.getTimestamp(), 30));
         maneuverService.addManeuver(m2, spacecraft);
 
@@ -143,7 +144,7 @@ public class PropulsionTest {
         double evp2 = keplerianUtils.periapsisVelocity(ei2.getKeplerianElements().getKeplerianOrbit());
         logger.warn("end periapsis velocity = {}", evp2);
 
-        //Assert.assertTrue("end velocity has to be smaller than velocity after the first burn", evp2<evp);
-        //Assert.assertTrue("end velocity has to be greater than the initial velocity", evp2>ivp);
+        Assert.assertTrue("end velocity has to be smaller than velocity after the first burn", evp2<evp);
+        Assert.assertTrue("end velocity has to be greater than the initial velocity", evp2>ivp);
     }
 }

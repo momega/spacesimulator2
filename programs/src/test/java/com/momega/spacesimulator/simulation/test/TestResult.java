@@ -1,6 +1,6 @@
 package com.momega.spacesimulator.simulation.test;
 
-public class TestSimulationResult {
+public class TestResult {
 
 	private int number = 0;
 	private boolean finished = false;

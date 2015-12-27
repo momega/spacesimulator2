@@ -11,28 +11,28 @@ import com.momega.spacesimulator.simulation.Simulation;
 
 @Component
 @Scope("prototype")
-public class TestSimulation extends Simulation<TestSimulationParameters, TestSimulationResult>{
+public class TestSimulation extends Simulation<TestParameters, TestResult>{
 
-	protected TestSimulation(TestSimulationParameters params) {
-		super("Test", params, TestSimulationCallable.class);
+	protected TestSimulation() {
+		super("Test", TestCallable.class);
 	}
 
 	@Override
-	protected Predicate<TestSimulationResult> createPredicate() {
-		return new Predicate<TestSimulationResult>() {
+	protected Predicate<TestResult> createPredicate() {
+		return new Predicate<TestResult>() {
 			@Override
-			public boolean test(TestSimulationResult t) {
+			public boolean test(TestResult t) {
 				return true;
 			}
 		};
 	}
 
 	@Override
-	protected List<TestSimulationResult> generateInputs() {
-		TestSimulationParameters params = getParameters();
-		List<TestSimulationResult> result = new ArrayList<>();
+	protected List<TestResult> generateInputs() {
+		TestParameters params = getParameters();
+		List<TestResult> result = new ArrayList<>();
 		for(int i=1;i<=params.count;i++) {
-			TestSimulationResult item = new TestSimulationResult();
+			TestResult item = new TestResult();
 			item.setNumber(i);
 			result.add(item);
 		}

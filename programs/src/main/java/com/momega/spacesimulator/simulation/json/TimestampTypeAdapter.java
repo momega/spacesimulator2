@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.momega.spacesimulator.simulation;
+package com.momega.spacesimulator.simulation.json;
 
 import java.lang.reflect.Type;
 
@@ -33,6 +33,5 @@ public class TimestampTypeAdapter implements JsonSerializer<Timestamp>, JsonDese
 		return TimeUtils.parseTimestamp(s);
 	}
 
-	
 
 }
