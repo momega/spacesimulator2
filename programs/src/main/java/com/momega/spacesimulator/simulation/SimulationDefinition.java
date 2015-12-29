@@ -33,13 +33,22 @@ public abstract class SimulationDefinition {
         return parametersClass;
     }
 
-    public Map<String, String> getParametersDefinition() {
+    public Map<String, PropertyDescriptor> getPropertyDescriptors() {
         PropertyDescriptor[] descriptors = BeanUtils.getPropertyDescriptors(parametersClass);
-        Map<String, String> result = new HashMap<>();
+        Map<String, PropertyDescriptor> result = new HashMap<>();
         for(PropertyDescriptor d : descriptors) {
-        	if (!d.getName().equals("class")) {
-        		result.put(d.getName(), d.getPropertyType().getName());
-        	}
+            if (!d.getName().equals("class")) {
+                result.put(d.getName(), d);
+            }
+        }
+        return result;
+    }
+
+    public Map<String, String> getParametersDefinition() {
+        Map<String, PropertyDescriptor> propertyDescriptors = getPropertyDescriptors();
+        Map<String, String> result = new HashMap<>();
+        for(Map.Entry<String, PropertyDescriptor> entry : propertyDescriptors.entrySet()) {
+            result.put(entry.getKey(), entry.getValue().getPropertyType().getName());
         }
         return result;
     }

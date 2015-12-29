@@ -10,10 +10,10 @@ import java.util.List;
  * @author martin
  *
  */
-public class DefinitionDto {
+public class DefinitionValueDto {
 
 	private String name;
-	private List<FieldDto> fields = new ArrayList<>();
+	private List<FieldValueDto> fields = new ArrayList<>();
 	
 	public void setName(String name) {
 		this.name = name;
@@ -23,11 +23,11 @@ public class DefinitionDto {
 		return name;
 	}
 
-	public void setFields(List<FieldDto> parameters) {
+	public void setFields(List<FieldValueDto> parameters) {
 		this.fields = parameters;
 	}
 	
-	public List<FieldDto> getFields() {
+	public List<FieldValueDto> getFields() {
 		return fields;
 	}
 

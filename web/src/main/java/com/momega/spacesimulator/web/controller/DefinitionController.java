@@ -2,14 +2,12 @@ package com.momega.spacesimulator.web.controller;
 
 import com.momega.spacesimulator.simulation.SimulationDefinition;
 
+import com.momega.spacesimulator.simulation.SimulationsHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,29 +23,21 @@ public class DefinitionController {
 	private static final Logger logger = LoggerFactory.getLogger(DefinitionController.class);
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private SimulationsHolder simulationsHolder;
+
+    @Autowired
+    private SimulationTransformer simulationTransformer;
 
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<DefinitionDto> getDefinitions() {
-        Map<String, SimulationDefinition> defs = applicationContext.getBeansOfType(SimulationDefinition.class);
+        List<SimulationDefinition> defs = simulationsHolder.getDefinitions();
         List<DefinitionDto> result = new ArrayList<>();
-        for(SimulationDefinition def : defs.values()) {
-        	result.add(transform(def));
+        for(SimulationDefinition def : defs) {
+        	result.add(simulationTransformer.transform(def));
         }
         logger.info("definitions = {}", result);
         return result;
     }
-    
-    protected DefinitionDto transform(SimulationDefinition def) {
-    	DefinitionDto dto = new DefinitionDto();
-    	dto.setName(def.getName());
-    	for(Map.Entry<String, String> entry : def.getParametersDefinition().entrySet()) {
-    		ParameterDto parameterDto = new ParameterDto();
-    		parameterDto.setName(entry.getKey());
-    		parameterDto.setType(entry.getValue());
-    		dto.getParameters().add(parameterDto);
-    	}
-    	return dto;
-    }
+
 }

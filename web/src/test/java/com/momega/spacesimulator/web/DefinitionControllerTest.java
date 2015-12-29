@@ -43,7 +43,8 @@ public class DefinitionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$[0].name").value("Moon Orbit"))
-        		.andExpect(jsonPath("$[0].parameters[?(@.name == 'startBurnTime')].type").value("com.momega.spacesimulator.model.Timestamp"));
+        		.andExpect(jsonPath("$[0].fields[?(@.name == 'startBurnTime')].type").value("TIMESTAMP"))
+        		.andExpect(jsonPath("$[0].fields[?(@.name == 'burnTime')].type").value("DOUBLE"));
     }
 
 

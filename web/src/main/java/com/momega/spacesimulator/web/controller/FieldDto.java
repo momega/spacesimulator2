@@ -1,9 +1,9 @@
 package com.momega.spacesimulator.web.controller;
 
-public class ParameterDto {
+public class FieldDto {
 
 	private String name;
-	private String type;
+	private FieldType type;
 	
 	public String getName() {
 		return name;
@@ -11,10 +11,10 @@ public class ParameterDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getType() {
+	public FieldType getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(FieldType type) {
 		this.type = type;
 	}
 	

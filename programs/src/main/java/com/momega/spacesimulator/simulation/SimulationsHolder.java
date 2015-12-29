@@ -29,6 +29,22 @@ public class SimulationsHolder {
 	@Autowired
 	private ApplicationContext applicationContext;
 
+    public List<SimulationDefinition> getDefinitions() {
+        Map<String, SimulationDefinition> defs = applicationContext.getBeansOfType(SimulationDefinition.class);
+        return new ArrayList<>(defs.values());
+    }
+
+    public SimulationDefinition findDefinition(String name) {
+        SimulationDefinition simulationDefinition = applicationContext.getBean(name, SimulationDefinition.class);
+        return simulationDefinition;
+    }
+
+    public Simulation<?, ?> createSimulation(String name) {
+        Simulation<?, ?> simulation = applicationContext.getBean(name, Simulation.class);
+        simulations.put(simulation.getUuid(), simulation);
+        return simulation;
+    }
+
     public <P, I> Simulation<P, I> createSimulation(Class<? extends Simulation<P, I>> clazz) {
         Simulation<P, I> simulation = applicationContext.getBean(clazz);
         simulations.put(simulation.getUuid(), simulation);
