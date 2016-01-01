@@ -2,11 +2,13 @@ package com.momega.spacesimulator.web.controller;
 
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.utils.TimeUtils;
+import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationDefinition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
@@ -15,7 +17,29 @@ import java.util.Map;
 @Component
 public class SimulationTransformer {
 
-    protected FieldType getFieldType(String type) {
+    private static final Logger logger = LoggerFactory.getLogger(SimulationTransformer.class);
+
+    public SimulationDto transform(Simulation<?, ?> simulation, SimulationDefinition simulationDefinition) {
+        SimulationDto dto = new SimulationDto();
+        dto.setName(simulation.getName());
+        dto.setCompletedInputs(simulation.getCompletedInputs());
+        dto.setFinishedAt(simulation.getFinishedAt());
+        dto.setStartedAt(simulation.getStartedAt());
+        dto.setSimulationState(simulation.getSimulationState());
+        dto.setUuid(simulation.getUuid());
+        Map<String, PropertyDescriptor> propertyDescriptorMap = simulationDefinition.getPropertyDescriptors();
+        if (simulation.getParameters()!=null) {
+            for (Map.Entry<String, PropertyDescriptor> entry : propertyDescriptorMap.entrySet()) {
+                FieldValueDto fieldValueDto = getFieldValue(simulation.getParameters(), entry.getValue());
+                dto.getFieldValues().add(fieldValueDto);
+            }
+        } else {
+            logger.warn("parameters for simulation {} are not set", simulation.toString());
+        }
+        return dto;
+    }
+
+    public FieldType getFieldType(String type) {
         if (type.equals("double")) {
             return FieldType.DOUBLE;
         } else if (type.equals("com.momega.spacesimulator.model.Timestamp")) {
@@ -26,7 +50,7 @@ public class SimulationTransformer {
         throw new IllegalArgumentException("unknown type " + type);
     }
 
-    protected Object getFieldValue(FieldValueDto dto) {
+    public Object getFieldValue(FieldValueDto dto) {
         switch (dto.getType()) {
             case DOUBLE:
                 return Double.valueOf(dto.getValue());
@@ -38,7 +62,7 @@ public class SimulationTransformer {
         throw new IllegalArgumentException("unknown type");
     }
 
-    protected FieldValueDto getFieldValue(Object object, PropertyDescriptor pd) {
+    public FieldValueDto getFieldValue(Object object, PropertyDescriptor pd) {
         FieldType fieldType = getFieldType(pd.getPropertyType().getName());
         try {
             FieldValueDto result = new FieldValueDto();
@@ -49,10 +73,13 @@ public class SimulationTransformer {
                 switch (fieldType) {
                     case DOUBLE:
                         result.setValue(((Double) value).toString());
+                        break;
                     case INT:
                         result.setValue(((Integer) value).toString());
+                        break;
                     case TIMESTAMP:
                         result.setValue(TimeUtils.timeAsString((Timestamp) value));
+                        break;
                 }
             }
             return result;

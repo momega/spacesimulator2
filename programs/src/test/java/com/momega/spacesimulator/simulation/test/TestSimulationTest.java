@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.momega.spacesimulator.simulation.Simulation;
-import com.momega.spacesimulator.simulation.SimulationsHolder;
+import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.TestConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,14 +21,14 @@ import com.momega.spacesimulator.simulation.TestConfig;
 public class TestSimulationTest {
 
 	@Autowired
-	private SimulationsHolder simulationsHolder;
+	private SimulationFactory simulationFactory;
 	
 	@Test
 	public void runSimulation() throws InterruptedException, ExecutionException, FileNotFoundException {
 		TestParameters parameters = new TestParameters();
 		parameters.count = 10;
-		Simulation<TestParameters, TestResult> simulation = simulationsHolder.createAndRunSimulation(TestSimulation.class, parameters);
-		Future<List<TestResult>> f = simulationsHolder.getFuture(simulation);
+		Simulation<TestParameters, TestResult> simulation = simulationFactory.createAndRunSimulation(TestSimulation.class, parameters);
+		Future<List<TestResult>> f = simulationFactory.getFuture(simulation);
 		List<TestResult> list = f.get();
 		Assert.assertNotNull(list);
 		Assert.assertEquals(10, list.size());

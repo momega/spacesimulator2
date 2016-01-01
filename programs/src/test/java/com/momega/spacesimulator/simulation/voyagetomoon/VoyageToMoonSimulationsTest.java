@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.google.gson.Gson;
 import com.momega.spacesimulator.service.utils.TimeUtils;
 import com.momega.spacesimulator.simulation.Simulation;
-import com.momega.spacesimulator.simulation.SimulationsHolder;
+import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.TestConfig;
 
 /**
@@ -30,7 +30,7 @@ import com.momega.spacesimulator.simulation.TestConfig;
 public class VoyageToMoonSimulationsTest {
 
     @Autowired
-    private SimulationsHolder simulationsHolder;
+    private SimulationFactory simulationFactory;
     
     @Autowired
     private Gson gson;
@@ -45,8 +45,8 @@ public class VoyageToMoonSimulationsTest {
     	parameters.setEndSpeed(10842);
     	parameters.setStepInSeconds(120.0);
     	
-    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
-		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
+    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationFactory.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
+		Future<List<VoyageToMoonResult>> f = simulationFactory.getFuture(simulation);
 		List<VoyageToMoonResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
     	gson.toJson(results, writer);
@@ -62,8 +62,8 @@ public class VoyageToMoonSimulationsTest {
     	parameters.setEndSpeed(10840);
     	parameters.setStepInSeconds(10.0);
     	
-    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
-		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
+    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationFactory.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
+		Future<List<VoyageToMoonResult>> f = simulationFactory.getFuture(simulation);
 		List<VoyageToMoonResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
     	gson.toJson(results, writer);
@@ -81,8 +81,8 @@ public class VoyageToMoonSimulationsTest {
     	parameters.setEndSpeed(10843);
     	parameters.setStepInSeconds(10.0);
     	
-    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationsHolder.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
-		Future<List<VoyageToMoonResult>> f = simulationsHolder.getFuture(simulation);
+    	Simulation<VoyageToMoonParameters, VoyageToMoonResult> simulation = simulationFactory.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
+		Future<List<VoyageToMoonResult>> f = simulationFactory.getFuture(simulation);
 		List<VoyageToMoonResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
     	gson.toJson(results, writer);

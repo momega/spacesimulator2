@@ -142,4 +142,12 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 	public String getUuid() {
 		return uuid;
 	}
+
+	@Override
+	public String toString() {
+		return "Simulation{" +
+				"uuid='" + uuid + '\'' +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.google.gson.Gson;
 import com.momega.spacesimulator.service.utils.TimeUtils;
 import com.momega.spacesimulator.simulation.Simulation;
-import com.momega.spacesimulator.simulation.SimulationsHolder;
+import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.TestConfig;
 import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitParameters;
 import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitResult;
@@ -33,7 +33,7 @@ import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitSimulation;
 public class MoonSimulationsTest {
 
     @Autowired
-    private SimulationsHolder simulationsHolder;
+    private SimulationFactory simulationFactory;
     
     @Autowired
     private Gson gson;
@@ -49,8 +49,8 @@ public class MoonSimulationsTest {
     	parameters.setStepTime(1.0);
     	parameters.setBurnTime(362.0);
     	
-    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationsHolder.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
-		Future<List<MoonOrbitResult>> f = simulationsHolder.getFuture(simulation);
+    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
+		Future<List<MoonOrbitResult>> f = simulationFactory.getFuture(simulation);
 		
 		List<MoonOrbitResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));
@@ -71,8 +71,8 @@ public class MoonSimulationsTest {
     	parameters.setStepTime(10.0);
     	parameters.setBurnTime(362.0);
     	
-    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationsHolder.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
-		Future<List<MoonOrbitResult>> f = simulationsHolder.getFuture(simulation);
+    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
+		Future<List<MoonOrbitResult>> f = simulationFactory.getFuture(simulation);
 		
 		List<MoonOrbitResult> results = f.get();
     	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));

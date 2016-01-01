@@ -17,11 +17,9 @@ import org.springframework.util.Assert;
  *
  */
 @Component
-public class SimulationsHolder {
+public class SimulationFactory {
 
 	private Map<Simulation<?, ?>, Future<?>> futures = new HashMap<>();
-
-    private Map<String, Simulation<?,?>> simulations = new HashMap<>();
 
 	@Autowired
     private ThreadPoolTaskExecutor taskExecutor;
@@ -41,13 +39,11 @@ public class SimulationsHolder {
 
     public Simulation<?, ?> createSimulation(String name) {
         Simulation<?, ?> simulation = applicationContext.getBean(name, Simulation.class);
-        simulations.put(simulation.getUuid(), simulation);
         return simulation;
     }
 
     public <P, I> Simulation<P, I> createSimulation(Class<? extends Simulation<P, I>> clazz) {
         Simulation<P, I> simulation = applicationContext.getBean(clazz);
-        simulations.put(simulation.getUuid(), simulation);
         return simulation;
     }
 
@@ -74,7 +70,5 @@ public class SimulationsHolder {
 		return Collections.unmodifiableMap(futures);
 	}
 
-    public Collection<Simulation<?, ?>> getSimulations() {
-        return Collections.unmodifiableCollection(simulations.values());
-    }
+
 }

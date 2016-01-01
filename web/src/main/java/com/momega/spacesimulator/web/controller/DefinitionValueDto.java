@@ -13,7 +13,7 @@ import java.util.List;
 public class DefinitionValueDto {
 
 	private String name;
-	private List<FieldValueDto> fields = new ArrayList<>();
+	private List<FieldValueDto> fieldValues = new ArrayList<>();
 	
 	public void setName(String name) {
 		this.name = name;
@@ -23,17 +23,17 @@ public class DefinitionValueDto {
 		return name;
 	}
 
-	public void setFields(List<FieldValueDto> parameters) {
-		this.fields = parameters;
+	public void setFieldValues(List<FieldValueDto> parameters) {
+		this.fieldValues = parameters;
 	}
 	
-	public List<FieldValueDto> getFields() {
-		return fields;
+	public List<FieldValueDto> getFieldValues() {
+		return fieldValues;
 	}
 
 	@Override
 	public String toString() {
-		return "DefinitionDto [name=" + name + ", fields=" + fields
+		return "DefinitionDto [name=" + name + ", fieldValues=" + fieldValues
 				+ "]";
 	}
 
