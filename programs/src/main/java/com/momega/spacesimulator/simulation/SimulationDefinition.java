@@ -1,11 +1,5 @@
 package com.momega.spacesimulator.simulation;
 
-import org.springframework.beans.BeanUtils;
-
-import java.beans.PropertyDescriptor;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by martin on 12/27/15.
  */
@@ -31,26 +25,6 @@ public abstract class SimulationDefinition {
 
     public Class<?> getParametersClass() {
         return parametersClass;
-    }
-
-    public Map<String, PropertyDescriptor> getPropertyDescriptors() {
-        PropertyDescriptor[] descriptors = BeanUtils.getPropertyDescriptors(parametersClass);
-        Map<String, PropertyDescriptor> result = new HashMap<>();
-        for(PropertyDescriptor d : descriptors) {
-            if (!d.getName().equals("class")) {
-                result.put(d.getName(), d);
-            }
-        }
-        return result;
-    }
-
-    public Map<String, String> getParametersDefinition() {
-        Map<String, PropertyDescriptor> propertyDescriptors = getPropertyDescriptors();
-        Map<String, String> result = new HashMap<>();
-        for(Map.Entry<String, PropertyDescriptor> entry : propertyDescriptors.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().getPropertyType().getName());
-        }
-        return result;
     }
 
 	@Override

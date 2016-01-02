@@ -42,8 +42,9 @@ public class DefinitionControllerTest {
         this.mockMvc.perform(get("/definition/list").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$[1].name").value("Moon Orbit"))
                 .andExpect(jsonPath("$[0].name").value("Test"))
+                .andExpect(jsonPath("$[1].name").value("Moon Orbit"))
+                .andExpect(jsonPath("$[2].name").value("Voyage To Moon"))
                 .andExpect(jsonPath("$[0].fields[?(@.name == 'count')].type").value("INT"))
         		.andExpect(jsonPath("$[1].fields[?(@.name == 'startBurnTime')].type").value("TIMESTAMP"))
         		.andExpect(jsonPath("$[1].fields[?(@.name == 'burnTime')].type").value("DOUBLE"));

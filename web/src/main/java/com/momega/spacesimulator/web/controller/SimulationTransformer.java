@@ -6,9 +6,11 @@ import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.beans.PropertyDescriptor;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,9 +19,12 @@ import java.util.Map;
 @Component
 public class SimulationTransformer {
 
+    @Autowired
+    private FieldsService fieldsService;
+
     private static final Logger logger = LoggerFactory.getLogger(SimulationTransformer.class);
 
-    public SimulationDto transform(Simulation<?, ?> simulation, SimulationDefinition simulationDefinition) {
+    public SimulationDto transform(Simulation<?, ?> simulation) {
         SimulationDto dto = new SimulationDto();
         dto.setName(simulation.getName());
         dto.setCompletedInputs(simulation.getCompletedInputs());
@@ -27,16 +32,28 @@ public class SimulationTransformer {
         dto.setStartedAt(simulation.getStartedAt());
         dto.setSimulationState(simulation.getSimulationState());
         dto.setUuid(simulation.getUuid());
-        Map<String, PropertyDescriptor> propertyDescriptorMap = simulationDefinition.getPropertyDescriptors();
-        if (simulation.getParameters()!=null) {
-            for (Map.Entry<String, PropertyDescriptor> entry : propertyDescriptorMap.entrySet()) {
-                FieldValueDto fieldValueDto = getFieldValue(simulation.getParameters(), entry.getValue());
-                dto.getFieldValues().add(fieldValueDto);
-            }
-        } else {
-            logger.warn("parameters for simulation {} are not set", simulation.toString());
+        Object fields = simulation.getFields();
+        Map<String, PropertyDescriptor> propertyDescriptorMap = fieldsService.getPropertyDescriptors(fields.getClass());
+        for (Map.Entry<String, PropertyDescriptor> entry : propertyDescriptorMap.entrySet()) {
+            FieldValueDto fieldValueDto = getFieldValue(simulation.getFields(), entry.getValue());
+            dto.getFieldValues().add(fieldValueDto);
         }
         return dto;
+    }
+
+    public Object updateFields(Object fieldsInstance, List<FieldValueDto> fieldValues) {
+        try {
+            Map<String, PropertyDescriptor> propertyDescriptorMap = fieldsService.getPropertyDescriptors(fieldsInstance.getClass());
+            for(FieldValueDto fieldValue: fieldValues) {
+                String fieldName = fieldValue.getName();
+                PropertyDescriptor pd = propertyDescriptorMap.get(fieldName);
+                Object o = getFieldValue(fieldValue);
+                pd.getWriteMethod().invoke(fieldsInstance, o);
+            }
+            return fieldsInstance;
+        } catch (Exception e) {
+            throw new IllegalStateException("unable to create parameters instance ", e);
+        }
     }
 
     public FieldType getFieldType(String type) {
@@ -72,10 +89,10 @@ public class SimulationTransformer {
             if (value != null) {
                 switch (fieldType) {
                     case DOUBLE:
-                        result.setValue(((Double) value).toString());
+                        result.setValue(value.toString());
                         break;
                     case INT:
-                        result.setValue(((Integer) value).toString());
+                        result.setValue(value.toString());
                         break;
                     case TIMESTAMP:
                         result.setValue(TimeUtils.timeAsString((Timestamp) value));
@@ -91,11 +108,11 @@ public class SimulationTransformer {
     public DefinitionDto transform(SimulationDefinition def) {
         DefinitionDto dto = new DefinitionDto();
         dto.setName(def.getName());
-        for(Map.Entry<String, String> entry : def.getParametersDefinition().entrySet()) {
-            FieldDto parameterDto = new FieldDto();
-            parameterDto.setName(entry.getKey());
-            parameterDto.setType(getFieldType(entry.getValue()));
-            dto.getFields().add(parameterDto);
+        for(Map.Entry<String, String> entry : fieldsService.getFieldsDefinition(def.getParametersClass()).entrySet()) {
+            FieldDto fieldDto = new FieldDto();
+            fieldDto.setName(entry.getKey());
+            fieldDto.setType(getFieldType(entry.getValue()));
+            dto.getFields().add(fieldDto);
         }
         return dto;
     }

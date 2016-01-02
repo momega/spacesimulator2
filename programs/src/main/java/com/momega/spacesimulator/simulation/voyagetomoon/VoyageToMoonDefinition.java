@@ -11,6 +11,6 @@ import com.momega.spacesimulator.simulation.SimulationDefinition;
 public class VoyageToMoonDefinition extends SimulationDefinition {
 
     protected VoyageToMoonDefinition() {
-        super("Voyage To Moon", VoyageToMoonSimulation.class, VoyageToMoonParameters.class);
+        super("Voyage To Moon", VoyageToMoonSimulation.class, VoyageToMoonFields.class);
     }
 }

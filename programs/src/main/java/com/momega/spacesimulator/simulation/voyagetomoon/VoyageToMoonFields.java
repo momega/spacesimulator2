@@ -9,7 +9,7 @@ import com.momega.spacesimulator.model.Timestamp;
  * @author martin
  *
  */
-public class VoyageToMoonParameters {
+public class VoyageToMoonFields {
 
 	private Timestamp startTime;
 	private Timestamp endTime;

@@ -20,6 +20,10 @@ public class SimulationHolder {
         return simulations.get(uuid);
     }
 
+    public Simulation<?, ?> removeSimulation(String uuid) {
+        return simulations.remove(uuid);
+    }
+
     public List<Simulation<?, ?>> getSimulations() {
         return Collections.unmodifiableList(new ArrayList<>(simulations.values()));
     }

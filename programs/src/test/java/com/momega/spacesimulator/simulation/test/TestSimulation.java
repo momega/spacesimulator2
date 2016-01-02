@@ -11,7 +11,7 @@ import com.momega.spacesimulator.simulation.Simulation;
 
 @Component
 @Scope("prototype")
-public class TestSimulation extends Simulation<TestParameters, TestResult>{
+public class TestSimulation extends Simulation<TestFields, TestResult>{
 
 	protected TestSimulation() {
 		super("Test", TestCallable.class);
@@ -29,7 +29,7 @@ public class TestSimulation extends Simulation<TestParameters, TestResult>{
 
 	@Override
 	protected List<TestResult> generateInputs() {
-		TestParameters params = getParameters();
+		TestFields params = getFields();
 		List<TestResult> result = new ArrayList<>();
 		for(int i=1;i<=params.count;i++) {
 			TestResult item = new TestResult();

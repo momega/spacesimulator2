@@ -56,7 +56,7 @@ public class SimulationFactory {
     public <P, I> Simulation<P, I> runSimulation(Simulation<P, I> simulation, P parameters) {
         Assert.notNull(simulation);
         Assert.notNull(parameters);
-        simulation.setParameters(parameters);
+        simulation.setFields(parameters);
         Future<List<I>> f = taskExecutor.submit(simulation);
         futures.put(simulation, f);
         return simulation;

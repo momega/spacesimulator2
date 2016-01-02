@@ -18,7 +18,7 @@ import java.util.function.Predicate;
  */
 @Component
 @Scope("prototype")
-public class VoyageToMoonSimulation extends Simulation<VoyageToMoonParameters, VoyageToMoonResult> {
+public class VoyageToMoonSimulation extends Simulation<VoyageToMoonFields, VoyageToMoonResult> {
 	
 	public VoyageToMoonSimulation() {
 		super("Voyage To Moon", VoyageToMoonCallable.class);
@@ -26,7 +26,7 @@ public class VoyageToMoonSimulation extends Simulation<VoyageToMoonParameters, V
 
 	@Override
 	protected List<VoyageToMoonResult> generateInputs() {
-		VoyageToMoonParameters parameters = getParameters();
+		VoyageToMoonFields parameters = getFields();
 		Timestamp timestamp = parameters.getStartTime();
         Timestamp endTime = parameters.getEndTime();
         Timestamp t = timestamp;

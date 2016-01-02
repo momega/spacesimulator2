@@ -6,15 +6,12 @@ import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.SimulationHolder;
 import com.momega.spacesimulator.simulation.SimulationState;
 import com.momega.spacesimulator.simulation.test.TestDefinition;
-import com.momega.spacesimulator.simulation.test.TestParameters;
+import com.momega.spacesimulator.simulation.test.TestFields;
 import com.momega.spacesimulator.simulation.test.TestSimulation;
 import com.momega.spacesimulator.web.config.AppConfig;
 import com.momega.spacesimulator.web.config.ControllerConfig;
 import com.momega.spacesimulator.web.config.WebAppConfig;
-import com.momega.spacesimulator.web.controller.DefinitionValueDto;
-import com.momega.spacesimulator.web.controller.FieldType;
-import com.momega.spacesimulator.web.controller.FieldValueDto;
-import com.momega.spacesimulator.web.controller.SimulationController;
+import com.momega.spacesimulator.web.controller.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,10 +81,10 @@ public class SimulationControllerTest {
     @Test
     public void oneSimulationArray() throws Exception {
         TestSimulation sim = new TestSimulation();
-        TestParameters params = new TestParameters();
+        TestFields params = new TestFields();
         params.setCount(10);
         params.setSpeed(200.0);
-        sim.setParameters(params);
+        sim.setFields(params);
         TestDefinition def = new TestDefinition();
         List<Simulation<?,?>> sims = Collections.singletonList(sim);
         simulationHolder.addSimulation(sim);
@@ -104,6 +101,63 @@ public class SimulationControllerTest {
                 .andExpect(jsonPath("$[0].fieldValues[?(@.name == 'count')].value").value("10"))
                 .andExpect(jsonPath("$[0].fieldValues[?(@.name == 'speed')].type").value("DOUBLE"))
                 .andExpect(jsonPath("$[0].fieldValues[?(@.name == 'speed')].value").value("200.0"));
+    }
+
+    @Test
+    public void deleteSimulation() throws Exception {
+        TestSimulation sim = new TestSimulation();
+        TestFields fields = new TestFields();
+        fields.setCount(10);
+        fields.setSpeed(200.0);
+        sim.setFields(fields);
+        TestDefinition def = new TestDefinition();
+        simulationHolder.addSimulation(sim);
+
+        this.mockMvc.perform(delete("/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8")))
+                .andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/simulation/list").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.*", hasSize(0)));
+    }
+
+    @Test
+    public void updateSimulation() throws Exception  {
+        TestSimulation sim = new TestSimulation();
+        TestFields fields = new TestFields();
+        fields.setCount(10);
+        fields.setSpeed(200.0);
+        sim.setFields(fields);
+        TestDefinition def = new TestDefinition();
+        simulationHolder.addSimulation(sim);
+
+        SimulationDto simulationDto = new SimulationDto();
+        simulationDto.setUuid(sim.getUuid());
+        simulationDto.setName(sim.getName());
+        FieldValueDto fieldValue = new FieldValueDto();
+        fieldValue.setName("count");
+        fieldValue.setType(FieldType.INT);
+        fieldValue.setValue("25");
+        simulationDto.getFieldValues().add(fieldValue);
+        FieldValueDto fieldValue2 = new FieldValueDto();
+        fieldValue2.setName("speed");
+        fieldValue2.setType(FieldType.DOUBLE);
+        fieldValue2.setValue("200.0");
+        simulationDto.getFieldValues().add(fieldValue2);
+
+        String data = gson.toJson(simulationDto);
+        this.mockMvc.perform(put("/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
+                .content(data))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Test"))
+                .andExpect(jsonPath("$.simulationState").value(SimulationState.PREPARING.toString()))
+                .andExpect(jsonPath("$.uuid").value(sim.getUuid()))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].type").value("INT"))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].value").value("25"))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].type").value("DOUBLE"))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].value").value("200.0"));
+
     }
 
     @Test

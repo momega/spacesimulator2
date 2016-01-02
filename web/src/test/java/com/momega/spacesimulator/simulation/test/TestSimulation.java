@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 @Component
 @Scope("prototype")
-public class TestSimulation extends Simulation<TestParameters, TestResult>{
+public class TestSimulation extends Simulation<TestFields, TestResult>{
 
 	public TestSimulation() {
 		super("Test", TestCallable.class);
@@ -28,7 +28,7 @@ public class TestSimulation extends Simulation<TestParameters, TestResult>{
 
 	@Override
 	protected List<TestResult> generateInputs() {
-		TestParameters params = getParameters();
+		TestFields params = getFields();
 		List<TestResult> result = new ArrayList<>();
 		for(int i=1;i<=params.getCount();i++) {
 			TestResult item = new TestResult();

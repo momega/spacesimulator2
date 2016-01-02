@@ -25,9 +25,9 @@ public class TestSimulationTest {
 	
 	@Test
 	public void runSimulation() throws InterruptedException, ExecutionException, FileNotFoundException {
-		TestParameters parameters = new TestParameters();
+		TestFields parameters = new TestFields();
 		parameters.count = 10;
-		Simulation<TestParameters, TestResult> simulation = simulationFactory.createAndRunSimulation(TestSimulation.class, parameters);
+		Simulation<TestFields, TestResult> simulation = simulationFactory.createAndRunSimulation(TestSimulation.class, parameters);
 		Future<List<TestResult>> f = simulationFactory.getFuture(simulation);
 		List<TestResult> list = f.get();
 		Assert.assertNotNull(list);

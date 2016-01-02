@@ -7,7 +7,7 @@ package com.momega.spacesimulator.simulation.test;
  * @author martin
  *
  */
-public class TestParameters {
+public class TestFields {
 
 	private int count;
 	private double speed;

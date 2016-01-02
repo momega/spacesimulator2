@@ -23,7 +23,7 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 	private final Class<? extends SimulationCallable<I>> callableClass;
 	private final String uuid;
 	private SimulationState simulationState = SimulationState.PREPARING;
-	private P parameters;
+	private P fields;
 	private List<Future<I>> futures = new ArrayList<Future<I>>();
 	private List<I> outputs = new ArrayList<I>();
 	private final String name;
@@ -40,7 +40,7 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 
 	/**
 	 * Creates the simulation instance. It is the protected simulation constructor to force simulation
-	 * implementations to specify the name, parameters and simulation classes.
+	 * implementations to specify the name, fields and simulation classes.
 	 * @param name the name of the simulation
 	 * @param callableClass
      */
@@ -51,16 +51,16 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 		this.callableClass = callableClass;
 	}
 
-	public void setParameters(P parameters) {
-		this.parameters = parameters;
+	public void setFields(P fields) {
+		this.fields = fields;
 	}
 
-	public P getParameters() {
-		return parameters;
+	public P getFields() {
+		return fields;
 	}
 
 	public final List<I> call() {
-		return apply(getParameters());
+		return apply(getFields());
 	}
 	
 	public final List<I> apply(P parameters) {

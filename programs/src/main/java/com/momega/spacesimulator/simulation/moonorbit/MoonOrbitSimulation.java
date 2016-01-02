@@ -19,7 +19,7 @@ import com.momega.spacesimulator.simulation.Simulation;
  */
 @Component
 @Scope("prototype")
-public class MoonOrbitSimulation extends Simulation<MoonOrbitParameters, MoonOrbitResult> {
+public class MoonOrbitSimulation extends Simulation<MoonOrbitFields, MoonOrbitResult> {
 
 	protected MoonOrbitSimulation() {
 		super("Moon Orbit", MoonOrbitCallable.class);
@@ -37,7 +37,7 @@ public class MoonOrbitSimulation extends Simulation<MoonOrbitParameters, MoonOrb
 
 	@Override
 	protected List<MoonOrbitResult> generateInputs() {
-		MoonOrbitParameters parameters = getParameters();
+		MoonOrbitFields parameters = getFields();
         List<MoonOrbitResult> inputs = new ArrayList<>();
         
 		Timestamp t = parameters.getStartTime();

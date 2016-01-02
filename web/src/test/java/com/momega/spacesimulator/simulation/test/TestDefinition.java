@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class TestDefinition extends SimulationDefinition {
 
     public TestDefinition() {
-        super("Test", TestSimulation.class, TestParameters.class);
+        super("Test", TestSimulation.class, TestFields.class);
     }
 }

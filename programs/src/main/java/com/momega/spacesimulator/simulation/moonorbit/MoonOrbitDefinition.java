@@ -11,6 +11,6 @@ import com.momega.spacesimulator.simulation.SimulationDefinition;
 public class MoonOrbitDefinition extends SimulationDefinition {
 
     protected MoonOrbitDefinition() {
-        super("Moon Orbit", MoonOrbitSimulation.class, MoonOrbitParameters.class);
+        super("Moon Orbit", MoonOrbitSimulation.class, MoonOrbitFields.class);
     }
 }

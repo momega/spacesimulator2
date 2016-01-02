@@ -21,7 +21,7 @@ import com.momega.spacesimulator.service.utils.TimeUtils;
 import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.TestConfig;
-import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitParameters;
+import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitFields;
 import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitResult;
 import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitSimulation;
 
@@ -40,7 +40,7 @@ public class MoonSimulationsTest {
     
     @Test
     public void shortMoonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
-    	MoonOrbitParameters parameters = new MoonOrbitParameters();
+    	MoonOrbitFields parameters = new MoonOrbitFields();
     	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 49, 22, DateTimeZone.UTC)));
     	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 49, 23, DateTimeZone.UTC)));
     	parameters.setSpeed(10841.0);
@@ -49,7 +49,7 @@ public class MoonSimulationsTest {
     	parameters.setStepTime(1.0);
     	parameters.setBurnTime(362.0);
     	
-    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
+    	Simulation<MoonOrbitFields, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
 		Future<List<MoonOrbitResult>> f = simulationFactory.getFuture(simulation);
 		
 		List<MoonOrbitResult> results = f.get();
@@ -62,7 +62,7 @@ public class MoonSimulationsTest {
     @Test
     @Ignore
     public void moonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
-    	MoonOrbitParameters parameters = new MoonOrbitParameters();
+    	MoonOrbitFields parameters = new MoonOrbitFields();
     	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 40, 0, DateTimeZone.UTC)));
     	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 59, 0, DateTimeZone.UTC)));
     	parameters.setSpeed(10841.0);
@@ -71,7 +71,7 @@ public class MoonSimulationsTest {
     	parameters.setStepTime(10.0);
     	parameters.setBurnTime(362.0);
     	
-    	Simulation<MoonOrbitParameters, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
+    	Simulation<MoonOrbitFields, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
 		Future<List<MoonOrbitResult>> f = simulationFactory.getFuture(simulation);
 		
 		List<MoonOrbitResult> results = f.get();

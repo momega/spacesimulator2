@@ -3,7 +3,7 @@ package com.momega.spacesimulator.simulation.moonorbit;
 import com.momega.spacesimulator.model.Timestamp;
 
 
-public class MoonOrbitParameters {
+public class MoonOrbitFields {
 	
 	private double speed;
 	private double burnTime;
