@@ -1,4 +1,4 @@
-var spaceSimulatorApp = angular.module('spaceSimulatorApp', ['ngRoute', 'ngResource']);
+var spaceSimulatorApp = angular.module('spaceSimulatorApp', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 spaceSimulatorApp.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.

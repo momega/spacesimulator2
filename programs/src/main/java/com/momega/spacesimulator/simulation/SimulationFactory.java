@@ -33,8 +33,14 @@ public class SimulationFactory {
     }
 
     public SimulationDefinition findDefinition(String name) {
-        SimulationDefinition simulationDefinition = applicationContext.getBean(name, SimulationDefinition.class);
-        return simulationDefinition;
+    	Assert.notNull(name);
+    	List<SimulationDefinition> defs = getDefinitions();
+        for(SimulationDefinition def : defs) {
+        	if (name.equals(def.getName())) {
+        		return def;
+        	}
+        }
+        return null;
     }
 
     public Simulation<?, ?> createSimulation(String name) {

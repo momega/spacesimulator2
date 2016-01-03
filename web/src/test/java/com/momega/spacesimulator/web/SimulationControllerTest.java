@@ -110,7 +110,6 @@ public class SimulationControllerTest {
         fields.setCount(10);
         fields.setSpeed(200.0);
         sim.setFields(fields);
-        TestDefinition def = new TestDefinition();
         simulationHolder.addSimulation(sim);
 
         this.mockMvc.perform(delete("/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8")))
@@ -129,7 +128,6 @@ public class SimulationControllerTest {
         fields.setCount(10);
         fields.setSpeed(200.0);
         sim.setFields(fields);
-        TestDefinition def = new TestDefinition();
         simulationHolder.addSimulation(sim);
 
         SimulationDto simulationDto = new SimulationDto();
@@ -162,7 +160,7 @@ public class SimulationControllerTest {
 
     @Test
     public void newSimulation() throws Exception {
-        DefinitionValueDto definitionValueDto = new DefinitionValueDto();
+        BasicSimulationDto definitionValueDto = new BasicSimulationDto();
         definitionValueDto.setName("Test");
         FieldValueDto fieldValue = new FieldValueDto();
         fieldValue.setName("count");
@@ -179,7 +177,7 @@ public class SimulationControllerTest {
         TestDefinition def = new TestDefinition();
         final Simulation<?,?> sim = new TestSimulation();
         when(simulationFactory.findDefinition("Test")).thenReturn(def);
-        when(simulationFactory.createSimulation("Test")).then(new Answer<Object>() {
+        when(simulationFactory.createSimulation(TestSimulation.class)).then(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
                 return sim;

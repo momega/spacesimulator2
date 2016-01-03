@@ -1,17 +1,16 @@
 package com.momega.spacesimulator.web.controller;
 
+import java.beans.PropertyDescriptor;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.utils.TimeUtils;
 import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationDefinition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.beans.PropertyDescriptor;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by martin on 12/29/15.
@@ -21,8 +20,6 @@ public class SimulationTransformer {
 
     @Autowired
     private FieldsService fieldsService;
-
-    private static final Logger logger = LoggerFactory.getLogger(SimulationTransformer.class);
 
     public SimulationDto transform(Simulation<?, ?> simulation) {
         SimulationDto dto = new SimulationDto();
@@ -48,7 +45,9 @@ public class SimulationTransformer {
                 String fieldName = fieldValue.getName();
                 PropertyDescriptor pd = propertyDescriptorMap.get(fieldName);
                 Object o = getFieldValue(fieldValue);
-                pd.getWriteMethod().invoke(fieldsInstance, o);
+                if (o != null) {
+                	pd.getWriteMethod().invoke(fieldsInstance, o);
+                }
             }
             return fieldsInstance;
         } catch (Exception e) {
@@ -68,6 +67,9 @@ public class SimulationTransformer {
     }
 
     public Object getFieldValue(FieldValueDto dto) {
+    	if (dto.getValue() == null) {
+    		return null;
+    	}
         switch (dto.getType()) {
             case DOUBLE:
                 return Double.valueOf(dto.getValue());

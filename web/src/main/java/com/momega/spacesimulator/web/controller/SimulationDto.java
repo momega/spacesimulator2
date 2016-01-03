@@ -1,32 +1,19 @@
 package com.momega.spacesimulator.web.controller;
 
-import com.momega.spacesimulator.simulation.SimulationState;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import com.momega.spacesimulator.simulation.SimulationState;
 
 /**
  * Created by martin on 12/26/15.
  */
-public class SimulationDto {
+public class SimulationDto extends BasicSimulationDto {
 
-    private String name;
     private SimulationState simulationState;
     private Date startedAt = null;
     private Date finishedAt = null;
     private int totalInputs;
     private int completedInputs;
-    private String uuid;
-    private List<FieldValueDto> fieldValues = new ArrayList<>();
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public SimulationState getSimulationState() {
         return simulationState;
@@ -68,29 +55,14 @@ public class SimulationDto {
         this.completedInputs = completedInputs;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-    
-    public List<FieldValueDto> getFieldValues() {
-		return fieldValues;
-	}
-    
-    public void setFieldValues(List<FieldValueDto> fieldValues) {
-		this.fieldValues = fieldValues;
-	}
-
 	@Override
 	public String toString() {
-		return "SimulationDto [uuid=" + uuid + ", name=" + name
-				+ ", simulationState=" + simulationState + ", startedAt="
-				+ startedAt + ", finishedAt=" + finishedAt + ", totalInputs="
-				+ totalInputs + ", completedInputs=" + completedInputs
-				+ ", fieldValues=" + fieldValues + "]";
+		return "SimulationDto [simulationState=" + simulationState
+				+ ", startedAt=" + startedAt + ", finishedAt=" + finishedAt
+				+ ", totalInputs=" + totalInputs + ", completedInputs="
+				+ completedInputs + ", getName()=" + getName() + ", getUuid()="
+				+ getUuid() + ", getFieldValues()=" + getFieldValues() + "]";
 	}
+
     
 }

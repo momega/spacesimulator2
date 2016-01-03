@@ -38,6 +38,7 @@ public class SimulationController {
 		for(Simulation<?,?> simulation : simulations) {
 			result.add(simulationTransformer.transform(simulation));
 		}
+		logger.info("simulations count = {}", result.size());
 		return result;
 	}
 
@@ -89,11 +90,11 @@ public class SimulationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public SimulationDto newDefinition(@RequestBody DefinitionValueDto definitionValueDto) {
+	public SimulationDto newDefinition(@RequestBody BasicSimulationDto definitionValueDto) {
 		SimulationDefinition simulationDefinition = simulationFactory.findDefinition(definitionValueDto.getName());
 		Object fields = createFieldsInstance(simulationDefinition);
 		simulationTransformer.updateFields(fields, definitionValueDto.getFieldValues());
-		Simulation<Object, Object> simulation = (Simulation<Object, Object>) simulationFactory.createSimulation(simulationDefinition.getName());
+		Simulation<Object, Object> simulation = (Simulation<Object, Object>) simulationFactory.createSimulation(simulationDefinition.getSimulationClass());
 		simulationHolder.addSimulation(simulation);
 		simulation.setFields(fields);
 		SimulationDto result = simulationTransformer.transform(simulation);
