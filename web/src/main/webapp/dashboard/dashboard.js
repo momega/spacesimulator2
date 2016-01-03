@@ -21,32 +21,30 @@ spaceSimulatorApp.controller('DashboardController', ['$scope', 'Simulation', 'De
 	$scope.definitions = Definition.query();
 	$scope.showNewSimulationForm = false;
 	$scope.showDetailSimulationForm = false;
-	$scope.fieldValues = [];
-	$scope.selectedDefinition = {};
-	$scope.simulationName = "";
-	$scope.simulationUuid = "";
+	$scope.simulation = {fieldValues: [], name: "", uuid: ""};
 	
 	$scope.openNewSimulation = function() {
 		$scope.showNewSimulationForm = true;
 		$scope.showDetailSimulationForm = true;
+		$scope.simulation.fieldValues = [];
 	}
 	
 	$scope.openEditSimulation = function(simulation) {
 		$scope.showNewSimulationForm = false;
 		$scope.showDetailSimulationForm = true;
-		$scope.simulationName = simulation.name;
-		$scope.simulationUuid = simulation.uuid;
-		$scope.fieldValues = angular.copy(simulation.fieldValues);
+		
+		$scope.simulation.name = simulation.name;
+		$scope.simulation.uuid = simulation.uuid;
+		$scope.simulation.fieldValues = angular.copy(simulation.fieldValues);
 	}
 	
 	$scope.copyFields = function(definition) {
-		$scope.fieldValues = angular.copy(definition.fields);
-		$scope.simulationName = definition.name;
+		$scope.simulation.fieldValues = angular.copy(definition.fields);
+		$scope.simulation.name = definition.name;
 	}
 
 	$scope.newSimulation = function() {
-		var newSimulation = { name: $scope.simulationName };
-		newSimulation.fieldValues = angular.copy($scope.fieldVals);
+		var newSimulation = $scope.simulation;
 		Simulation.create(newSimulation, function() {
 			$scope.simulations = Simulation.query();
 			$scope.showNewSimulationForm = false;

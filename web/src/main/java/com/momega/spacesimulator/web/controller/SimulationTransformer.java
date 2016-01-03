@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.momega.spacesimulator.model.Timestamp;
 import com.momega.spacesimulator.service.utils.TimeUtils;
@@ -67,7 +68,7 @@ public class SimulationTransformer {
     }
 
     public Object getFieldValue(FieldValueDto dto) {
-    	if (dto.getValue() == null) {
+    	if (!StringUtils.hasLength(dto.getValue())) {
     		return null;
     	}
         switch (dto.getType()) {
