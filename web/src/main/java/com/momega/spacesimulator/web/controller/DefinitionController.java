@@ -15,7 +15,7 @@ import java.util.List;
  * Created by martin on 12/27/15.
  */
 @RestController
-@RequestMapping(value="/definition")
+@RequestMapping(value="/api/definition")
 public class DefinitionController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DefinitionController.class);
@@ -27,7 +27,7 @@ public class DefinitionController {
     private SimulationTransformer simulationTransformer;
 
     @ResponseBody
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<DefinitionDto> getDefinitions() {
         List<SimulationDefinition> defs = simulationFactory.getDefinitions();
         List<DefinitionDto> result = new ArrayList<>();

@@ -39,7 +39,7 @@ public class DefinitionControllerTest {
 
     @Test
     public void getDefinitionList() throws Exception {
-        this.mockMvc.perform(get("/definition/list").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(get("/api/definition").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$[0].name").value("Test"))

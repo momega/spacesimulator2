@@ -72,7 +72,7 @@ public class SimulationControllerTest {
 
     @Test
     public void emptyArray() throws Exception {
-        this.mockMvc.perform(get("/simulation/list").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(get("/api/simulation").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.*", hasSize(0)));
@@ -91,7 +91,7 @@ public class SimulationControllerTest {
 
         when(simulationFactory.findDefinition(sims.get(0).getName())).thenReturn(def);
 
-        this.mockMvc.perform(get("/simulation/list").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(get("/api/simulation").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.*", hasSize(1)))
@@ -112,13 +112,17 @@ public class SimulationControllerTest {
         sim.setFields(fields);
         simulationHolder.addSimulation(sim);
 
-        this.mockMvc.perform(delete("/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(delete("/api/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk());
 
-        this.mockMvc.perform(get("/simulation/list").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(get("/api/simulation").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.*", hasSize(0)));
+        
+        this.mockMvc.perform(get("/api/simulation/{uuid}", sim.getUuid()).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        	.andExpect(status().isBadRequest())
+        	.andExpect(content().string("unknown simulation with uuid "+sim.getUuid()));
     }
 
     @Test
@@ -145,7 +149,7 @@ public class SimulationControllerTest {
         simulationDto.getFieldValues().add(fieldValue2);
 
         String data = gson.toJson(simulationDto);
-        this.mockMvc.perform(put("/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
+        this.mockMvc.perform(put("/api/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
                 .content(data))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Test"))
@@ -156,6 +160,38 @@ public class SimulationControllerTest {
                 .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].type").value("DOUBLE"))
                 .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].value").value("200.0"));
 
+        this.mockMvc.perform(get("/api/simulation/{uuid}", sim.getUuid()).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+	        .andExpect(status().isOk())
+	        .andExpect(content().contentType("application/json;charset=UTF-8"))
+	        .andExpect(jsonPath("$.name").value("Test"))
+	        .andExpect(jsonPath("$.fieldValues.*", hasSize(2)))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].type").value("INT"))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].value").value("25"))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].type").value("DOUBLE"))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].value").value("200.0"));
+        
+        simulationDto.getFieldValues().get(1).setValue("600.0");
+        data = gson.toJson(simulationDto);
+        this.mockMvc.perform(post("/api/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
+                .content(data))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Test"))
+                .andExpect(jsonPath("$.simulationState").value(SimulationState.PREPARING.toString()))
+                .andExpect(jsonPath("$.uuid").value(sim.getUuid()))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].type").value("INT"))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].value").value("25"))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].type").value("DOUBLE"))
+                .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].value").value("600.0"));
+        
+        this.mockMvc.perform(get("/api/simulation/{uuid}", sim.getUuid()).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+	        .andExpect(status().isOk())
+	        .andExpect(content().contentType("application/json;charset=UTF-8"))
+	        .andExpect(jsonPath("$.name").value("Test"))
+	        .andExpect(jsonPath("$.fieldValues.*", hasSize(2)))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].type").value("INT"))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'count')].value").value("25"))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].type").value("DOUBLE"))
+	        .andExpect(jsonPath("$.fieldValues[?(@.name == 'speed')].value").value("600.0"));
     }
 
     @Test
@@ -185,7 +221,7 @@ public class SimulationControllerTest {
         });
 
         String data = gson.toJson(definitionValueDto);
-        this.mockMvc.perform(post("/simulation/list").contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
+        this.mockMvc.perform(post("/api/simulation").contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
                 .content(data))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Test"))
@@ -194,7 +230,7 @@ public class SimulationControllerTest {
 
         String uuid = simulationHolder.getSimulations().get(0).getUuid();
 
-        this.mockMvc.perform(get("/simulation/{uuid}", uuid).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(get("/api/simulation/{uuid}", uuid).accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.name").value("Test"))

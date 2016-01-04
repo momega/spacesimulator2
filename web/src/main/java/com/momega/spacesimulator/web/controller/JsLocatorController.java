@@ -45,7 +45,7 @@ public class JsLocatorController {
 			Assert.isTrue(resources.length==1);
 			return new ResponseEntity<Resource>(resources[0], HttpStatus.OK);
 	    } catch (Exception e) {
-	    	logger.error("unable to locate js resource", e);
+	    	logger.error("unable to locate js resource " + classPath, e);
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}

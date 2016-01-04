@@ -2,21 +2,21 @@
 
 spaceSimulatorApp.factory('Simulation', ['$resource',
     function($resource){
-	    return $resource('simulation/list', {}, {
+	    return $resource('api/simulation/:uuid', {uuid: '@uuid'}, {
 			query: {method:'GET', isArray:true},
-			create: {method: 'POST'}
+			save: {method: 'POST'},
+			remove: {method: 'DELETE'}
 	});
 }]);
 
 spaceSimulatorApp.factory('Definition', ['$resource',
     function($resource){
-    	return $resource('definition/list', {}, {
+    	return $resource('api/definition/', {}, {
     		query: {method:'GET', isArray:true}
     	});
 }]);
 
 spaceSimulatorApp.controller('DashboardController', ['$scope', 'Simulation', 'Definition', function($scope, Simulation, Definition) {
-	
 	$scope.simulations = Simulation.query();
 	$scope.definitions = Definition.query();
 	$scope.showNewSimulationForm = false;
@@ -42,10 +42,17 @@ spaceSimulatorApp.controller('DashboardController', ['$scope', 'Simulation', 'De
 		$scope.simulation.fieldValues = angular.copy(definition.fields);
 		$scope.simulation.name = definition.name;
 	}
+	
+	$scope.deleteSimulation = function(simulation) {
+		Simulation.remove({uuid: simulation.uuid}, function() {
+			$scope.simulations = Simulation.query();
+			$scope.showNewSimulationForm = false;
+			$scope.showDetailSimulationForm = false;
+		});
+	}
 
-	$scope.newSimulation = function() {
-		var newSimulation = $scope.simulation;
-		Simulation.create(newSimulation, function() {
+	$scope.saveSimulation = function() {
+		Simulation.save($scope.simulation, function() {
 			$scope.simulations = Simulation.query();
 			$scope.showNewSimulationForm = false;
 			$scope.showDetailSimulationForm = false;

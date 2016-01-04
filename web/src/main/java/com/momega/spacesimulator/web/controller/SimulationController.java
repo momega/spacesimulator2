@@ -6,17 +6,20 @@ import java.util.List;
 
 import com.momega.spacesimulator.simulation.SimulationDefinition;
 import com.momega.spacesimulator.simulation.SimulationHolder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationFactory;
 
 @RestController
-@RequestMapping("/simulation")
+@RequestMapping("/api/simulation")
 public class SimulationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimulationController.class);
@@ -31,7 +34,7 @@ public class SimulationController {
 	private SimulationTransformer simulationTransformer;
 	
 	@ResponseBody
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<SimulationDto> getSimulations() {
    		Collection<Simulation<?,?>> simulations = simulationHolder.getSimulations();
 		List<SimulationDto> result = new ArrayList<>();
@@ -56,8 +59,8 @@ public class SimulationController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/{uuid}", method = RequestMethod.PUT)
-	public SimulationDto updateSimulation(@RequestBody SimulationDto simulationDto) {
+	@RequestMapping(value = "/{uuid}", method = {RequestMethod.PUT, RequestMethod.POST})
+	public SimulationDto updateSimulation(@RequestBody BasicSimulationDto simulationDto) {
 		String uuid = simulationDto.getUuid();
 		Simulation<?, ?> simulation = simulationHolder.findSimulation(uuid);
 		if (simulation == null) {
@@ -89,16 +92,29 @@ public class SimulationController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public SimulationDto newDefinition(@RequestBody BasicSimulationDto definitionValueDto) {
-		SimulationDefinition simulationDefinition = simulationFactory.findDefinition(definitionValueDto.getName());
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public SimulationDto newDefinition(@RequestBody BasicSimulationDto simulationDto) {
+		Assert.notNull(simulationDto);
+		if (StringUtils.hasText(simulationDto.getUuid())) {
+			return updateSimulation(simulationDto);
+		}
+		Assert.notNull(simulationDto.getName());
+		SimulationDefinition simulationDefinition = simulationFactory.findDefinition(simulationDto.getName());
+		Assert.notNull(simulationDefinition);
 		Object fields = createFieldsInstance(simulationDefinition);
-		simulationTransformer.updateFields(fields, definitionValueDto.getFieldValues());
+		simulationTransformer.updateFields(fields, simulationDto.getFieldValues());
 		Simulation<Object, Object> simulation = (Simulation<Object, Object>) simulationFactory.createSimulation(simulationDefinition.getSimulationClass());
 		simulationHolder.addSimulation(simulation);
 		simulation.setFields(fields);
 		SimulationDto result = simulationTransformer.transform(simulation);
 		return result;
+	}
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public String handleException(Exception e) {
+	    return e.getMessage();
 	}
 
 	protected Object createFieldsInstance(SimulationDefinition definition) {
