@@ -48,13 +48,13 @@ public class SimulationFactory {
         return simulation;
     }
 
-    public <P, I> Simulation<P, I> createSimulation(Class<? extends Simulation<P, I>> clazz) {
-        Simulation<P, I> simulation = applicationContext.getBean(clazz);
+    public Simulation<?, ?> createSimulation(Class<?> simulationClass) {
+        Simulation<?, ?> simulation = (Simulation<?, ?>) applicationContext.getBean(simulationClass);
         return simulation;
     }
 
 	public <P, I> Simulation<P, I> createAndRunSimulation(Class<? extends Simulation<P, I>> clazz, P parameters) {
-        Simulation<P, I> simulation = createSimulation(clazz);
+        Simulation<P, I> simulation = (Simulation<P, I>) createSimulation(clazz);
         runSimulation(simulation, parameters);
         return simulation;
 	}
