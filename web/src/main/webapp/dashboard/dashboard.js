@@ -27,6 +27,7 @@ spaceSimulatorApp.controller('DashboardController', ['$scope', 'Simulation', 'De
 		$scope.showNewSimulationForm = true;
 		$scope.showDetailSimulationForm = true;
 		$scope.simulation.fieldValues = [];
+		$scope.simulation.uuid = null;
 	}
 	
 	$scope.openEditSimulation = function(simulation) {
