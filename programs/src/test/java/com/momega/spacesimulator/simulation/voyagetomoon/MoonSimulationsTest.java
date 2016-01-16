@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -18,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.gson.Gson;
 import com.momega.spacesimulator.service.utils.TimeUtils;
-import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.TestConfig;
 import com.momega.spacesimulator.simulation.moonorbit.MoonOrbitFields;
@@ -49,10 +47,8 @@ public class MoonSimulationsTest {
     	parameters.setStepTime(1.0);
     	parameters.setBurnTime(362.0);
     	
-    	Simulation<MoonOrbitFields, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
-		Future<List<MoonOrbitResult>> f = simulationFactory.getFuture(simulation);
-		
-		List<MoonOrbitResult> results = f.get();
+    	List<MoonOrbitResult> results = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
+    	
     	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));
     	gson.toJson(results, writer);
     	writer.flush();
@@ -71,10 +67,8 @@ public class MoonSimulationsTest {
     	parameters.setStepTime(10.0);
     	parameters.setBurnTime(362.0);
     	
-    	Simulation<MoonOrbitFields, MoonOrbitResult> simulation = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
-		Future<List<MoonOrbitResult>> f = simulationFactory.getFuture(simulation);
-		
-		List<MoonOrbitResult> results = f.get();
+    	List<MoonOrbitResult> results = simulationFactory.createAndRunSimulation(MoonOrbitSimulation.class, parameters);
+    	
     	PrintWriter writer = new PrintWriter(new File("moonOrbit.txt"));
     	gson.toJson(results, writer);
     	writer.flush();

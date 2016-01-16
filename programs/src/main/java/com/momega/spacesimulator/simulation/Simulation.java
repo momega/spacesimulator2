@@ -1,8 +1,8 @@
 package com.momega.spacesimulator.simulation;
 
 import java.util.*;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
-public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P, List<I>> {
+public abstract class Simulation<P, I> implements Consumer<P>, Function<P, List<I>> {
 	
 	private final static Logger logger = LoggerFactory.getLogger(Simulation.class);
 	
@@ -59,11 +59,9 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 		return fields;
 	}
 
-	public final List<I> call() {
-		return apply(getFields());
-	}
-	
-	public final List<I> apply(P parameters) {
+	@Override
+	public void accept(P fields) {
+		this.fields = fields;
 		logger.info("Simulation {} started", callableClass);
 		this.simulationState = SimulationState.RUNNING;
 		this.startedAt = new Date();
@@ -72,6 +70,11 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 			submitInput(input);
 		}
 		this.totalInputs = inputs.size();
+	}
+	
+	@Override
+	public final List<I> apply(P fields) {
+		accept(fields);
 		this.completedInputs = 0;
 		
 		Predicate<I> testPredicate = createPredicate();
@@ -145,9 +148,8 @@ public abstract class Simulation<P, I> implements Callable<List<I>>, Function<P,
 
 	@Override
 	public String toString() {
-		return "Simulation{" +
-				"uuid='" + uuid + '\'' +
-				", name='" + name + '\'' +
-				'}';
+		return "Simulation [uuid=" + uuid + ", simulationState="
+				+ simulationState + ", name=" + name + "]";
 	}
+
 }

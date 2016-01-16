@@ -53,19 +53,12 @@ public class SimulationFactory {
         return simulation;
     }
 
-	public <P, I> Simulation<P, I> createAndRunSimulation(Class<? extends Simulation<P, I>> clazz, P parameters) {
+	public <P, I> List<I> createAndRunSimulation(Class<? extends Simulation<P, I>> clazz, P parameters) {
         Simulation<P, I> simulation = (Simulation<P, I>) createSimulation(clazz);
-        runSimulation(simulation, parameters);
-        return simulation;
-	}
-
-    public <P, I> Simulation<P, I> runSimulation(Simulation<P, I> simulation, P parameters) {
         Assert.notNull(simulation);
         Assert.notNull(parameters);
-        simulation.setFields(parameters);
-        Future<List<I>> f = taskExecutor.submit(simulation);
-        futures.put(simulation, f);
-        return simulation;
+        List<I> outputs = simulation.apply(parameters);
+        return outputs;
     }
 	
 	public <P, I> Future<List<I>> getFuture(Simulation<P, I> simulation) {

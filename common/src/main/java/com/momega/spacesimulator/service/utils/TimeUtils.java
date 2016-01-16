@@ -27,7 +27,7 @@ public class TimeUtils {
      */
     public static final Timestamp JD2000 = fromJulianDay(2000.0);
 
-    public static DateTimeFormatter UTC_FORMATTER = ISODateTimeFormat.dateTime();
+    public static DateTimeFormatter UTC_FORMATTER = ISODateTimeFormat.dateHourMinuteSecondFraction();
     
     private static PeriodFormatter periodFormatter = new PeriodFormatterBuilder()
 		    .appendHours()
@@ -128,7 +128,7 @@ public class TimeUtils {
     }
     
     public static Timestamp parseTimestamp(String value) {
-    	DateTime dt = UTC_FORMATTER.parseDateTime(value);
+    	DateTime dt = UTC_FORMATTER.withZoneUTC().parseDateTime(value);
     	return fromDateTime(dt);
     }
 
@@ -163,7 +163,7 @@ public class TimeUtils {
         if (timestamp == null) {
             return null;
         }
-        return UTC_FORMATTER.withZone(DateTimeZone.UTC).print(TimeUtils.toDateTime(timestamp));
+        return UTC_FORMATTER.withZoneUTC().print(TimeUtils.toDateTime(timestamp));
     }
 
     public static String durationAsString(double duration) {

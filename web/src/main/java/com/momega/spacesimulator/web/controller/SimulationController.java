@@ -4,19 +4,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.momega.spacesimulator.simulation.SimulationDefinition;
-import com.momega.spacesimulator.simulation.SimulationHolder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.momega.spacesimulator.simulation.Simulation;
+import com.momega.spacesimulator.simulation.SimulationDefinition;
 import com.momega.spacesimulator.simulation.SimulationFactory;
+import com.momega.spacesimulator.simulation.SimulationHolder;
 
 @RestController
 @RequestMapping("/api/simulation")
@@ -32,6 +38,33 @@ public class SimulationController {
 
 	@Autowired
 	private SimulationTransformer simulationTransformer;
+	
+	@ResponseBody
+	@RequestMapping(value = "example", method = RequestMethod.GET)
+	public List<SimulationDto> createExamples() {
+		BasicSimulationDto voyageToMoon = new BasicSimulationDto();
+		voyageToMoon.setName("Voyage To Moon");
+		voyageToMoon.getFieldValues().add(createField("endSpeed", FieldType.INT, "10843"));
+		voyageToMoon.getFieldValues().add(createField("startSpeed", FieldType.INT, "10839"));
+		voyageToMoon.getFieldValues().add(createField("startTime", FieldType.TIMESTAMP, "2014-09-12T15:50:00.000"));
+		voyageToMoon.getFieldValues().add(createField("endTime", FieldType.TIMESTAMP, "2014-09-12T16:00:00.000"));
+		voyageToMoon.getFieldValues().add(createField("stepInSeconds", FieldType.DOUBLE, "10.0"));
+		
+		BasicSimulationDto moonOrbit = new BasicSimulationDto();
+		moonOrbit.setName("Moon Orbit");
+		moonOrbit.getFieldValues().add(createField("startTime", FieldType.TIMESTAMP, "2014-09-12T15:40:00.000"));
+		moonOrbit.getFieldValues().add(createField("endTime", FieldType.TIMESTAMP, "2014-09-12T15:59:00.000"));
+		moonOrbit.getFieldValues().add(createField("speed", FieldType.DOUBLE, "10841.0"));
+		moonOrbit.getFieldValues().add(createField("startBurnTime", FieldType.TIMESTAMP, "2014-09-16T06:45:00.000"));
+		moonOrbit.getFieldValues().add(createField("endBurnTime", FieldType.TIMESTAMP, "2014-09-16T06:52:00.000"));
+		moonOrbit.getFieldValues().add(createField("stepTime", FieldType.DOUBLE, "10.0"));
+		moonOrbit.getFieldValues().add(createField("burnTime", FieldType.DOUBLE, "362.0"));
+    	
+		List<SimulationDto> list = new ArrayList<>();
+		list.add(newDefinition(voyageToMoon));
+		list.add(newDefinition(moonOrbit));
+		return list;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -59,7 +92,7 @@ public class SimulationController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/{uuid}", method = {RequestMethod.PUT, RequestMethod.POST})
+	@RequestMapping(value = "/{uuid}", method = {RequestMethod.PUT})
 	public SimulationDto updateSimulation(@RequestBody BasicSimulationDto simulationDto) {
 		String uuid = simulationDto.getUuid();
 		Simulation<?, ?> simulation = simulationHolder.findSimulation(uuid);
@@ -73,6 +106,7 @@ public class SimulationController {
 		Assert.notNull(fields);
 		simulationTransformer.updateFields(fields, simulationDto.getFieldValues());
 		SimulationDto result = simulationTransformer.transform(simulation);
+		logger.info("simulation {} updated", uuid);
 		return result;
 	}
 
@@ -115,6 +149,14 @@ public class SimulationController {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public String handleException(Exception e) {
 	    return e.getMessage();
+	}
+	
+	protected FieldValueDto createField(String name, FieldType fieldType, String fieldValue) {
+		FieldValueDto result = new FieldValueDto();
+		result.setName(name);
+		result.setValue(fieldValue);
+		result.setType(fieldType);
+		return result;
 	}
 
 	protected Object createFieldsInstance(SimulationDefinition definition) {

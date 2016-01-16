@@ -3,7 +3,6 @@ package com.momega.spacesimulator.simulation.test;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationFactory;
 import com.momega.spacesimulator.simulation.TestConfig;
 
@@ -27,9 +25,7 @@ public class TestSimulationTest {
 	public void runSimulation() throws InterruptedException, ExecutionException, FileNotFoundException {
 		TestFields parameters = new TestFields();
 		parameters.count = 10;
-		Simulation<TestFields, TestResult> simulation = simulationFactory.createAndRunSimulation(TestSimulation.class, parameters);
-		Future<List<TestResult>> f = simulationFactory.getFuture(simulation);
-		List<TestResult> list = f.get();
+		List<TestResult> list = simulationFactory.createAndRunSimulation(TestSimulation.class, parameters);
 		Assert.assertNotNull(list);
 		Assert.assertEquals(10, list.size());
 	}

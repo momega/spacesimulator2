@@ -172,7 +172,7 @@ public class SimulationControllerTest {
         
         simulationDto.getFieldValues().get(1).setValue("600.0");
         data = gson.toJson(simulationDto);
-        this.mockMvc.perform(post("/api/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
+        this.mockMvc.perform(put("/api/simulation/{uuid}", sim.getUuid()).contentType(MediaType.parseMediaType("application/json;charset=UTF-8"))
                 .content(data))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Test"))
