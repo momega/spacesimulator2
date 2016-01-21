@@ -22,7 +22,7 @@ import com.momega.spacesimulator.simulation.Simulation;
 public class MoonOrbitSimulation extends Simulation<MoonOrbitFields, MoonOrbitResult> {
 
 	protected MoonOrbitSimulation() {
-		super("Moon Orbit", MoonOrbitCallable.class);
+		super("Moon Orbit", MoonOrbitSolver.class);
 	}
 
 	@Override

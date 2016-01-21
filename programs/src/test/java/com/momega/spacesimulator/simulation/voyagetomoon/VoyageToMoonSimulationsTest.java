@@ -12,6 +12,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -33,6 +34,12 @@ public class VoyageToMoonSimulationsTest {
     @Autowired
     private Gson gson;
     
+    @Autowired
+    private VoyageToMoonSimulation simulation;
+    
+    @Autowired
+   	private ThreadPoolTaskExecutor taskExecutor; 
+    
     @Test
     @Ignore
     public void indicativeVoyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
@@ -43,7 +50,7 @@ public class VoyageToMoonSimulationsTest {
     	parameters.setEndSpeed(10842);
     	parameters.setStepInSeconds(120.0);
     	
-    	List<VoyageToMoonResult> results = simulationFactory.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
+    	List<VoyageToMoonResult> results = simulationFactory.runSimulation(simulation, parameters, taskExecutor);
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
     	gson.toJson(results, writer);
     }
@@ -58,7 +65,7 @@ public class VoyageToMoonSimulationsTest {
     	parameters.setEndSpeed(10840);
     	parameters.setStepInSeconds(10.0);
     	
-    	List<VoyageToMoonResult> results = simulationFactory.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
+    	List<VoyageToMoonResult> results = simulationFactory.runSimulation(simulation, parameters, taskExecutor);
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
     	gson.toJson(results, writer);
     	writer.flush();
@@ -75,7 +82,7 @@ public class VoyageToMoonSimulationsTest {
     	parameters.setEndSpeed(10843);
     	parameters.setStepInSeconds(10.0);
     	
-    	List<VoyageToMoonResult> results = simulationFactory.createAndRunSimulation(VoyageToMoonSimulation.class, parameters);
+    	List<VoyageToMoonResult> results = simulationFactory.runSimulation(simulation, parameters, taskExecutor);
     	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
     	gson.toJson(results, writer);
     	writer.flush();

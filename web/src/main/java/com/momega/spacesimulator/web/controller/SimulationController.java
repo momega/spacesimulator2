@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.momega.spacesimulator.simulation.Simulation;
 import com.momega.spacesimulator.simulation.SimulationDefinition;
 import com.momega.spacesimulator.simulation.SimulationFactory;
-import com.momega.spacesimulator.simulation.SimulationHolder;
+import com.momega.spacesimulator.web.service.DefinitionService;
+import com.momega.spacesimulator.web.service.SimulationHolder;
 
 @RestController
 @RequestMapping("/api/simulation")
@@ -35,6 +37,12 @@ public class SimulationController {
 
 	@Autowired
 	private SimulationHolder simulationHolder;
+	
+	@Autowired
+	private DefinitionService definitionService;
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Autowired
 	private SimulationTransformer simulationTransformer;
@@ -61,14 +69,14 @@ public class SimulationController {
 		moonOrbit.getFieldValues().add(createField("burnTime", FieldType.DOUBLE, "362.0"));
     	
 		List<SimulationDto> list = new ArrayList<>();
-		list.add(newDefinition(voyageToMoon));
-		list.add(newDefinition(moonOrbit));
+		list.add(newSimulation(voyageToMoon));
+		list.add(newSimulation(moonOrbit));
 		return list;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<SimulationDto> getSimulations() {
+	public List<SimulationDto> querySimulations() {
    		Collection<Simulation<?,?>> simulations = simulationHolder.getSimulations();
 		List<SimulationDto> result = new ArrayList<>();
 		for(Simulation<?,?> simulation : simulations) {
@@ -127,17 +135,17 @@ public class SimulationController {
 
 	@ResponseBody
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public SimulationDto newDefinition(@RequestBody BasicSimulationDto simulationDto) {
+	public SimulationDto newSimulation(@RequestBody BasicSimulationDto simulationDto) {
 		Assert.notNull(simulationDto);
 		if (StringUtils.hasText(simulationDto.getUuid())) {
 			return updateSimulation(simulationDto);
 		}
 		Assert.notNull(simulationDto.getName());
-		SimulationDefinition simulationDefinition = simulationFactory.findDefinition(simulationDto.getName());
+		SimulationDefinition simulationDefinition = definitionService.findDefinition(simulationDto.getName());
 		Assert.notNull(simulationDefinition);
 		Object fields = createFieldsInstance(simulationDefinition);
 		simulationTransformer.updateFields(fields, simulationDto.getFieldValues());
-		Simulation<Object, Object> simulation = (Simulation<Object, Object>) simulationFactory.createSimulation(simulationDefinition.getSimulationClass());
+		Simulation<Object, Object> simulation = (Simulation<Object, Object>) definitionService.createSimulation(simulationDefinition.getSimulationClass());
 		simulationHolder.addSimulation(simulation);
 		simulation.setFields(fields);
 		SimulationDto result = simulationTransformer.transform(simulation);

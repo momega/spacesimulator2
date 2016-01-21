@@ -3,7 +3,7 @@
  */
 package com.momega.spacesimulator.simulation.test;
 
-import com.momega.spacesimulator.simulation.SimulationCallable;
+import com.momega.spacesimulator.simulation.SimulationSolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("prototype")
-public class TestCallable extends SimulationCallable<TestResult> {
+public class TestSolver extends SimulationSolver<TestResult> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(TestCallable.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestSolver.class);
 
 	@Override
 	public TestResult apply(TestResult result) {

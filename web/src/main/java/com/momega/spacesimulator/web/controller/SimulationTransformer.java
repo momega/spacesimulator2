@@ -28,7 +28,9 @@ public class SimulationTransformer {
         dto.setCompletedInputs(simulation.getCompletedInputs());
         dto.setFinishedAt(simulation.getFinishedAt());
         dto.setStartedAt(simulation.getStartedAt());
+        dto.setFailedInputs(simulation.getFailedInputs());
         dto.setSimulationState(simulation.getSimulationState());
+        dto.setTotalInputs(simulation.getTotalInputs());
         dto.setUuid(simulation.getUuid());
         Object fields = simulation.getFields();
         Map<String, PropertyDescriptor> propertyDescriptorMap = fieldsService.getPropertyDescriptors(fields.getClass());

@@ -32,7 +32,7 @@ import com.momega.spacesimulator.service.builder.VoyageToMoonBuilder;
 import com.momega.spacesimulator.service.propagator.PropagationResult;
 import com.momega.spacesimulator.service.propagator.PropagatorService;
 import com.momega.spacesimulator.service.utils.TimeUtils;
-import com.momega.spacesimulator.simulation.SimulationCallable;
+import com.momega.spacesimulator.simulation.SimulationSolver;
 
 /**
  * @author martin
@@ -40,9 +40,9 @@ import com.momega.spacesimulator.simulation.SimulationCallable;
  */
 @Component
 @Scope("prototype")
-public class MoonOrbitCallable extends SimulationCallable<MoonOrbitResult> {
+public class MoonOrbitSolver extends SimulationSolver<MoonOrbitResult> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MoonOrbitCallable.class);
+	private static final Logger logger = LoggerFactory.getLogger(MoonOrbitSolver.class);
 	
 	@Autowired
 	private ApplicationContext applicationContext;

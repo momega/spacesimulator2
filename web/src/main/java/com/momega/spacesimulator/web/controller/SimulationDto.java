@@ -13,6 +13,7 @@ public class SimulationDto extends BasicSimulationDto {
     private Date startedAt = null;
     private Date finishedAt = null;
     private int totalInputs;
+    private int failedInputs;
     private int completedInputs;
 
     public SimulationState getSimulationState() {
@@ -54,15 +55,23 @@ public class SimulationDto extends BasicSimulationDto {
     public void setCompletedInputs(int completedInputs) {
         this.completedInputs = completedInputs;
     }
+    
+    public void setFailedInputs(int failedInputs) {
+		this.failedInputs = failedInputs;
+	}
+    
+    public int getFailedInputs() {
+		return failedInputs;
+	}
 
 	@Override
 	public String toString() {
-		return "SimulationDto [simulationState=" + simulationState
-				+ ", startedAt=" + startedAt + ", finishedAt=" + finishedAt
-				+ ", totalInputs=" + totalInputs + ", completedInputs="
-				+ completedInputs + ", getName()=" + getName() + ", getUuid()="
-				+ getUuid() + ", getFieldValues()=" + getFieldValues() + "]";
+		return "SimulationDto [getFieldValues()=" + getFieldValues()
+				+ ", getName()=" + getName() + ", getUuid()=" + getUuid()
+				+ ", simulationState=" + simulationState + ", startedAt="
+				+ startedAt + ", finishedAt=" + finishedAt + ", totalInputs="
+				+ totalInputs + ", failedInputs=" + failedInputs
+				+ ", completedInputs=" + completedInputs + "]";
 	}
-
     
 }

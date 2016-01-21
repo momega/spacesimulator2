@@ -28,16 +28,16 @@ import com.momega.spacesimulator.service.propagator.PropagationResult;
 import com.momega.spacesimulator.service.propagator.PropagatorService;
 import com.momega.spacesimulator.service.propagator.force.GravityModel;
 import com.momega.spacesimulator.service.utils.TimeUtils;
-import com.momega.spacesimulator.simulation.SimulationCallable;
+import com.momega.spacesimulator.simulation.SimulationSolver;
 
 /**
  * Created by martin on 7/19/15.
  */
 @Component
 @Scope("prototype")
-public class VoyageToMoonCallable extends SimulationCallable<VoyageToMoonResult> {
+public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonResult> {
 
-    private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonCallable.class);
+    private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonSolver.class);
     
     @Autowired
     private ApplicationContext applicationContext;

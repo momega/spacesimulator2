@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.momega.spacesimulator.simulation.SimulationCallable;
+import com.momega.spacesimulator.simulation.SimulationSolver;
 
 /**
  * @author martin
@@ -16,7 +16,7 @@ import com.momega.spacesimulator.simulation.SimulationCallable;
  */
 @Component
 @Scope("prototype")
-public class TestCallable extends SimulationCallable<TestResult> {
+public class TestCallable extends SimulationSolver<TestResult> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestCallable.class);
 

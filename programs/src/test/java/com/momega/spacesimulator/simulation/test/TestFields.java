@@ -9,5 +9,13 @@ package com.momega.spacesimulator.simulation.test;
  */
 public class TestFields {
 
-	public int count;
+	private int count;
+	
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+	public int getCount() {
+		return count;
+	}
 }

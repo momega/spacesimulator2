@@ -31,7 +31,7 @@ public class TestSimulation extends Simulation<TestFields, TestResult>{
 	protected List<TestResult> generateInputs() {
 		TestFields params = getFields();
 		List<TestResult> result = new ArrayList<>();
-		for(int i=1;i<=params.count;i++) {
+		for(int i=1;i<=params.getCount();i++) {
 			TestResult item = new TestResult();
 			item.setNumber(i);
 			result.add(item);

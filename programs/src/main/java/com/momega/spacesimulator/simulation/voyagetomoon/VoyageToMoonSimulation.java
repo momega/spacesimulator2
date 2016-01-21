@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 public class VoyageToMoonSimulation extends Simulation<VoyageToMoonFields, VoyageToMoonResult> {
 	
 	public VoyageToMoonSimulation() {
-		super("Voyage To Moon", VoyageToMoonCallable.class);
+		super("Voyage To Moon", VoyageToMoonSolver.class);
 	}
 
 	@Override

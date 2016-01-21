@@ -14,11 +14,19 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  * Created by martin on 6/18/14.
  */
 @Configuration
-@ComponentScan(basePackages = {"com.momega.spacesimulator.service", "com.momega.spacesimulator.simulation"})
+@ComponentScan(basePackages = {"com.momega.spacesimulator.service", "com.momega.spacesimulator.simulation", "com.momega.spacesimulator.web.service"})
 public class AppConfig {
 	
 	@Bean
-    public ThreadPoolTaskExecutor taskExecutor() {
+    public ThreadPoolTaskExecutor solversTaskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(10);
+        return executor;
+    }
+	
+	@Bean
+    public ThreadPoolTaskExecutor simulationsTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(2);
         executor.setMaxPoolSize(10);

@@ -1,6 +1,8 @@
-package com.momega.spacesimulator.simulation;
+package com.momega.spacesimulator.web.service;
 
 import org.springframework.stereotype.Component;
+
+import com.momega.spacesimulator.simulation.Simulation;
 
 import java.util.*;
 

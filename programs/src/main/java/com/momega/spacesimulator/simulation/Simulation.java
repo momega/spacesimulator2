@@ -1,9 +1,12 @@
 package com.momega.spacesimulator.simulation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.slf4j.Logger;
@@ -11,29 +14,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Component
 @Scope("prototype")
-public abstract class Simulation<P, I> implements Consumer<P>, Function<P, List<I>> {
+public abstract class Simulation<P, I> implements Callable<List<I>> {
 	
 	private final static Logger logger = LoggerFactory.getLogger(Simulation.class);
 	
-	private final Class<? extends SimulationCallable<I>> callableClass;
+	private final Class<? extends SimulationSolver<I>> solverClass;
 	private final String uuid;
 	private SimulationState simulationState = SimulationState.PREPARING;
 	private P fields;
-	private List<Future<I>> futures = new ArrayList<Future<I>>();
-	private List<I> outputs = new ArrayList<I>();
+	private List<I> outputs = Collections.synchronizedList(new ArrayList<I>());
 	private final String name;
 	private Date startedAt = null;
 	private Date finishedAt = null;
 	private int totalInputs = 0;
-	private int completedInputs = 0;
+	private int completedInputs;
+	private int failedInputs;
 
-	@Autowired
-	private ThreadPoolTaskExecutor taskExecutor;
+	private AsyncTaskExecutor taskExecutor;
+	
+	private List<Future<I>> futures = new ArrayList<>();
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -44,11 +49,15 @@ public abstract class Simulation<P, I> implements Consumer<P>, Function<P, List<
 	 * @param name the name of the simulation
 	 * @param callableClass
      */
-	protected Simulation(String name, Class<? extends SimulationCallable<I>> callableClass) {
+	protected Simulation(String name, Class<? extends SimulationSolver<I>> callableClass) {
 		super();
 		this.uuid = UUID.randomUUID().toString();
 		this.name = name;
-		this.callableClass = callableClass;
+		this.solverClass = callableClass;
+	}
+	
+	public void setTaskExecutor(AsyncTaskExecutor taskExecutor) {
+		this.taskExecutor = taskExecutor;
 	}
 
 	public void setFields(P fields) {
@@ -60,47 +69,54 @@ public abstract class Simulation<P, I> implements Consumer<P>, Function<P, List<
 	}
 
 	@Override
-	public void accept(P fields) {
-		this.fields = fields;
-		logger.info("Simulation {} started", callableClass);
+	public List<I> call() {
+		Assert.notNull(this.fields);
+		logger.info("Simulation {} started", solverClass);
 		this.simulationState = SimulationState.RUNNING;
 		this.startedAt = new Date();
+		this.futures = new ArrayList<>();
+		final Predicate<I> testPredicate = createPredicate();
 		List<I> inputs = generateInputs();
 		for(I input : inputs) {
 			submitInput(input);
 		}
-		this.totalInputs = inputs.size();
-	}
-	
-	@Override
-	public final List<I> apply(P fields) {
-		accept(fields);
 		this.completedInputs = 0;
+		this.failedInputs = 0;
+		this.totalInputs = inputs.size();
 		
-		Predicate<I> testPredicate = createPredicate();
-		Iterator<Future<I>> i = futures.iterator();
-        while(i.hasNext()) {
-            Future<I> f = i.next();
-            try {
-                I output = f.get();
-                if (output!=null && testPredicate.test(output)) {
-                	logger.warn("output = {}", output);
-                	outputs.add(output);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            completedInputs++;
-            logger.info("{}/{}", completedInputs, totalInputs);
-        }
+		for(Future<I> f : futures) {
+			try {
+				I output = f.get();
+				if (output!=null && testPredicate.test(output)) {
+	            	logger.warn("output = {}", output);
+	           		outputs.add(output);
+	            }
+			} catch (Exception e) {
+				failedInputs++;
+			}
+			this.completedInputs++;
+		}
+		
 		this.finishedAt = new Date();
-		logger.info("Simulation {} completed", callableClass);
+		logger.info("Simulation {} completed", solverClass);
 		simulationState = SimulationState.FINISHED;
 		return getOutputs();
 	}
 	
 	public List<I> getOutputs() {
-		return Collections.unmodifiableList(outputs);
+		synchronized (outputs) {
+			return Collections.unmodifiableList(outputs);
+		}
+	}
+	
+	public void stop() {
+		for(Future<I> f : futures) {
+			if (!f.isDone()) {
+				f.cancel(true);
+			}
+		}
+		futures.clear();
+		simulationState = SimulationState.CANCELED;
 	}
 
 	protected abstract Predicate<I> createPredicate();
@@ -108,9 +124,9 @@ public abstract class Simulation<P, I> implements Consumer<P>, Function<P, List<
 	protected abstract List<I> generateInputs();
 
 	public void submitInput(I input) {
-		SimulationCallable<I> callable = applicationContext.getBean(callableClass);
-		callable.setInput(input);
-		Future<I> f = taskExecutor.submit(callable);
+		SimulationSolver<I> solver = applicationContext.getBean(solverClass);
+		solver.setInput(input);
+		Future<I> f = this.taskExecutor.submit(solver);
 		futures.add(f);
 	}
 
@@ -121,9 +137,13 @@ public abstract class Simulation<P, I> implements Consumer<P>, Function<P, List<
 	public int getCompletedInputs() {
 		return completedInputs;
 	}
+	
+	public int getFailedInputs() {
+		return failedInputs;
+	}
 
 	public boolean isRunning() {
-		return (this.startedAt != null);
+		return this.simulationState == SimulationState.RUNNING;
 	}
 	
 	public Date getStartedAt() {

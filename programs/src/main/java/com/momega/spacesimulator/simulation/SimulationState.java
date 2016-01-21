@@ -6,5 +6,6 @@ package com.momega.spacesimulator.simulation;
 public enum SimulationState {
     PREPARING,
     RUNNING,
-    FINISHED
+    FINISHED,
+    CANCELED,
 }

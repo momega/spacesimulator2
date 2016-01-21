@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 public class TestSimulation extends Simulation<TestFields, TestResult>{
 
 	public TestSimulation() {
-		super("Test", TestCallable.class);
+		super("Test", TestSolver.class);
 	}
 
 	@Override

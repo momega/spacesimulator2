@@ -1,4 +1,4 @@
-var dashboardController = angular.module('spaceSimulatorApp').controller('dashboardController', ['$scope', 'Simulation', 'datetime', '$location', function($scope, Simulation, datetime, $location) {
+var dashboardController = angular.module('spaceSimulatorApp').controller('dashboardController', ['$scope', 'Simulation', 'datetime', '$location', 'Execution', function($scope, Simulation, datetime, $location, Execution) {
 	$scope.simulations = Simulation.query();
 
 	$scope.deleteSimulation = function(simulation) {
@@ -6,6 +6,12 @@ var dashboardController = angular.module('spaceSimulatorApp').controller('dashbo
 			$scope.simulations = Simulation.query();
 		});
 	};
+	
+	$scope.runSimulation = function(simulation) {
+		Execution.run({uuid: simulation.uuid}, function() {
+			scope.simulations = Simulation.query();
+		});
+	}
 	
 	$scope.exampleSimulations = function() {
 		Simulation.example({}, function() {

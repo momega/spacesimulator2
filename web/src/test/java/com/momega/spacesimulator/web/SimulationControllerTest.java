@@ -2,8 +2,6 @@ package com.momega.spacesimulator.web;
 
 import com.google.gson.Gson;
 import com.momega.spacesimulator.simulation.Simulation;
-import com.momega.spacesimulator.simulation.SimulationFactory;
-import com.momega.spacesimulator.simulation.SimulationHolder;
 import com.momega.spacesimulator.simulation.SimulationState;
 import com.momega.spacesimulator.simulation.test.TestDefinition;
 import com.momega.spacesimulator.simulation.test.TestFields;
@@ -12,6 +10,9 @@ import com.momega.spacesimulator.web.config.AppConfig;
 import com.momega.spacesimulator.web.config.ControllerConfig;
 import com.momega.spacesimulator.web.config.WebAppConfig;
 import com.momega.spacesimulator.web.controller.*;
+import com.momega.spacesimulator.web.service.DefinitionService;
+import com.momega.spacesimulator.web.service.SimulationHolder;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +54,7 @@ public class SimulationControllerTest {
     private SimulationController simulationController;
 
     @Mock
-    private SimulationFactory simulationFactory;
+    private DefinitionService definitionService;
 
     @Autowired
     private SimulationHolder simulationHolder;
@@ -89,7 +90,7 @@ public class SimulationControllerTest {
         List<Simulation<?,?>> sims = Collections.singletonList(sim);
         simulationHolder.addSimulation(sim);
 
-        when(simulationFactory.findDefinition(sims.get(0).getName())).thenReturn(def);
+        when(definitionService.findDefinition(sims.get(0).getName())).thenReturn(def);
 
         this.mockMvc.perform(get("/api/simulation").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
@@ -212,8 +213,8 @@ public class SimulationControllerTest {
 
         TestDefinition def = new TestDefinition();
         final Simulation<?,?> sim = new TestSimulation();
-        when(simulationFactory.findDefinition("Test")).thenReturn(def);
-        when(simulationFactory.createSimulation(TestSimulation.class)).then(new Answer<Object>() {
+        when(definitionService.findDefinition("Test")).thenReturn(def);
+        when(definitionService.createSimulation(TestSimulation.class)).then(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
                 return sim;
