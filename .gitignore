@@ -1,6 +1,7 @@
 .idea
 *.*~
 target
+.tern-project
 *.iml
 /*/.settings/
 /*/.classpath
