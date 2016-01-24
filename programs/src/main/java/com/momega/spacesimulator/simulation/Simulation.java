@@ -20,14 +20,14 @@ import org.springframework.util.Assert;
 
 @Component
 @Scope("prototype")
-public abstract class Simulation<P, I> implements Callable<List<I>> {
+public abstract class Simulation<F, I> implements Callable<List<I>> {
 	
 	private final static Logger logger = LoggerFactory.getLogger(Simulation.class);
 	
-	private final Class<? extends SimulationSolver<I>> solverClass;
+	private final Class<? extends SimulationSolver<F, I>> solverClass;
 	private final String uuid;
 	private SimulationState simulationState = SimulationState.PREPARING;
-	private P fields;
+	private F fields;
 	private List<I> outputs = Collections.synchronizedList(new ArrayList<I>());
 	private final String name;
 	private Date startedAt = null;
@@ -49,7 +49,7 @@ public abstract class Simulation<P, I> implements Callable<List<I>> {
 	 * @param name the name of the simulation
 	 * @param callableClass
      */
-	protected Simulation(String name, Class<? extends SimulationSolver<I>> callableClass) {
+	protected Simulation(String name, Class<? extends SimulationSolver<F, I>> callableClass) {
 		super();
 		this.uuid = UUID.randomUUID().toString();
 		this.name = name;
@@ -60,25 +60,25 @@ public abstract class Simulation<P, I> implements Callable<List<I>> {
 		this.taskExecutor = taskExecutor;
 	}
 
-	public void setFields(P fields) {
+	public void setFields(F fields) {
 		this.fields = fields;
 	}
 
-	public P getFields() {
+	public F getFields() {
 		return fields;
 	}
 
 	@Override
 	public List<I> call() {
-		Assert.notNull(this.fields);
+		Assert.notNull(getFields());
 		logger.info("Simulation {} started", solverClass);
 		this.simulationState = SimulationState.RUNNING;
 		this.startedAt = new Date();
 		this.futures = new ArrayList<>();
-		final Predicate<I> testPredicate = createPredicate();
+		final Predicate<I> testPredicate = createPredicate(getFields());
 		List<I> inputs = generateInputs();
 		for(I input : inputs) {
-			submitInput(input);
+			submitInput(getFields(), input);
 		}
 		this.completedInputs = 0;
 		this.failedInputs = 0;
@@ -119,14 +119,15 @@ public abstract class Simulation<P, I> implements Callable<List<I>> {
 		simulationState = SimulationState.CANCELED;
 	}
 
-	protected abstract Predicate<I> createPredicate();
+	protected abstract Predicate<I> createPredicate(F fields);
 
 	protected abstract List<I> generateInputs();
 
-	public void submitInput(I input) {
-		SimulationSolver<I> solver = applicationContext.getBean(solverClass);
+	public void submitInput(F fields, I input) {
+		SimulationSolver<F, I> solver = applicationContext.getBean(solverClass);
+		solver.setFields(fields);
 		solver.setInput(input);
-		Future<I> f = this.taskExecutor.submit(solver);
+		Future<I> f = taskExecutor.submit(solver);
 		futures.add(f);
 	}
 

@@ -1,75 +1,1532 @@
-VoyageToMoonResult [timestamp=2014-09-11T17:12:00.000Z, speed=10837.0, surface=199163.78176832292, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8283080.99, e= 1.234, omega=129.294, i=169.210, OMEGA=162.368, Tp=2014-09-16T11:06:42.227Z, period=67634.099), trueAnomaly=6.2829062570773395}, velocity=2378.746600739245, minTimestamp=2014-09-16T11:06:42.000Z, duration=4 d 17 h 54 m 42 s, distance=1936163.781768323]
-VoyageToMoonResult [timestamp=2014-09-11T17:15:00.000Z, speed=10837.0, surface=190717.02246701298, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8282575.12, e= 1.233, omega=129.417, i=169.177, OMEGA=162.460, Tp=2014-09-16T11:05:59.496Z, period=67627.904), trueAnomaly=6.230770200876926E-4}, velocity=2383.415790423413, minTimestamp=2014-09-16T11:06:00.000Z, duration=4 d 17 h 51 m, distance=1927717.022467013]
-VoyageToMoonResult [timestamp=2014-09-11T17:18:00.000Z, speed=10837.0, surface=182215.5180134375, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8282114.67, e= 1.232, omega=129.541, i=169.143, OMEGA=162.553, Tp=2014-09-16T11:05:16.757Z, period=67622.264), trueAnomaly=3.019481664092512E-4}, velocity=2388.1466061356905, minTimestamp=2014-09-16T11:05:17.000Z, duration=4 d 17 h 47 m 17 s, distance=1919215.5180134375]
-VoyageToMoonResult [timestamp=2014-09-11T17:21:00.000Z, speed=10837.0, surface=173660.07911885018, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8281648.16, e= 1.231, omega=129.666, i=169.109, OMEGA=162.646, Tp=2014-09-16T11:04:34.011Z, period=67616.551), trueAnomaly=6.2831714755062995}, velocity=2392.9403527769314, minTimestamp=2014-09-16T11:04:34.000Z, duration=4 d 17 h 43 m 34 s, distance=1910660.0791188502]
-VoyageToMoonResult [timestamp=2014-09-11T17:24:00.000Z, speed=10837.0, surface=165051.10247836006, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8281175.62, e= 1.230, omega=129.792, i=169.075, OMEGA=162.740, Tp=2014-09-16T11:03:51.257Z, period=67610.764), trueAnomaly=6.28286043976776}, velocity=2397.797806297462, minTimestamp=2014-09-16T11:03:51.000Z, duration=4 d 17 h 39 m 51 s, distance=1902051.10247836]
-VoyageToMoonResult [timestamp=2014-09-11T17:27:00.000Z, speed=10837.0, surface=156388.94540785253, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8280641.84, e= 1.229, omega=129.919, i=169.040, OMEGA=162.833, Tp=2014-09-16T11:03:08.497Z, period=67604.227), trueAnomaly=6.3783638041657E-4}, velocity=2402.720605274769, minTimestamp=2014-09-16T11:03:09.000Z, duration=4 d 17 h 36 m 9 s, distance=1893388.9454078525]
-VoyageToMoonResult [timestamp=2014-09-11T17:30:00.000Z, speed=10837.0, surface=147673.7044995064, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8280156.55, e= 1.228, omega=130.047, i=169.005, OMEGA=162.927, Tp=2014-09-16T11:02:25.731Z, period=67598.284), trueAnomaly=3.429070120849261E-4}, velocity=2407.708100232461, minTimestamp=2014-09-16T11:02:26.000Z, duration=4 d 17 h 32 m 26 s, distance=1884673.7044995064]
-VoyageToMoonResult [timestamp=2014-09-11T17:33:00.000Z, speed=10837.0, surface=138906.1543940641, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8279665.32, e= 1.227, omega=130.176, i=168.969, OMEGA=163.022, Tp=2014-09-16T11:01:42.960Z, period=67592.269), trueAnomaly=5.0927575905457894E-5}, velocity=2412.7617204600438, minTimestamp=2014-09-16T11:01:43.000Z, duration=4 d 17 h 28 m 43 s, distance=1875906.154394064]
-VoyageToMoonResult [timestamp=2014-09-11T17:36:00.000Z, speed=10837.0, surface=130086.71515269368, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8279168.20, e= 1.226, omega=130.305, i=168.932, OMEGA=163.116, Tp=2014-09-16T11:01:00.184Z, period=67586.181), trueAnomaly=6.28294651324596}, velocity=2417.8823023695436, minTimestamp=2014-09-16T11:01:00.000Z, duration=4 d 17 h 25 m, distance=1867086.7151526937]
-VoyageToMoonResult [timestamp=2014-09-11T17:39:00.000Z, speed=10837.0, surface=121215.8125897171, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8278665.23, e= 1.224, omega=130.436, i=168.895, OMEGA=163.211, Tp=2014-09-16T11:00:17.404Z, period=67580.022), trueAnomaly=6.28265833278759}, velocity=2423.0706984031067, minTimestamp=2014-09-16T11:00:17.000Z, duration=4 d 17 h 21 m 17 s, distance=1858215.812589717]
-VoyageToMoonResult [timestamp=2014-09-11T17:42:00.000Z, speed=10837.0, surface=112293.58761742152, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8278096.95, e= 1.223, omega=130.567, i=168.858, OMEGA=163.306, Tp=2014-09-16T10:59:34.619Z, period=67573.064), trueAnomaly=4.993844841985443E-4}, velocity=2428.3288257247204, minTimestamp=2014-09-16T10:59:35.000Z, duration=4 d 17 h 17 m 35 s, distance=1849293.5876174215]
-VoyageToMoonResult [timestamp=2014-09-11T17:45:00.000Z, speed=10837.0, surface=103320.67542854906, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8277581.50, e= 1.222, omega=130.699, i=168.820, OMEGA=163.401, Tp=2014-09-16T10:58:51.832Z, period=67566.753), trueAnomaly=2.2132876603357684E-4}, velocity=2433.6557143939986, minTimestamp=2014-09-16T10:58:52.000Z, duration=4 d 17 h 13 m 52 s, distance=1840320.675428549]
-VoyageToMoonResult [timestamp=2014-09-11T17:48:00.000Z, speed=10837.0, surface=94297.61252634553, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8277060.31, e= 1.221, omega=130.833, i=168.781, OMEGA=163.497, Tp=2014-09-16T10:58:09.043Z, period=67560.371), trueAnomaly=6.283127973289281}, velocity=2439.0530778801594, minTimestamp=2014-09-16T10:58:09.000Z, duration=4 d 17 h 10 m 9 s, distance=1831297.6125263455]
-VoyageToMoonResult [timestamp=2014-09-11T17:51:00.000Z, speed=10837.0, surface=85224.8485891954, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8276533.43, e= 1.220, omega=130.967, i=168.742, OMEGA=163.593, Tp=2014-09-16T10:57:26.251Z, period=67553.921), trueAnomaly=6.282847877215836}, velocity=2444.5218361494217, minTimestamp=2014-09-16T10:57:26.000Z, duration=4 d 17 h 6 m 26 s, distance=1822224.8485891954]
-VoyageToMoonResult [timestamp=2014-09-12T00:18:00.000Z, speed=10838.0, surface=187243.3462294049, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8045463.12, e= 1.239, omega=131.071, i=169.386, OMEGA=170.151, Tp=2014-09-16T09:24:30.754Z, period=64744.730), trueAnomaly=3.052590342282383E-4}, velocity=2388.997390607322, minTimestamp=2014-09-16T09:24:31.000Z, duration=4 d 9 h 6 m 31 s, distance=1924243.346229405]
-VoyageToMoonResult [timestamp=2014-09-12T00:21:00.000Z, speed=10838.0, surface=166619.49712065165, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8044010.63, e= 1.237, omega=131.348, i=169.298, OMEGA=170.302, Tp=2014-09-16T09:23:46.197Z, period=64727.197), trueAnomaly=6.282935865508601}, velocity=2400.5514273927315, minTimestamp=2014-09-16T09:23:46.000Z, duration=4 d 9 h 2 m 46 s, distance=1903619.4971206516]
-VoyageToMoonResult [timestamp=2014-09-12T00:24:00.000Z, speed=10838.0, surface=146016.3704994016, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8042508.89, e= 1.234, omega=131.626, i=169.209, OMEGA=170.454, Tp=2014-09-16T09:23:01.717Z, period=64709.072), trueAnomaly=3.6157952222904294E-4}, velocity=2412.289788960112, minTimestamp=2014-09-16T09:23:02.000Z, duration=4 d 8 h 59 m 2 s, distance=1883016.3704994016]
-VoyageToMoonResult [timestamp=2014-09-12T00:27:00.000Z, speed=10838.0, surface=125435.59833961655, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8041057.39, e= 1.232, omega=131.904, i=169.119, OMEGA=170.605, Tp=2014-09-16T09:22:17.316Z, period=64691.555), trueAnomaly=6.282773088337382}, velocity=2424.214790431555, minTimestamp=2014-09-16T09:22:17.000Z, duration=4 d 8 h 55 m 17 s, distance=1862435.5983396166]
-VoyageToMoonResult [timestamp=2014-09-12T00:30:00.000Z, speed=10838.0, surface=104878.26345897163, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8039554.16, e= 1.229, omega=132.184, i=169.027, OMEGA=170.755, Tp=2014-09-16T09:21:32.995Z, period=64673.416), trueAnomaly=6.31213258527298E-6}, velocity=2436.332352623679, minTimestamp=2014-09-16T09:21:33.000Z, duration=4 d 8 h 51 m 33 s, distance=1841878.2634589716]
-VoyageToMoonResult [timestamp=2014-09-12T00:33:00.000Z, speed=10838.0, surface=84346.22476209793, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8038050.05, e= 1.227, omega=132.464, i=168.934, OMEGA=170.906, Tp=2014-09-16T09:20:48.755Z, period=64655.267), trueAnomaly=3.285760147780386E-4}, velocity=2448.645670085253, minTimestamp=2014-09-16T09:20:49.000Z, duration=4 d 8 h 47 m 49 s, distance=1821346.224762098]
-VoyageToMoonResult [timestamp=2014-09-12T02:27:00.000Z, speed=10835.0, surface=82393.42754936521, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8274301.70, e= 1.220, omega=137.785, i=19.678, OMEGA=187.868, Tp=2014-09-16T10:40:58.192Z, period=67526.599), trueAnomaly=6.282926548967389}, velocity=2446.2674124059286, minTimestamp=2014-09-16T10:40:58.000Z, duration=4 d 8 h 13 m 58 s, distance=1819393.4275493652]
-VoyageToMoonResult [timestamp=2014-09-12T02:30:00.000Z, speed=10835.0, surface=98974.48609746806, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8272968.18, e= 1.222, omega=137.630, i=19.603, OMEGA=187.923, Tp=2014-09-16T10:40:55.960Z, period=67510.275), trueAnomaly=5.276456782880242E-5}, velocity=2436.314493987437, minTimestamp=2014-09-16T10:40:56.000Z, duration=4 d 8 h 10 m 56 s, distance=1835974.486097468]
-VoyageToMoonResult [timestamp=2014-09-12T02:33:00.000Z, speed=10835.0, surface=115690.53691979242, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8271641.87, e= 1.224, omega=137.475, i=19.529, OMEGA=187.978, Tp=2014-09-16T10:40:53.921Z, period=67494.041), trueAnomaly=1.0241407979613363E-4}, velocity=2426.4207580693524, minTimestamp=2014-09-16T10:40:54.000Z, duration=4 d 8 h 7 m 54 s, distance=1852690.5369197924]
-VoyageToMoonResult [timestamp=2014-09-12T02:36:00.000Z, speed=10835.0, surface=132542.04276190628, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8270321.69, e= 1.226, omega=137.320, i=19.455, OMEGA=188.034, Tp=2014-09-16T10:40:52.077Z, period=67477.884), trueAnomaly=6.283085534018103}, velocity=2416.5861434093395, minTimestamp=2014-09-16T10:40:52.000Z, duration=4 d 8 h 4 m 52 s, distance=1869542.0427619063]
-VoyageToMoonResult [timestamp=2014-09-12T02:39:00.000Z, speed=10835.0, surface=149529.6561318324, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8269006.59, e= 1.228, omega=137.164, i=19.382, OMEGA=188.089, Tp=2014-09-16T10:40:50.426Z, period=67461.789), trueAnomaly=6.282641275459449}, velocity=2406.8104692283314, minTimestamp=2014-09-16T10:40:50.000Z, duration=4 d 8 h 1 m 50 s, distance=1886529.6561318324]
-VoyageToMoonResult [timestamp=2014-09-12T02:42:00.000Z, speed=10835.0, surface=166653.57933352096, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8267633.37, e= 1.230, omega=137.008, i=19.309, OMEGA=188.144, Tp=2014-09-16T10:40:48.969Z, period=67444.985), trueAnomaly=3.866126014752244E-5}, velocity=2397.0947357381306, minTimestamp=2014-09-16T10:40:49.000Z, duration=4 d 7 h 58 m 49 s, distance=1903653.579333521]
-VoyageToMoonResult [timestamp=2014-09-12T02:45:00.000Z, speed=10835.0, surface=183914.69505733647, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8266266.69, e= 1.232, omega=136.852, i=19.236, OMEGA=188.199, Tp=2014-09-16T10:40:47.706Z, period=67428.262), trueAnomaly=3.6533560736486993E-4}, velocity=2387.4376411203325, minTimestamp=2014-09-16T10:40:48.000Z, duration=4 d 7 h 55 m 48 s, distance=1920914.6950573365]
-VoyageToMoonResult [timestamp=2014-09-12T03:57:00.000Z, speed=10839.0, surface=181054.9411607827, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7802050.00, e= 1.246, omega=132.057, i=169.385, OMEGA=174.775, Tp=2014-09-16T08:26:42.815Z, period=61828.818), trueAnomaly=2.30710337754951E-4}, velocity=2396.4087188411095, minTimestamp=2014-09-16T08:26:43.000Z, duration=4 d 4 h 29 m 43 s, distance=1918054.9411607827]
-VoyageToMoonResult [timestamp=2014-09-12T04:00:00.000Z, speed=10839.0, surface=153290.6423322691, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7800090.30, e= 1.242, omega=132.415, i=169.263, OMEGA=174.950, Tp=2014-09-16T08:25:59.656Z, period=61805.524), trueAnomaly=4.3780000618378484E-4}, velocity=2412.063111514687, minTimestamp=2014-09-16T08:26:00.000Z, duration=4 d 4 h 26 m, distance=1890290.642332269]
-VoyageToMoonResult [timestamp=2014-09-12T04:03:00.000Z, speed=10839.0, surface=125621.02585405018, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7798133.69, e= 1.239, omega=132.774, i=169.138, OMEGA=175.124, Tp=2014-09-16T08:25:16.634Z, period=61782.270), trueAnomaly=4.768196113903731E-4}, velocity=2428.022599568397, minTimestamp=2014-09-16T08:25:17.000Z, duration=4 d 4 h 22 m 17 s, distance=1862621.0258540502]
-VoyageToMoonResult [timestamp=2014-09-12T04:06:00.000Z, speed=10839.0, surface=98048.63827373041, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7796181.29, e= 1.235, omega=133.134, i=169.011, OMEGA=175.297, Tp=2014-09-16T08:24:33.750Z, period=61759.069), trueAnomaly=3.325269428642928E-4}, velocity=2444.295475103012, minTimestamp=2014-09-16T08:24:34.000Z, duration=4 d 4 h 18 m 34 s, distance=1835048.6382737304]
-VoyageToMoonResult [timestamp=2014-09-12T06:33:00.000Z, speed=10840.0, surface=182839.10133680794, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7567652.98, e= 1.254, omega=132.681, i=169.357, OMEGA=178.309, Tp=2014-09-16T07:42:27.587Z, period=59063.566), trueAnomaly=5.150675284440879E-4}, velocity=2399.4776384707934, minTimestamp=2014-09-16T07:42:28.000Z, duration=4 d 1 h 9 m 28 s, distance=1919839.101336808]
-VoyageToMoonResult [timestamp=2014-09-12T06:36:00.000Z, speed=10836.0, surface=83428.66103069135, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8015615.63, e= 1.227, omega=138.270, i=19.946, OMEGA=190.743, Tp=2014-09-16T09:49:22.058Z, period=64384.774), trueAnomaly=6.283106254463352}, velocity=2449.5485265945285, minTimestamp=2014-09-16T09:49:22.000Z, duration=4 d 3 h 13 m 22 s, distance=1820428.6610306913]
-VoyageToMoonResult [timestamp=2014-09-12T06:36:00.000Z, speed=10840.0, surface=149514.65384641476, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7565403.88, e= 1.249, omega=133.097, i=169.208, OMEGA=178.495, Tp=2014-09-16T07:41:46.641Z, period=59037.237), trueAnomaly=4.5958225195435597E-4}, velocity=2418.251590759309, minTimestamp=2014-09-16T07:41:47.000Z, duration=4 d 1 h 5 m 47 s, distance=1886514.6538464148]
-VoyageToMoonResult [timestamp=2014-09-12T06:39:00.000Z, speed=10836.0, surface=108305.97213908704, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8013661.14, e= 1.230, omega=138.037, i=19.832, OMEGA=190.806, Tp=2014-09-16T09:49:36.109Z, period=64361.226), trueAnomaly=6.283041463518871}, velocity=2434.706130707183, minTimestamp=2014-09-16T09:49:36.000Z, duration=4 d 3 h 10 m 36 s, distance=1845305.972139087]
-VoyageToMoonResult [timestamp=2014-09-12T06:39:00.000Z, speed=10840.0, surface=116356.40066775563, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7563161.99, e= 1.245, omega=133.514, i=169.054, OMEGA=178.680, Tp=2014-09-16T07:41:05.876Z, period=59010.997), trueAnomaly=1.617695097360515E-4}, velocity=2437.4493630561788, minTimestamp=2014-09-16T07:41:06.000Z, duration=4 d 1 h 2 m 6 s, distance=1853356.4006677556]
-VoyageToMoonResult [timestamp=2014-09-12T06:42:00.000Z, speed=10836.0, surface=133392.8827567431, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8011715.24, e= 1.233, omega=137.805, i=19.720, OMEGA=190.869, Tp=2014-09-16T09:49:50.405Z, period=64337.785), trueAnomaly=6.282661108910701}, velocity=2420.0504458920523, minTimestamp=2014-09-16T09:49:50.000Z, duration=4 d 3 h 7 m 50 s, distance=1870392.882756743]
-VoyageToMoonResult [timestamp=2014-09-12T06:42:00.000Z, speed=10840.0, surface=83368.41257693106, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7560929.13, e= 1.241, omega=133.933, i=168.898, OMEGA=178.864, Tp=2014-09-16T07:40:25.299Z, period=58984.866), trueAnomaly=6.282781441273031}, velocity=2457.084169096015, minTimestamp=2014-09-16T07:40:25.000Z, duration=4 d 58 m 25 s, distance=1820368.412576931]
-VoyageToMoonResult [timestamp=2014-09-12T06:45:00.000Z, speed=10836.0, surface=158689.2882053326, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8009715.97, e= 1.237, omega=137.573, i=19.609, OMEGA=190.931, Tp=2014-09-16T09:50:04.945Z, period=64313.704), trueAnomaly=6.893724415448155E-5}, velocity=2405.579746444906, minTimestamp=2014-09-16T09:50:05.000Z, duration=4 d 3 h 5 m 5 s, distance=1895689.2882053326]
-VoyageToMoonResult [timestamp=2014-09-12T06:48:00.000Z, speed=10836.0, surface=184195.6299024704, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8007726.45, e= 1.240, omega=137.341, i=19.499, OMEGA=190.993, Tp=2014-09-16T09:50:19.729Z, period=64289.743), trueAnomaly=3.365673222408514E-4}, velocity=2391.2900599210157, minTimestamp=2014-09-16T09:50:20.000Z, duration=4 d 3 h 2 m 20 s, distance=1921195.6299024704]
-VoyageToMoonResult [timestamp=2014-09-12T06:33:00.000Z, speed=10840.0, surface=182839.10133680794, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7567652.98, e= 1.254, omega=132.681, i=169.357, OMEGA=178.309, Tp=2014-09-16T07:42:27.587Z, period=59063.566), trueAnomaly=5.150675284440879E-4}, velocity=2399.4776384707934, minTimestamp=2014-09-16T07:42:28.000Z, duration=4 d 1 h 9 m 28 s, distance=1919839.101336808]
-VoyageToMoonResult [timestamp=2014-09-12T06:36:00.000Z, speed=10836.0, surface=83428.66103069135, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8015615.63, e= 1.227, omega=138.270, i=19.946, OMEGA=190.743, Tp=2014-09-16T09:49:22.058Z, period=64384.774), trueAnomaly=6.283106254463352}, velocity=2449.5485265945285, minTimestamp=2014-09-16T09:49:22.000Z, duration=4 d 3 h 13 m 22 s, distance=1820428.6610306913]
-VoyageToMoonResult [timestamp=2014-09-12T06:36:00.000Z, speed=10840.0, surface=149514.65384641476, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7565403.88, e= 1.249, omega=133.097, i=169.208, OMEGA=178.495, Tp=2014-09-16T07:41:46.641Z, period=59037.237), trueAnomaly=4.5958225195435597E-4}, velocity=2418.251590759309, minTimestamp=2014-09-16T07:41:47.000Z, duration=4 d 1 h 5 m 47 s, distance=1886514.6538464148]
-VoyageToMoonResult [timestamp=2014-09-12T06:39:00.000Z, speed=10836.0, surface=108305.97213908704, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8013661.14, e= 1.230, omega=138.037, i=19.832, OMEGA=190.806, Tp=2014-09-16T09:49:36.109Z, period=64361.226), trueAnomaly=6.283041463518871}, velocity=2434.706130707183, minTimestamp=2014-09-16T09:49:36.000Z, duration=4 d 3 h 10 m 36 s, distance=1845305.972139087]
-VoyageToMoonResult [timestamp=2014-09-12T06:39:00.000Z, speed=10840.0, surface=116356.40066775563, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7563161.99, e= 1.245, omega=133.514, i=169.054, OMEGA=178.680, Tp=2014-09-16T07:41:05.876Z, period=59010.997), trueAnomaly=1.617695097360515E-4}, velocity=2437.4493630561788, minTimestamp=2014-09-16T07:41:06.000Z, duration=4 d 1 h 2 m 6 s, distance=1853356.4006677556]
-VoyageToMoonResult [timestamp=2014-09-12T06:42:00.000Z, speed=10836.0, surface=133392.8827567431, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8011715.24, e= 1.233, omega=137.805, i=19.720, OMEGA=190.869, Tp=2014-09-16T09:49:50.405Z, period=64337.785), trueAnomaly=6.282661108910701}, velocity=2420.0504458920523, minTimestamp=2014-09-16T09:49:50.000Z, duration=4 d 3 h 7 m 50 s, distance=1870392.882756743]
-VoyageToMoonResult [timestamp=2014-09-12T06:42:00.000Z, speed=10840.0, surface=83368.41257693106, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7560929.13, e= 1.241, omega=133.933, i=168.898, OMEGA=178.864, Tp=2014-09-16T07:40:25.299Z, period=58984.866), trueAnomaly=6.282781441273031}, velocity=2457.084169096015, minTimestamp=2014-09-16T07:40:25.000Z, duration=4 d 58 m 25 s, distance=1820368.412576931]
-VoyageToMoonResult [timestamp=2014-09-12T06:45:00.000Z, speed=10836.0, surface=158689.2882053326, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8009715.97, e= 1.237, omega=137.573, i=19.609, OMEGA=190.931, Tp=2014-09-16T09:50:04.945Z, period=64313.704), trueAnomaly=6.893724415448155E-5}, velocity=2405.579746444906, minTimestamp=2014-09-16T09:50:05.000Z, duration=4 d 3 h 5 m 5 s, distance=1895689.2882053326]
-VoyageToMoonResult [timestamp=2014-09-12T06:48:00.000Z, speed=10836.0, surface=184195.6299024704, keplerianElements=KeplerianElements { keplerianOrbit=(a=-8007726.45, e= 1.240, omega=137.341, i=19.499, OMEGA=190.993, Tp=2014-09-16T09:50:19.729Z, period=64289.743), trueAnomaly=3.365673222408514E-4}, velocity=2391.2900599210157, minTimestamp=2014-09-16T09:50:20.000Z, duration=4 d 3 h 2 m 20 s, distance=1921195.6299024704]
-VoyageToMoonResult [timestamp=2014-09-12T08:36:00.000Z, speed=10841.0, surface=185004.8534174026, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7343967.89, e= 1.262, omega=133.146, i=169.301, OMEGA=181.245, Tp=2014-09-16T07:05:16.133Z, period=56464.307), trueAnomaly=6.283018802519036}, velocity=2402.389573937385, minTimestamp=2014-09-16T07:05:16.000Z, duration=3 d 22 h 29 m 16 s, distance=1922004.8534174026]
-VoyageToMoonResult [timestamp=2014-09-12T08:39:00.000Z, speed=10841.0, surface=147005.48185210442, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7341505.52, e= 1.257, omega=133.606, i=169.127, OMEGA=181.436, Tp=2014-09-16T07:04:37.765Z, period=56435.911), trueAnomaly=3.0153001351457357E-4}, velocity=2423.765089029312, minTimestamp=2014-09-16T07:04:38.000Z, duration=3 d 22 h 25 m 38 s, distance=1884005.4818521044]
-VoyageToMoonResult [timestamp=2014-09-12T08:42:00.000Z, speed=10841.0, surface=109241.8577610089, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7339050.61, e= 1.252, omega=134.069, i=168.949, OMEGA=181.626, Tp=2014-09-16T07:03:59.617Z, period=56407.607), trueAnomaly=5.067039460872267E-4}, velocity=2445.6814119535497, minTimestamp=2014-09-16T07:04:00.000Z, duration=3 d 22 h 22 m, distance=1846241.857761009]
-VoyageToMoonResult [timestamp=2014-09-12T09:21:00.000Z, speed=10837.0, surface=80729.0098350565, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7766086.76, e= 1.234, omega=138.521, i=20.196, OMEGA=192.764, Tp=2014-09-16T09:11:18.592Z, period=61401.815), trueAnomaly=5.5091523210274E-4}, velocity=2455.188552146921, minTimestamp=2014-09-16T09:11:19.000Z, duration=3 d 23 h 50 m 19 s, distance=1817729.0098350565]
-VoyageToMoonResult [timestamp=2014-09-12T09:24:00.000Z, speed=10837.0, surface=111642.50092831557, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7763784.00, e= 1.238, omega=138.232, i=20.053, OMEGA=192.830, Tp=2014-09-16T09:11:45.029Z, period=61374.507), trueAnomaly=6.283146405198905}, velocity=2436.7802426328803, minTimestamp=2014-09-16T09:11:45.000Z, duration=3 d 23 h 47 m 45 s, distance=1848642.5009283156]
-VoyageToMoonResult [timestamp=2014-09-12T09:27:00.000Z, speed=10837.0, surface=142837.53930757334, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7761430.05, e= 1.242, omega=137.944, i=19.911, OMEGA=192.896, Tp=2014-09-16T09:12:11.749Z, period=61346.596), trueAnomaly=3.220432731280843E-4}, velocity=2418.684789475441, minTimestamp=2014-09-16T09:12:12.000Z, duration=3 d 23 h 45 m 12 s, distance=1879837.5393075733]
-VoyageToMoonResult [timestamp=2014-09-12T09:30:00.000Z, speed=10837.0, surface=174313.09246387566, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7759086.73, e= 1.246, omega=137.657, i=19.772, OMEGA=192.961, Tp=2014-09-16T09:12:38.749Z, period=61318.816), trueAnomaly=3.1410676649097364E-4}, velocity=2400.8946022964833, minTimestamp=2014-09-16T09:12:39.000Z, duration=3 d 23 h 42 m 39 s, distance=1911313.0924638757]
-VoyageToMoonResult [timestamp=2014-09-12T10:18:00.000Z, speed=10842.0, surface=186265.04112738743, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7131156.18, e= 1.270, omega=133.510, i=169.223, OMEGA=183.778, Tp=2014-09-16T06:32:33.676Z, period=54027.861), trueAnomaly=4.0479297004206817E-4}, velocity=2405.8390768146637, minTimestamp=2014-09-16T06:32:34.000Z, duration=3 d 20 h 14 m 34 s, distance=1923265.0411273874]
-VoyageToMoonResult [timestamp=2014-09-12T10:21:00.000Z, speed=10842.0, surface=144187.95470024017, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7128587.21, e= 1.264, omega=134.007, i=169.027, OMEGA=183.970, Tp=2014-09-16T06:31:58.072Z, period=53998.668), trueAnomaly=6.283091619626977}, velocity=2429.4833234708894, minTimestamp=2014-09-16T06:31:58.000Z, duration=3 d 20 h 10 m 58 s, distance=1881187.9547002402]
-VoyageToMoonResult [timestamp=2014-09-12T10:24:00.000Z, speed=10842.0, surface=102413.96630722866, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7125993.26, e= 1.258, omega=134.506, i=168.825, OMEGA=184.160, Tp=2014-09-16T06:31:22.718Z, period=53969.198), trueAnomaly=3.7567863396991346E-4}, velocity=2453.7849441453377, minTimestamp=2014-09-16T06:31:23.000Z, duration=3 d 20 h 7 m 23 s, distance=1839413.9663072287]
-VoyageToMoonResult [timestamp=2014-09-12T11:30:00.000Z, speed=10838.0, surface=111541.2708941591, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7526217.76, e= 1.246, omega=138.328, i=20.270, OMEGA=194.441, Tp=2014-09-16T08:39:59.352Z, period=58579.144), trueAnomaly=6.282719627936928}, velocity=2440.927926503043, minTimestamp=2014-09-16T08:39:59.000Z, duration=3 d 21 h 9 m 59 s, distance=1848541.270894159]
-VoyageToMoonResult [timestamp=2014-09-12T11:33:00.000Z, speed=10838.0, surface=147724.37280730088, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7523640.96, e= 1.251, omega=137.995, i=20.103, OMEGA=194.507, Tp=2014-09-16T08:40:36.406Z, period=58549.062), trueAnomaly=6.282663483864695}, velocity=2420.0162104011806, minTimestamp=2014-09-16T08:40:36.000Z, duration=3 d 21 h 7 m 36 s, distance=1884724.3728073009]
-VoyageToMoonResult [timestamp=2014-09-12T11:36:00.000Z, speed=10838.0, surface=184256.38424203894, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7521021.27, e= 1.255, omega=137.663, i=19.940, OMEGA=194.574, Tp=2014-09-16T08:41:13.766Z, period=58518.485), trueAnomaly=2.91809218504774E-4}, velocity=2399.5295705942603, minTimestamp=2014-09-16T08:41:14.000Z, duration=3 d 21 h 5 m 14 s, distance=1921256.384242039]
-VoyageToMoonResult [timestamp=2014-09-12T13:12:00.000Z, speed=10839.0, surface=102092.96199036948, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7301555.34, e= 1.252, omega=138.429, i=20.518, OMEGA=195.783, Tp=2014-09-16T08:11:41.021Z, period=55975.879), trueAnomaly=6.283156013706166}, velocity=2450.6003917319376, minTimestamp=2014-09-16T08:11:41.000Z, duration=3 d 18 h 59 m 41 s, distance=1839092.9619903695]
-VoyageToMoonResult [timestamp=2014-09-12T13:15:00.000Z, speed=10839.0, surface=142478.4750654837, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7298813.94, e= 1.258, omega=138.057, i=20.328, OMEGA=195.849, Tp=2014-09-16T08:12:26.945Z, period=55944.357), trueAnomaly=7.050507843599403E-5}, velocity=2427.155868039652, minTimestamp=2014-09-16T08:12:27.000Z, duration=3 d 18 h 57 m 27 s, distance=1879478.4750654837]
-VoyageToMoonResult [timestamp=2014-09-12T13:18:00.000Z, speed=10839.0, surface=183279.27698221756, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7296082.26, e= 1.263, omega=137.687, i=20.142, OMEGA=195.916, Tp=2014-09-16T08:13:13.196Z, period=55912.953), trueAnomaly=6.282939537683082}, velocity=2404.255602305898, minTimestamp=2014-09-16T08:13:13.000Z, duration=3 d 18 h 55 m 13 s, distance=1920279.2769822176]
-VoyageToMoonResult [timestamp=2014-09-12T14:39:00.000Z, speed=10840.0, surface=103808.58340925397, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7088045.69, e= 1.260, omega=138.372, i=20.704, OMEGA=196.967, Tp=2014-09-16T07:46:01.436Z, period=53538.674), trueAnomaly=6.282603931351906}, velocity=2453.712531801783, minTimestamp=2014-09-16T07:46:01.000Z, duration=3 d 17 h 7 m 1 s, distance=1840808.583409254]
-VoyageToMoonResult [timestamp=2014-09-12T14:42:00.000Z, speed=10840.0, surface=148018.99410963035, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7085193.20, e= 1.266, omega=137.965, i=20.493, OMEGA=197.033, Tp=2014-09-16T07:46:55.288Z, period=53506.358), trueAnomaly=6.2828138398889815}, velocity=2428.1691831548496, minTimestamp=2014-09-16T07:46:55.000Z, duration=3 d 17 h 4 m 55 s, distance=1885018.9941096304]
-VoyageToMoonResult [timestamp=2014-09-12T14:45:00.000Z, speed=10840.0, surface=192708.27353247348, keplerianElements=KeplerianElements { keplerianOrbit=(a=-7082350.38, e= 1.272, omega=137.562, i=20.288, OMEGA=197.099, Tp=2014-09-16T07:47:49.482Z, period=53474.159), trueAnomaly=6.282584998073959}, velocity=2403.283487955982, minTimestamp=2014-09-16T07:47:49.000Z, duration=3 d 17 h 2 m 49 s, distance=1929708.2735324735]
-VoyageToMoonResult [timestamp=2014-09-12T15:54:00.000Z, speed=10841.0, surface=100223.61361532216, keplerianElements=KeplerianElements { keplerianOrbit=(a=-6886091.86, e= 1.267, omega=138.323, i=20.907, OMEGA=198.011, Tp=2014-09-16T07:22:01.978Z, period=51266.901), trueAnomaly=2.817469931528958E-5}, velocity=2459.958670306343, minTimestamp=2014-09-16T07:22:02.000Z, duration=3 d 15 h 28 m 2 s, distance=1837223.6136153222]
-VoyageToMoonResult [timestamp=2014-09-12T15:57:00.000Z, speed=10841.0, surface=147829.38959052972, keplerianElements=KeplerianElements { keplerianOrbit=(a=-6883177.67, e= 1.274, omega=137.886, i=20.677, OMEGA=198.076, Tp=2014-09-16T07:23:02.900Z, period=51234.360), trueAnomaly=1.2877876807999527E-4}, velocity=2432.4566839299428, minTimestamp=2014-09-16T07:23:03.000Z, duration=3 d 15 h 26 m 3 s, distance=1884829.3895905297]
-VoyageToMoonResult [timestamp=2014-09-12T16:00:00.000Z, speed=10841.0, surface=195975.43958131876, keplerianElements=KeplerianElements { keplerianOrbit=(a=-6880271.89, e= 1.281, omega=137.452, i=20.453, OMEGA=198.140, Tp=2014-09-16T07:24:04.173Z, period=51201.920), trueAnomaly=6.282969379114176}, velocity=2405.7263356221133, minTimestamp=2014-09-16T07:24:04.000Z, duration=3 d 15 h 24 m 4 s, distance=1932975.4395813188]
-VoyageToMoonResult [timestamp=2014-09-12T17:00:00.000Z, speed=10842.0, surface=95340.56537469919, keplerianElements=KeplerianElements { keplerianOrbit=(a=-6694790.50, e= 1.274, omega=138.256, i=21.111, OMEGA=198.948, Tp=2014-09-16T06:59:22.098Z, period=49145.452), trueAnomaly=6.283052150720727}, velocity=2466.977366904508, minTimestamp=2014-09-16T06:59:22.000Z, duration=3 d 13 h 59 m 22 s, distance=1832340.5653746992]
-VoyageToMoonResult [timestamp=2014-09-12T17:03:00.000Z, speed=10842.0, surface=146027.7646511863, keplerianElements=KeplerianElements { keplerianOrbit=(a=-6691854.77, e= 1.281, omega=137.790, i=20.862, OMEGA=199.012, Tp=2014-09-16T07:00:29.410Z, period=49113.130), trueAnomaly=6.2826536075433825}, velocity=2437.662183429806, minTimestamp=2014-09-16T07:00:29.000Z, duration=3 d 13 h 57 m 29 s, distance=1883027.7646511863]
-VoyageToMoonResult [timestamp=2014-09-12T17:06:00.000Z, speed=10842.0, surface=197314.92666727654, keplerianElements=KeplerianElements { keplerianOrbit=(a=-6688882.96, e= 1.289, omega=137.328, i=20.619, OMEGA=199.075, Tp=2014-09-16T07:01:37.081Z, period=49080.417), trueAnomaly=6.283083358023583}, velocity=2409.2326255326448, minTimestamp=2014-09-16T07:01:37.000Z, duration=3 d 13 h 55 m 37 s, distance=1934314.9266672765]
-
+[
+  {
+    "timestamp": "2014-09-12T03:10:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171589872822777,
+    "distance": 1807971.0953813891,
+    "velocity": 2455.4367991470335,
+    "minTimestamp": "2014-09-16T08:57:37.000",
+    "duration": 366457.0,
+    "surface": 70971.09538138914
+  },
+  {
+    "timestamp": "2014-09-12T03:10:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171580759159913,
+    "distance": 1807946.773633223,
+    "velocity": 2455.453196565319,
+    "minTimestamp": "2014-09-16T08:57:36.000",
+    "duration": 366446.0,
+    "surface": 70946.77363322303
+  },
+  {
+    "timestamp": "2014-09-12T03:10:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171572351302094,
+    "distance": 1807924.4017045947,
+    "velocity": 2455.468405506737,
+    "minTimestamp": "2014-09-16T08:57:35.000",
+    "duration": 366435.0,
+    "surface": 70924.40170459473
+  },
+  {
+    "timestamp": "2014-09-12T03:10:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171564649662665,
+    "distance": 1807903.9807191922,
+    "velocity": 2455.4824252195394,
+    "minTimestamp": "2014-09-16T08:57:34.000",
+    "duration": 366424.0,
+    "surface": 70903.98071919219
+  },
+  {
+    "timestamp": "2014-09-12T03:10:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171557654656689,
+    "distance": 1807885.5108480153,
+    "velocity": 2455.4952555396508,
+    "minTimestamp": "2014-09-16T08:57:33.000",
+    "duration": 366413.0,
+    "surface": 70885.51084801531
+  },
+  {
+    "timestamp": "2014-09-12T03:10:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171551366697225,
+    "distance": 1807868.9933656438,
+    "velocity": 2455.5068956347727,
+    "minTimestamp": "2014-09-16T08:57:32.000",
+    "duration": 366402.0,
+    "surface": 70868.99336564378
+  },
+  {
+    "timestamp": "2014-09-12T03:11:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017154578619634,
+    "distance": 1807854.4289457335,
+    "velocity": 2455.517345045634,
+    "minTimestamp": "2014-09-16T08:57:31.000",
+    "duration": 366391.0,
+    "surface": 70854.42894573347
+  },
+  {
+    "timestamp": "2014-09-12T03:11:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171540913571633,
+    "distance": 1807841.8179822282,
+    "velocity": 2455.5266034900583,
+    "minTimestamp": "2014-09-16T08:57:30.000",
+    "duration": 366380.0,
+    "surface": 70841.81798222824
+  },
+  {
+    "timestamp": "2014-09-12T03:11:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171536749233716,
+    "distance": 1807831.161671302,
+    "velocity": 2455.534670201279,
+    "minTimestamp": "2014-09-16T08:57:29.000",
+    "duration": 366369.0,
+    "surface": 70831.16167130205
+  },
+  {
+    "timestamp": "2014-09-12T03:11:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171533293598551,
+    "distance": 1807822.4602739192,
+    "velocity": 2455.5415449902066,
+    "minTimestamp": "2014-09-16T08:57:28.000",
+    "duration": 366358.0,
+    "surface": 70822.46027391916
+  },
+  {
+    "timestamp": "2014-09-12T03:11:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171530547078635,
+    "distance": 1807815.7151822248,
+    "velocity": 2455.5472269827205,
+    "minTimestamp": "2014-09-16T08:57:27.000",
+    "duration": 366347.0,
+    "surface": 70815.71518222475
+  },
+  {
+    "timestamp": "2014-09-12T03:11:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171528510090604,
+    "distance": 1807810.9262895193,
+    "velocity": 2455.5517162256006,
+    "minTimestamp": "2014-09-16T08:57:26.000",
+    "duration": 366336.0,
+    "surface": 70810.9262895193
+  },
+  {
+    "timestamp": "2014-09-12T03:12:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171527183044384,
+    "distance": 1807808.0951144204,
+    "velocity": 2455.555011780019,
+    "minTimestamp": "2014-09-16T08:57:25.000",
+    "duration": 366325.0,
+    "surface": 70808.0951144204
+  },
+  {
+    "timestamp": "2014-09-12T03:12:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171526566356561,
+    "distance": 1807807.2217610718,
+    "velocity": 2455.557113575695,
+    "minTimestamp": "2014-09-16T08:57:24.000",
+    "duration": 366314.0,
+    "surface": 70807.22176107182
+  },
+  {
+    "timestamp": "2014-09-12T03:12:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171526660439223,
+    "distance": 1807808.3073912212,
+    "velocity": 2455.5580209035948,
+    "minTimestamp": "2014-09-16T08:57:23.000",
+    "duration": 366303.0,
+    "surface": 70808.30739122117
+  },
+  {
+    "timestamp": "2014-09-12T03:12:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171527465709074,
+    "distance": 1807811.3524637998,
+    "velocity": 2455.557733489397,
+    "minTimestamp": "2014-09-16T08:57:22.000",
+    "duration": 366292.0,
+    "surface": 70811.35246379976
+  },
+  {
+    "timestamp": "2014-09-12T03:12:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171528982577238,
+    "distance": 1807816.3578441374,
+    "velocity": 2455.556250816599,
+    "minTimestamp": "2014-09-16T08:57:21.000",
+    "duration": 366281.0,
+    "surface": 70816.35784413735
+  },
+  {
+    "timestamp": "2014-09-12T03:12:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171531211458402,
+    "distance": 1807823.3241610879,
+    "velocity": 2455.5535725191967,
+    "minTimestamp": "2014-09-16T08:57:20.000",
+    "duration": 366270.0,
+    "surface": 70823.32416108786
+  },
+  {
+    "timestamp": "2014-09-12T03:13:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171534152767205,
+    "distance": 1807832.2520908106,
+    "velocity": 2455.5496982081795,
+    "minTimestamp": "2014-09-16T08:57:19.000",
+    "duration": 366259.0,
+    "surface": 70832.25209081057
+  },
+  {
+    "timestamp": "2014-09-12T03:13:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017153780691688,
+    "distance": 1807843.1423252467,
+    "velocity": 2455.544627491438,
+    "minTimestamp": "2014-09-16T08:57:18.000",
+    "duration": 366248.0,
+    "surface": 70843.1423252467
+  },
+  {
+    "timestamp": "2014-09-12T03:13:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171542174321946,
+    "distance": 1807855.995563937,
+    "velocity": 2455.538359977707,
+    "minTimestamp": "2014-09-16T08:57:17.000",
+    "duration": 366237.0,
+    "surface": 70855.99556393689
+  },
+  {
+    "timestamp": "2014-09-12T03:13:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171547255396316,
+    "distance": 1807870.8126696555,
+    "velocity": 2455.5308951825186,
+    "minTimestamp": "2014-09-16T08:57:16.000",
+    "duration": 366226.0,
+    "surface": 70870.81266965554
+  },
+  {
+    "timestamp": "2014-09-12T03:13:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017155305055289,
+    "distance": 1807887.593961985,
+    "velocity": 2455.522232958697,
+    "minTimestamp": "2014-09-16T08:57:15.000",
+    "duration": 366215.0,
+    "surface": 70887.59396198508
+  },
+  {
+    "timestamp": "2014-09-12T03:13:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171559560206704,
+    "distance": 1807906.3405951955,
+    "velocity": 2455.5123726561433,
+    "minTimestamp": "2014-09-16T08:57:14.000",
+    "duration": 366204.0,
+    "surface": 70906.34059519554
+  },
+  {
+    "timestamp": "2014-09-12T03:14:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171566784771071,
+    "distance": 1807927.0528462275,
+    "velocity": 2455.5013141655754,
+    "minTimestamp": "2014-09-16T08:57:13.000",
+    "duration": 366193.0,
+    "surface": 70927.05284622754
+  },
+  {
+    "timestamp": "2014-09-12T03:14:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171574724659957,
+    "distance": 1807949.7316306774,
+    "velocity": 2455.489056994541,
+    "minTimestamp": "2014-09-16T08:57:12.000",
+    "duration": 366182.0,
+    "surface": 70949.73163067736
+  },
+  {
+    "timestamp": "2014-09-12T03:14:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171583380287055,
+    "distance": 1807974.3772438532,
+    "velocity": 2455.4756010354595,
+    "minTimestamp": "2014-09-16T08:57:11.000",
+    "duration": 366171.0,
+    "surface": 70974.37724385317
+  },
+  {
+    "timestamp": "2014-09-12T03:14:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171592752067753,
+    "distance": 1808000.99096894,
+    "velocity": 2455.4609455832183,
+    "minTimestamp": "2014-09-16T08:57:10.000",
+    "duration": 366160.0,
+    "surface": 71000.99096894008
+  },
+  {
+    "timestamp": "2014-09-12T03:14:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171602840414171,
+    "distance": 1808029.5731514995,
+    "velocity": 2455.4450905117315,
+    "minTimestamp": "2014-09-16T08:57:09.000",
+    "duration": 366149.0,
+    "surface": 71029.5731514995
+  },
+  {
+    "timestamp": "2014-09-12T03:14:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017161364574149,
+    "distance": 1808060.124150132,
+    "velocity": 2455.4280356931617,
+    "minTimestamp": "2014-09-16T08:57:08.000",
+    "duration": 366138.0,
+    "surface": 71060.12415013206
+  },
+  {
+    "timestamp": "2014-09-12T03:15:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.01716251684625,
+    "distance": 1808092.6449455908,
+    "velocity": 2455.4097806245204,
+    "minTimestamp": "2014-09-16T08:57:07.000",
+    "duration": 366127.0,
+    "surface": 71092.64494559076
+  },
+  {
+    "timestamp": "2014-09-12T03:15:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171637408993062,
+    "distance": 1808127.136373852,
+    "velocity": 2455.3903248990405,
+    "minTimestamp": "2014-09-16T08:57:06.000",
+    "duration": 366116.0,
+    "surface": 71127.13637385191
+  },
+  {
+    "timestamp": "2014-09-12T03:15:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171650367744027,
+    "distance": 1808163.5986505821,
+    "velocity": 2455.3696684940187,
+    "minTimestamp": "2014-09-16T08:57:05.000",
+    "duration": 366105.0,
+    "surface": 71163.59865058213
+  },
+  {
+    "timestamp": "2014-09-12T03:15:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171664045132565,
+    "distance": 1808202.0326612827,
+    "velocity": 2455.347810984347,
+    "minTimestamp": "2014-09-16T08:57:04.000",
+    "duration": 366094.0,
+    "surface": 71202.03266128269
+  },
+  {
+    "timestamp": "2014-09-12T03:15:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171678441569354,
+    "distance": 1808242.4388958137,
+    "velocity": 2455.324752191787,
+    "minTimestamp": "2014-09-16T08:57:03.000",
+    "duration": 366083.0,
+    "surface": 71242.43889581366
+  },
+  {
+    "timestamp": "2014-09-12T03:15:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171693557471324,
+    "distance": 1808284.8182087203,
+    "velocity": 2455.3004917225585,
+    "minTimestamp": "2014-09-16T08:57:02.000",
+    "duration": 366072.0,
+    "surface": 71284.8182087203
+  },
+  {
+    "timestamp": "2014-09-12T03:16:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171709393250028,
+    "distance": 1808329.1711314989,
+    "velocity": 2455.275029385282,
+    "minTimestamp": "2014-09-16T08:57:01.000",
+    "duration": 366061.0,
+    "surface": 71329.17113149888
+  },
+  {
+    "timestamp": "2014-09-12T03:16:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017172594932201,
+    "distance": 1808375.4982724898,
+    "velocity": 2455.2483649488886,
+    "minTimestamp": "2014-09-16T08:57:00.000",
+    "duration": 366050.0,
+    "surface": 71375.49827248976
+  },
+  {
+    "timestamp": "2014-09-12T03:16:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171743226098078,
+    "distance": 1808423.8001264555,
+    "velocity": 2455.2204982567364,
+    "minTimestamp": "2014-09-16T08:56:59.000",
+    "duration": 366039.0,
+    "surface": 71423.80012645549
+  },
+  {
+    "timestamp": "2014-09-12T03:16:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017176122399353,
+    "distance": 1808474.0772699974,
+    "velocity": 2455.19142910884,
+    "minTimestamp": "2014-09-16T08:56:58.000",
+    "duration": 366028.0,
+    "surface": 71474.07726999745
+  },
+  {
+    "timestamp": "2014-09-12T03:16:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017177994342344,
+    "distance": 1808526.330705728,
+    "velocity": 2455.1611570516693,
+    "minTimestamp": "2014-09-16T08:56:57.000",
+    "duration": 366017.0,
+    "surface": 71526.33070572792
+  },
+  {
+    "timestamp": "2014-09-12T03:16:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171799384799685,
+    "distance": 1808580.5607876212,
+    "velocity": 2455.1296820329726,
+    "minTimestamp": "2014-09-16T08:56:56.000",
+    "duration": 366006.0,
+    "surface": 71580.56078762119
+  },
+  {
+    "timestamp": "2014-09-12T03:17:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017181954853818,
+    "distance": 1808636.768157923,
+    "velocity": 2455.0970038314877,
+    "minTimestamp": "2014-09-16T08:56:55.000",
+    "duration": 365995.0,
+    "surface": 71636.7681579229
+  },
+  {
+    "timestamp": "2014-09-12T03:17:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171840435052477,
+    "distance": 1808694.9534901758,
+    "velocity": 2455.063122212544,
+    "minTimestamp": "2014-09-16T08:56:54.000",
+    "duration": 365984.0,
+    "surface": 71694.95349017577
+  },
+  {
+    "timestamp": "2014-09-12T03:17:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171862044753663,
+    "distance": 1808755.1169390588,
+    "velocity": 2455.0280372641623,
+    "minTimestamp": "2014-09-16T08:56:53.000",
+    "duration": 365973.0,
+    "surface": 71755.11693905876
+  },
+  {
+    "timestamp": "2014-09-12T03:17:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171884378058251,
+    "distance": 1808817.25960954,
+    "velocity": 2454.991748501293,
+    "minTimestamp": "2014-09-16T08:56:52.000",
+    "duration": 365962.0,
+    "surface": 71817.25960954
+  },
+  {
+    "timestamp": "2014-09-12T03:17:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171907435379695,
+    "distance": 1808881.3818750132,
+    "velocity": 2454.954255890877,
+    "minTimestamp": "2014-09-16T08:56:51.000",
+    "duration": 365951.0,
+    "surface": 71881.38187501323
+  },
+  {
+    "timestamp": "2014-09-12T03:17:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017193121713386,
+    "distance": 1808947.484743627,
+    "velocity": 2454.915559019095,
+    "minTimestamp": "2014-09-16T08:56:50.000",
+    "duration": 365940.0,
+    "surface": 71947.48474362702
+  },
+  {
+    "timestamp": "2014-09-12T03:18:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017195572372987,
+    "distance": 1809015.5680117854,
+    "velocity": 2454.8756582169854,
+    "minTimestamp": "2014-09-16T08:56:49.000",
+    "duration": 365929.0,
+    "surface": 72015.56801178539
+  },
+  {
+    "timestamp": "2014-09-12T03:18:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0171980955585933,
+    "distance": 1809085.6327983944,
+    "velocity": 2454.834553015583,
+    "minTimestamp": "2014-09-16T08:56:48.000",
+    "duration": 365918.0,
+    "surface": 72085.63279839442
+  },
+  {
+    "timestamp": "2014-09-12T03:18:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172006913113,
+    "distance": 1809157.6795220668,
+    "velocity": 2454.792243379028,
+    "minTimestamp": "2014-09-16T08:56:47.000",
+    "duration": 365907.0,
+    "surface": 72157.67952206684
+  },
+  {
+    "timestamp": "2014-09-12T03:18:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172033596726506,
+    "distance": 1809231.7087414996,
+    "velocity": 2454.7487291924463,
+    "minTimestamp": "2014-09-16T08:56:46.000",
+    "duration": 365896.0,
+    "surface": 72231.70874149958
+  },
+  {
+    "timestamp": "2014-09-12T03:18:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172061006840896,
+    "distance": 1809307.7211464879,
+    "velocity": 2454.704010266866,
+    "minTimestamp": "2014-09-16T08:56:45.000",
+    "duration": 365885.0,
+    "surface": 72307.72114648786
+  },
+  {
+    "timestamp": "2014-09-12T03:18:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172085422199448,
+    "distance": 1807016.4665069634,
+    "velocity": 2456.102784025153,
+    "minTimestamp": "2014-09-16T08:56:45.000",
+    "duration": 365875.0,
+    "surface": 70016.46650696336
+  },
+  {
+    "timestamp": "2014-09-12T03:19:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172114287033425,
+    "distance": 1807096.5019259509,
+    "velocity": 2456.055521981308,
+    "minTimestamp": "2014-09-16T08:56:44.000",
+    "duration": 365864.0,
+    "surface": 70096.50192595087
+  },
+  {
+    "timestamp": "2014-09-12T03:19:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172143879608777,
+    "distance": 1807178.523412105,
+    "velocity": 2456.0070517337062,
+    "minTimestamp": "2014-09-16T08:56:43.000",
+    "duration": 365853.0,
+    "surface": 70178.52341210493
+  },
+  {
+    "timestamp": "2014-09-12T03:19:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172174200339357,
+    "distance": 1807262.5315652406,
+    "velocity": 2455.957373174125,
+    "minTimestamp": "2014-09-16T08:56:42.000",
+    "duration": 365842.0,
+    "surface": 70262.53156524058
+  },
+  {
+    "timestamp": "2014-09-12T03:19:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017220524964073,
+    "distance": 1807348.527052335,
+    "velocity": 2455.9064861586676,
+    "minTimestamp": "2014-09-16T08:56:41.000",
+    "duration": 365831.0,
+    "surface": 70348.52705233498
+  },
+  {
+    "timestamp": "2014-09-12T03:19:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172237027926263,
+    "distance": 1807436.510459571,
+    "velocity": 2455.8543905994807,
+    "minTimestamp": "2014-09-16T08:56:40.000",
+    "duration": 365820.0,
+    "surface": 70436.51045957091
+  },
+  {
+    "timestamp": "2014-09-12T03:19:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017226953560779,
+    "distance": 1807526.482013161,
+    "velocity": 2455.8010866349928,
+    "minTimestamp": "2014-09-16T08:56:39.000",
+    "duration": 365809.0,
+    "surface": 70526.48201316106
+  },
+  {
+    "timestamp": "2014-09-12T03:20:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017230277310035,
+    "distance": 1807618.4425030465,
+    "velocity": 2455.7465740646694,
+    "minTimestamp": "2014-09-16T08:56:38.000",
+    "duration": 365798.0,
+    "surface": 70618.44250304648
+  },
+  {
+    "timestamp": "2014-09-12T03:20:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172336740820467,
+    "distance": 1807712.3925947372,
+    "velocity": 2455.6908527715746,
+    "minTimestamp": "2014-09-16T08:56:37.000",
+    "duration": 365787.0,
+    "surface": 70712.39259473723
+  },
+  {
+    "timestamp": "2014-09-12T03:20:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172371439176362,
+    "distance": 1807808.3322991438,
+    "velocity": 2455.633923043358,
+    "minTimestamp": "2014-09-16T08:56:36.000",
+    "duration": 365776.0,
+    "surface": 70808.33229914377
+  },
+  {
+    "timestamp": "2014-09-12T03:20:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172406868588013,
+    "distance": 1807906.2628157975,
+    "velocity": 2455.575784448995,
+    "minTimestamp": "2014-09-16T08:56:35.000",
+    "duration": 365765.0,
+    "surface": 70906.26281579747
+  },
+  {
+    "timestamp": "2014-09-12T03:20:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172443029464164,
+    "distance": 1808006.1840370924,
+    "velocity": 2455.5164373617085,
+    "minTimestamp": "2014-09-16T08:56:34.000",
+    "duration": 365754.0,
+    "surface": 71006.18403709237
+  },
+  {
+    "timestamp": "2014-09-12T03:20:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.01724799222196,
+    "distance": 1808108.0966663496,
+    "velocity": 2455.45588166556,
+    "minTimestamp": "2014-09-16T08:56:33.000",
+    "duration": 365743.0,
+    "surface": 71108.09666634956
+  },
+  {
+    "timestamp": "2014-09-12T03:21:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172517547267113,
+    "distance": 1808212.0011365598,
+    "velocity": 2455.3941174158363,
+    "minTimestamp": "2014-09-16T08:56:32.000",
+    "duration": 365732.0,
+    "surface": 71212.00113655976
+  },
+  {
+    "timestamp": "2014-09-12T03:21:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017255590502768,
+    "distance": 1808317.8985034064,
+    "velocity": 2455.3311442943245,
+    "minTimestamp": "2014-09-16T08:56:31.000",
+    "duration": 365721.0,
+    "surface": 71317.89850340644
+  },
+  {
+    "timestamp": "2014-09-12T03:21:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172594995905953,
+    "distance": 1808425.7885514037,
+    "velocity": 2455.266962764538,
+    "minTimestamp": "2014-09-16T08:56:30.000",
+    "duration": 365710.0,
+    "surface": 71425.78855140368
+  },
+  {
+    "timestamp": "2014-09-12T03:21:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172634820317374,
+    "distance": 1808535.671923959,
+    "velocity": 2455.201572772114,
+    "minTimestamp": "2014-09-16T08:56:29.000",
+    "duration": 365699.0,
+    "surface": 71535.67192395893
+  },
+  {
+    "timestamp": "2014-09-12T03:21:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172675378680884,
+    "distance": 1808647.549500429,
+    "velocity": 2455.1349741254717,
+    "minTimestamp": "2014-09-16T08:56:28.000",
+    "duration": 365688.0,
+    "surface": 71647.54950042907
+  },
+  {
+    "timestamp": "2014-09-12T03:21:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.017271667140118,
+    "distance": 1808761.421045058,
+    "velocity": 2455.0671673186353,
+    "minTimestamp": "2014-09-16T08:56:27.000",
+    "duration": 365677.0,
+    "surface": 71761.42104505794
+  },
+  {
+    "timestamp": "2014-09-12T03:22:00.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172758698904714,
+    "distance": 1808877.2880800306,
+    "velocity": 2454.9981517803603,
+    "minTimestamp": "2014-09-16T08:56:26.000",
+    "duration": 365666.0,
+    "surface": 71877.28808003059
+  },
+  {
+    "timestamp": "2014-09-12T03:22:10.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172801461593604,
+    "distance": 1808995.1501775228,
+    "velocity": 2454.9279281346435,
+    "minTimestamp": "2014-09-16T08:56:25.000",
+    "duration": 365655.0,
+    "surface": 71995.1501775228
+  },
+  {
+    "timestamp": "2014-09-12T03:22:20.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172844959886398,
+    "distance": 1809115.00812584,
+    "velocity": 2454.8564962699365,
+    "minTimestamp": "2014-09-16T08:56:24.000",
+    "duration": 365644.0,
+    "surface": 72115.00812583999
+  },
+  {
+    "timestamp": "2014-09-12T03:22:30.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172889194199217,
+    "distance": 1809236.8625977188,
+    "velocity": 2454.783856151655,
+    "minTimestamp": "2014-09-16T08:56:23.000",
+    "duration": 365633.0,
+    "surface": 72236.86259771883
+  },
+  {
+    "timestamp": "2014-09-12T03:22:40.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172934164939023,
+    "distance": 1809360.7136305948,
+    "velocity": 2454.7100081382578,
+    "minTimestamp": "2014-09-16T08:56:22.000",
+    "duration": 365622.0,
+    "surface": 72360.71363059478
+  },
+  {
+    "timestamp": "2014-09-12T03:22:50.000",
+    "speed": 10836.900000000003,
+    "eccentricity": 1.0172976145234964,
+    "distance": 1807117.7679440242,
+    "velocity": 2456.079226591098,
+    "minTimestamp": "2014-09-16T08:56:22.000",
+    "duration": 365612.0,
+    "surface": 70117.76794402418
+  },
+  {
+    "timestamp": "2014-09-12T03:29:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172973943252928,
+    "distance": 1808735.992378082,
+    "velocity": 2455.320744416409,
+    "minTimestamp": "2014-09-16T08:52:34.000",
+    "duration": 364994.0,
+    "surface": 71735.9923780819
+  },
+  {
+    "timestamp": "2014-09-12T03:29:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172946710553774,
+    "distance": 1808770.8499364662,
+    "velocity": 2455.3011181172046,
+    "minTimestamp": "2014-09-16T08:52:33.000",
+    "duration": 364983.0,
+    "surface": 71770.8499364662
+  },
+  {
+    "timestamp": "2014-09-12T03:29:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017292022672144,
+    "distance": 1808807.7400084725,
+    "velocity": 2455.2802543953517,
+    "minTimestamp": "2014-09-16T08:52:32.000",
+    "duration": 364972.0,
+    "surface": 71807.74000847246
+  },
+  {
+    "timestamp": "2014-09-12T03:29:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172894492195272,
+    "distance": 1808846.6627403307,
+    "velocity": 2455.258153281836,
+    "minTimestamp": "2014-09-16T08:52:31.000",
+    "duration": 364961.0,
+    "surface": 71846.66274033068
+  },
+  {
+    "timestamp": "2014-09-12T03:30:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172869507408107,
+    "distance": 1808887.6188834333,
+    "velocity": 2455.234814444926,
+    "minTimestamp": "2014-09-16T08:52:30.000",
+    "duration": 364950.0,
+    "surface": 71887.61888343329
+  },
+  {
+    "timestamp": "2014-09-12T03:30:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172845272786661,
+    "distance": 1808930.6094610111,
+    "velocity": 2455.210237393484,
+    "minTimestamp": "2014-09-16T08:52:29.000",
+    "duration": 364939.0,
+    "surface": 71930.60946101113
+  },
+  {
+    "timestamp": "2014-09-12T03:30:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172821788769961,
+    "distance": 1808975.634592643,
+    "velocity": 2455.1844221942915,
+    "minTimestamp": "2014-09-16T08:52:28.000",
+    "duration": 364928.0,
+    "surface": 71975.63459264301
+  },
+  {
+    "timestamp": "2014-09-12T03:30:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017279905578416,
+    "distance": 1809022.6957561993,
+    "velocity": 2455.157368092268,
+    "minTimestamp": "2014-09-16T08:52:27.000",
+    "duration": 364917.0,
+    "surface": 72022.6957561993
+  },
+  {
+    "timestamp": "2014-09-12T03:30:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172777074269348,
+    "distance": 1809071.7926919532,
+    "velocity": 2455.129075397937,
+    "minTimestamp": "2014-09-16T08:52:26.000",
+    "duration": 364906.0,
+    "surface": 72071.79269195325
+  },
+  {
+    "timestamp": "2014-09-12T03:30:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172755844647705,
+    "distance": 1809122.9268150986,
+    "velocity": 2455.09954340771,
+    "minTimestamp": "2014-09-16T08:52:25.000",
+    "duration": 364895.0,
+    "surface": 72122.92681509862
+  },
+  {
+    "timestamp": "2014-09-12T03:31:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017273536736195,
+    "distance": 1809176.0982301838,
+    "velocity": 2455.068772223311,
+    "minTimestamp": "2014-09-16T08:52:24.000",
+    "duration": 364884.0,
+    "surface": 72176.09823018382
+  },
+  {
+    "timestamp": "2014-09-12T03:31:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017271564283804,
+    "distance": 1809231.307884144,
+    "velocity": 2455.0367614397373,
+    "minTimestamp": "2014-09-16T08:52:23.000",
+    "duration": 364873.0,
+    "surface": 72231.3078841439
+  },
+  {
+    "timestamp": "2014-09-12T03:31:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172696671509787,
+    "distance": 1809288.556561441,
+    "velocity": 2455.003510757197,
+    "minTimestamp": "2014-09-16T08:52:22.000",
+    "duration": 364862.0,
+    "surface": 72288.55656144093
+  },
+  {
+    "timestamp": "2014-09-12T03:31:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172678453811839,
+    "distance": 1809347.8444678155,
+    "velocity": 2454.969020235233,
+    "minTimestamp": "2014-09-16T08:52:21.000",
+    "duration": 364851.0,
+    "surface": 72347.84446781548
+  },
+  {
+    "timestamp": "2014-09-12T03:31:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172657240181904,
+    "distance": 1807039.7143950518,
+    "velocity": 2456.377909316583,
+    "minTimestamp": "2014-09-16T08:52:21.000",
+    "duration": 364841.0,
+    "surface": 70039.71439505182
+  },
+  {
+    "timestamp": "2014-09-12T03:31:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172640532295196,
+    "distance": 1807103.1055165846,
+    "velocity": 2456.340845298694,
+    "minTimestamp": "2014-09-16T08:52:20.000",
+    "duration": 364830.0,
+    "surface": 70103.10551658459
+  },
+  {
+    "timestamp": "2014-09-12T03:32:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172624579333243,
+    "distance": 1807168.5393738751,
+    "velocity": 2456.3025373807322,
+    "minTimestamp": "2014-09-16T08:52:19.000",
+    "duration": 364819.0,
+    "surface": 70168.53937387513
+  },
+  {
+    "timestamp": "2014-09-12T03:32:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172609381729754,
+    "distance": 1807236.0168314478,
+    "velocity": 2456.262985247096,
+    "minTimestamp": "2014-09-16T08:52:18.000",
+    "duration": 364808.0,
+    "surface": 70236.01683144784
+  },
+  {
+    "timestamp": "2014-09-12T03:32:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172594939917223,
+    "distance": 1807305.5382708723,
+    "velocity": 2456.222188883646,
+    "minTimestamp": "2014-09-16T08:52:17.000",
+    "duration": 364797.0,
+    "surface": 70305.53827087232
+  },
+  {
+    "timestamp": "2014-09-12T03:32:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172581254328523,
+    "distance": 1807377.1043457552,
+    "velocity": 2456.180148116478,
+    "minTimestamp": "2014-09-16T08:52:16.000",
+    "duration": 364786.0,
+    "surface": 70377.10434575519
+  },
+  {
+    "timestamp": "2014-09-12T03:32:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017256832539689,
+    "distance": 1807450.7157214535,
+    "velocity": 2456.1368627710963,
+    "minTimestamp": "2014-09-16T08:52:15.000",
+    "duration": 364775.0,
+    "surface": 70450.71572145354
+  },
+  {
+    "timestamp": "2014-09-12T03:32:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172556153552637,
+    "distance": 1807526.3729674593,
+    "velocity": 2456.092332738553,
+    "minTimestamp": "2014-09-16T08:52:14.000",
+    "duration": 364764.0,
+    "surface": 70526.37296745926
+  },
+  {
+    "timestamp": "2014-09-12T03:33:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.01725447392288,
+    "distance": 1807604.0768080805,
+    "velocity": 2456.0465578217713,
+    "minTimestamp": "2014-09-16T08:52:13.000",
+    "duration": 364753.0,
+    "surface": 70604.07680808054
+  },
+  {
+    "timestamp": "2014-09-12T03:33:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172534082858653,
+    "distance": 1807683.8276524208,
+    "velocity": 2455.9995380222545,
+    "minTimestamp": "2014-09-16T08:52:12.000",
+    "duration": 364742.0,
+    "surface": 70683.82765242085
+  },
+  {
+    "timestamp": "2014-09-12T03:33:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172524184874092,
+    "distance": 1807765.6260394824,
+    "velocity": 2455.9512732696767,
+    "minTimestamp": "2014-09-16T08:52:11.000",
+    "duration": 364731.0,
+    "surface": 70765.62603948242
+  },
+  {
+    "timestamp": "2014-09-12T03:33:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172515045707327,
+    "distance": 1807849.4727934143,
+    "velocity": 2455.901763325441,
+    "minTimestamp": "2014-09-16T08:52:10.000",
+    "duration": 364720.0,
+    "surface": 70849.47279341426
+  },
+  {
+    "timestamp": "2014-09-12T03:33:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.01725066657889,
+    "distance": 1807935.3685144102,
+    "velocity": 2455.8510080949,
+    "minTimestamp": "2014-09-16T08:52:09.000",
+    "duration": 364709.0,
+    "surface": 70935.36851441022
+  },
+  {
+    "timestamp": "2014-09-12T03:33:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172499045555055,
+    "distance": 1808023.3135051555,
+    "velocity": 2455.799007671432,
+    "minTimestamp": "2014-09-16T08:52:08.000",
+    "duration": 364698.0,
+    "surface": 71023.3135051555
+  },
+  {
+    "timestamp": "2014-09-12T03:34:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172492185433648,
+    "distance": 1808113.3085071025,
+    "velocity": 2455.745761886675,
+    "minTimestamp": "2014-09-16T08:52:07.000",
+    "duration": 364687.0,
+    "surface": 71113.30850710254
+  },
+  {
+    "timestamp": "2014-09-12T03:34:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172486085861534,
+    "distance": 1808205.3541767537,
+    "velocity": 2455.691270632004,
+    "minTimestamp": "2014-09-16T08:52:06.000",
+    "duration": 364676.0,
+    "surface": 71205.35417675367
+  },
+  {
+    "timestamp": "2014-09-12T03:34:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172480747268058,
+    "distance": 1808299.4507928481,
+    "velocity": 2455.635534034068,
+    "minTimestamp": "2014-09-16T08:52:05.000",
+    "duration": 364665.0,
+    "surface": 71299.45079284813
+  },
+  {
+    "timestamp": "2014-09-12T03:34:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017247617008606,
+    "distance": 1808395.5992603302,
+    "velocity": 2455.5785518462876,
+    "minTimestamp": "2014-09-16T08:52:04.000",
+    "duration": 364654.0,
+    "surface": 71395.5992603302
+  },
+  {
+    "timestamp": "2014-09-12T03:34:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172472354748803,
+    "distance": 1808493.7996019612,
+    "velocity": 2455.5203243649084,
+    "minTimestamp": "2014-09-16T08:52:03.000",
+    "duration": 364643.0,
+    "surface": 71493.79960196116
+  },
+  {
+    "timestamp": "2014-09-12T03:34:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172469301686524,
+    "distance": 1808594.053040242,
+    "velocity": 2455.4608511622578,
+    "minTimestamp": "2014-09-16T08:52:02.000",
+    "duration": 364632.0,
+    "surface": 71594.05304024206
+  },
+  {
+    "timestamp": "2014-09-12T03:35:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172467011332578,
+    "distance": 1808696.3598256493,
+    "velocity": 2455.4001324093665,
+    "minTimestamp": "2014-09-16T08:52:01.000",
+    "duration": 364621.0,
+    "surface": 71696.3598256493
+  },
+  {
+    "timestamp": "2014-09-12T03:35:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172465484120827,
+    "distance": 1808800.7203688312,
+    "velocity": 2455.3381681868245,
+    "minTimestamp": "2014-09-16T08:52:00.000",
+    "duration": 364610.0,
+    "surface": 71800.72036883119
+  },
+  {
+    "timestamp": "2014-09-12T03:35:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172464720480823,
+    "distance": 1808907.1353527373,
+    "velocity": 2455.2749584149265,
+    "minTimestamp": "2014-09-16T08:51:59.000",
+    "duration": 364599.0,
+    "surface": 71907.13535273727
+  },
+  {
+    "timestamp": "2014-09-12T03:35:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172464720847294,
+    "distance": 1809015.60525633,
+    "velocity": 2455.2105031463866,
+    "minTimestamp": "2014-09-16T08:51:58.000",
+    "duration": 364588.0,
+    "surface": 72015.60525632999
+  },
+  {
+    "timestamp": "2014-09-12T03:35:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172465485650137,
+    "distance": 1809126.1307069743,
+    "velocity": 2455.1448023487615,
+    "minTimestamp": "2014-09-16T08:51:57.000",
+    "duration": 364577.0,
+    "surface": 72126.1307069743
+  },
+  {
+    "timestamp": "2014-09-12T03:35:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172467015322442,
+    "distance": 1809238.7120949512,
+    "velocity": 2455.0778561407287,
+    "minTimestamp": "2014-09-16T08:51:56.000",
+    "duration": 364566.0,
+    "surface": 72238.71209495119
+  },
+  {
+    "timestamp": "2014-09-12T03:36:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172469310297472,
+    "distance": 1809353.349925495,
+    "velocity": 2455.0096645788335,
+    "minTimestamp": "2014-09-16T08:51:55.000",
+    "duration": 364555.0,
+    "surface": 72353.34992549499
+  },
+  {
+    "timestamp": "2014-09-12T03:36:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017246863774126,
+    "distance": 1807100.447918586,
+    "velocity": 2456.3848333241785,
+    "minTimestamp": "2014-09-16T08:51:55.000",
+    "duration": 364545.0,
+    "surface": 70100.44791858597
+  },
+  {
+    "timestamp": "2014-09-12T03:36:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172472465884297,
+    "distance": 1807219.2632877212,
+    "velocity": 2456.313964915045,
+    "minTimestamp": "2014-09-16T08:51:54.000",
+    "duration": 364534.0,
+    "surface": 70219.2632877212
+  },
+  {
+    "timestamp": "2014-09-12T03:36:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172477060625158,
+    "distance": 1807340.1377986379,
+    "velocity": 2456.2418481232166,
+    "minTimestamp": "2014-09-16T08:51:53.000",
+    "duration": 364523.0,
+    "surface": 70340.13779863785
+  },
+  {
+    "timestamp": "2014-09-12T03:36:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172482422396816,
+    "distance": 1807463.072470194,
+    "velocity": 2456.168482719004,
+    "minTimestamp": "2014-09-16T08:51:52.000",
+    "duration": 364512.0,
+    "surface": 70463.07247019396
+  },
+  {
+    "timestamp": "2014-09-12T03:36:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172488551632055,
+    "distance": 1807588.0676789833,
+    "velocity": 2456.0938688703445,
+    "minTimestamp": "2014-09-16T08:51:51.000",
+    "duration": 364501.0,
+    "surface": 70588.06767898332
+  },
+  {
+    "timestamp": "2014-09-12T03:37:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172495448761678,
+    "distance": 1807715.1239838002,
+    "velocity": 2456.01800664145,
+    "minTimestamp": "2014-09-16T08:51:50.000",
+    "duration": 364490.0,
+    "surface": 70715.12398380018
+  },
+  {
+    "timestamp": "2014-09-12T03:37:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172503114219082,
+    "distance": 1807844.2417813677,
+    "velocity": 2455.9408962022,
+    "minTimestamp": "2014-09-16T08:51:49.000",
+    "duration": 364479.0,
+    "surface": 70844.24178136769
+  },
+  {
+    "timestamp": "2014-09-12T03:37:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172511548435061,
+    "distance": 1807975.4215969173,
+    "velocity": 2455.862537649633,
+    "minTimestamp": "2014-09-16T08:51:48.000",
+    "duration": 364468.0,
+    "surface": 70975.42159691732
+  },
+  {
+    "timestamp": "2014-09-12T03:37:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017252075184281,
+    "distance": 1808108.6637960267,
+    "velocity": 2455.78293118599,
+    "minTimestamp": "2014-09-16T08:51:47.000",
+    "duration": 364457.0,
+    "surface": 71108.66379602673
+  },
+  {
+    "timestamp": "2014-09-12T03:37:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172530724873892,
+    "distance": 1808243.9691456154,
+    "velocity": 2455.702076774422,
+    "minTimestamp": "2014-09-16T08:51:46.000",
+    "duration": 364446.0,
+    "surface": 71243.96914561535
+  },
+  {
+    "timestamp": "2014-09-12T03:37:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172541467959721,
+    "distance": 1808381.3376154308,
+    "velocity": 2455.619974871795,
+    "minTimestamp": "2014-09-16T08:51:45.000",
+    "duration": 364435.0,
+    "surface": 71381.33761543082
+  },
+  {
+    "timestamp": "2014-09-12T03:38:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172552981532923,
+    "distance": 1808520.7699715642,
+    "velocity": 2455.5366254553815,
+    "minTimestamp": "2014-09-16T08:51:44.000",
+    "duration": 364424.0,
+    "surface": 71520.76997156418
+  },
+  {
+    "timestamp": "2014-09-12T03:38:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172565266026414,
+    "distance": 1808662.2668957415,
+    "velocity": 2455.4520285602584,
+    "minTimestamp": "2014-09-16T08:51:43.000",
+    "duration": 364413.0,
+    "surface": 71662.26689574146
+  },
+  {
+    "timestamp": "2014-09-12T03:38:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017257832187142,
+    "distance": 1808805.8284831096,
+    "velocity": 2455.366184586891,
+    "minTimestamp": "2014-09-16T08:51:42.000",
+    "duration": 364402.0,
+    "surface": 71805.8284831096
+  },
+  {
+    "timestamp": "2014-09-12T03:38:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172592149500148,
+    "distance": 1808951.4554547095,
+    "velocity": 2455.279093559857,
+    "minTimestamp": "2014-09-16T08:51:41.000",
+    "duration": 364391.0,
+    "surface": 71951.45545470947
+  },
+  {
+    "timestamp": "2014-09-12T03:38:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017260674934373,
+    "distance": 1809099.147977945,
+    "velocity": 2455.190755847798,
+    "minTimestamp": "2014-09-16T08:51:40.000",
+    "duration": 364380.0,
+    "surface": 72099.14797794493
+  },
+  {
+    "timestamp": "2014-09-12T03:38:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172622121834909,
+    "distance": 1809248.9066812617,
+    "velocity": 2455.101171545493,
+    "minTimestamp": "2014-09-16T08:51:39.000",
+    "duration": 364369.0,
+    "surface": 72248.90668126172
+  },
+  {
+    "timestamp": "2014-09-12T03:39:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017263453844326,
+    "distance": 1807031.1382461546,
+    "velocity": 2456.4550157549115,
+    "minTimestamp": "2014-09-16T08:51:39.000",
+    "duration": 364359.0,
+    "surface": 70031.13824615465
+  },
+  {
+    "timestamp": "2014-09-12T03:39:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017265145880151,
+    "distance": 1807185.118805144,
+    "velocity": 2456.3626938282787,
+    "minTimestamp": "2014-09-16T08:51:38.000",
+    "duration": 364348.0,
+    "surface": 70185.11880514398
+  },
+  {
+    "timestamp": "2014-09-12T03:39:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172669153103366,
+    "distance": 1807341.1681647266,
+    "velocity": 2456.2691226836064,
+    "minTimestamp": "2014-09-16T08:51:37.000",
+    "duration": 364337.0,
+    "surface": 70341.16816472658
+  },
+  {
+    "timestamp": "2014-09-12T03:39:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172687621779266,
+    "distance": 1807499.286759284,
+    "velocity": 2456.174302562338,
+    "minTimestamp": "2014-09-16T08:51:36.000",
+    "duration": 364326.0,
+    "surface": 70499.28675928409
+  },
+  {
+    "timestamp": "2014-09-12T03:39:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.017270686526305,
+    "distance": 1807659.4753702192,
+    "velocity": 2456.0782335003323,
+    "minTimestamp": "2014-09-16T08:51:35.000",
+    "duration": 364315.0,
+    "surface": 70659.47537021921
+  },
+  {
+    "timestamp": "2014-09-12T03:39:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172726883986927,
+    "distance": 1807821.7341623546,
+    "velocity": 2455.980915916264,
+    "minTimestamp": "2014-09-16T08:51:34.000",
+    "duration": 364304.0,
+    "surface": 70821.73416235461
+  },
+  {
+    "timestamp": "2014-09-12T03:40:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172747678381147,
+    "distance": 1807986.0635307028,
+    "velocity": 2455.882350095029,
+    "minTimestamp": "2014-09-16T08:51:33.000",
+    "duration": 364293.0,
+    "surface": 70986.06353070284
+  },
+  {
+    "timestamp": "2014-09-12T03:40:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.01727692488768,
+    "distance": 1808152.4636786063,
+    "velocity": 2455.7825364451287,
+    "minTimestamp": "2014-09-16T08:51:32.000",
+    "duration": 364282.0,
+    "surface": 71152.46367860632
+  },
+  {
+    "timestamp": "2014-09-12T03:40:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172791595908557,
+    "distance": 1808320.9355124782,
+    "velocity": 2455.6814749528103,
+    "minTimestamp": "2014-09-16T08:51:31.000",
+    "duration": 364271.0,
+    "surface": 71320.93551247823
+  },
+  {
+    "timestamp": "2014-09-12T03:40:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172814719905983,
+    "distance": 1808491.4789721612,
+    "velocity": 2455.5791662003494,
+    "minTimestamp": "2014-09-16T08:51:30.000",
+    "duration": 364260.0,
+    "surface": 71491.47897216119
+  },
+  {
+    "timestamp": "2014-09-12T03:40:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172838621300864,
+    "distance": 1808664.0946222285,
+    "velocity": 2455.475610395575,
+    "minTimestamp": "2014-09-16T08:51:29.000",
+    "duration": 364249.0,
+    "surface": 71664.09462222853
+  },
+  {
+    "timestamp": "2014-09-12T03:40:50.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172863300524855,
+    "distance": 1808838.7827035978,
+    "velocity": 2455.3708079507246,
+    "minTimestamp": "2014-09-16T08:51:28.000",
+    "duration": 364238.0,
+    "surface": 71838.7827035978
+  },
+  {
+    "timestamp": "2014-09-12T03:41:00.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172888758013128,
+    "distance": 1809015.5440692918,
+    "velocity": 2455.264758911141,
+    "minTimestamp": "2014-09-16T08:51:27.000",
+    "duration": 364227.0,
+    "surface": 72015.54406929179
+  },
+  {
+    "timestamp": "2014-09-12T03:41:10.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172914994193232,
+    "distance": 1809194.3786544788,
+    "velocity": 2455.157463887794,
+    "minTimestamp": "2014-09-16T08:51:26.000",
+    "duration": 364216.0,
+    "surface": 72194.37865447882
+  },
+  {
+    "timestamp": "2014-09-12T03:41:20.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172938281128667,
+    "distance": 1807005.8000382287,
+    "velocity": 2456.493552361558,
+    "minTimestamp": "2014-09-16T08:51:26.000",
+    "duration": 364206.0,
+    "surface": 70005.80003822874
+  },
+  {
+    "timestamp": "2014-09-12T03:41:30.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172966077274737,
+    "distance": 1807188.891842779,
+    "velocity": 2456.3834722387796,
+    "minTimestamp": "2014-09-16T08:51:25.000",
+    "duration": 364195.0,
+    "surface": 70188.891842779
+  },
+  {
+    "timestamp": "2014-09-12T03:41:40.000",
+    "speed": 10837.000000000004,
+    "eccentricity": 1.0172994653408727,
+    "distance": 1807374.0593982195,
+    "velocity": 2456.272143857594,
+    "minTimestamp": "2014-09-16T08:51:24.000",
+    "duration": 364184.0,
+    "surface": 70374.05939821946
+  }
+]

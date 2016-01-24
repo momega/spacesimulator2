@@ -26,15 +26,9 @@ public class VoyageToMoonBuilder extends EarthMoonBuilder {
     protected void buildModel() {
 		super.buildModel();
         
-        CelestialBody moon = (CelestialBody) modelService.findByName(model, "Moon");
-
         Spacecraft spacecraft = new Spacecraft();
         spacecraft.setName("Satellite");
         spacecraft.setInitialMass(28445);
-        spacecraft.setTarget(moon);
-        spacecraft.setThreshold(moon.getRadius() + 86.7*1.852*1000);
-        spacecraft.setEccentricityThreshold(1.3);
-        spacecraft.setMinimalDistance(moon.getRadius());
         
         Propulsion propulsion = new Propulsion();
         propulsion.setMassFlow(30);

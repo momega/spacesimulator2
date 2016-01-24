@@ -35,7 +35,7 @@ import com.momega.spacesimulator.simulation.SimulationSolver;
  */
 @Component
 @Scope("prototype")
-public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonResult> {
+public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonFields, VoyageToMoonResult> {
 
     private static final Logger logger = LoggerFactory.getLogger(VoyageToMoonSolver.class);
     
@@ -64,10 +64,10 @@ public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonResult> {
     private InstantManager instantManager;
     
     @Override
-	public VoyageToMoonResult apply(VoyageToMoonResult result) {
+	public VoyageToMoonResult apply(VoyageToMoonFields fields, VoyageToMoonResult result) {
     	Timestamp timestamp = result.getTimestamp();
     	double speed = result.getSpeed();
-        logger.info("Start at = {} with speed", TimeUtils.toDateTime(timestamp).toString(), speed);
+        logger.info("Start at = {} with speed {}", TimeUtils.toDateTime(timestamp).toString(), speed);
 
         VoyageToMoonBuilder mob = applicationContext.getBean(VoyageToMoonBuilder.class);
         mob.setSpeed(speed);
@@ -80,6 +80,12 @@ public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonResult> {
         
         Spacecraft spacecraft = modelService.findAllSpacecrafts(model).get(0);
         Assert.notNull(spacecraft);
+        
+        spacecraft.setTarget(moon);
+        spacecraft.setMaxThreshold(moon.getRadius() + fields.getMaxSurface());
+        spacecraft.setMinThreshold(moon.getRadius() + fields.getMinSurface());
+        spacecraft.setEccentricityThreshold(fields.getMaxEccentricity());
+        spacecraft.setMinimalDistance(spacecraft.getMaxThreshold());
 
         Instant si = instantManager.getInstant(model, spacecraft, timestamp);
 
@@ -92,7 +98,7 @@ public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonResult> {
         List<MovingObject> list = new ArrayList<>();
         list.add(spacecraft);
 
-        Timestamp endTime = timestamp.add(60*60*24*4);
+        Timestamp endTime = timestamp.add(60*60*24*4.5);
         TimeInterval timeInterval = new TimeInterval();
         timeInterval.setStartTime(timestamp);
         timeInterval.setEndTime(endTime);
@@ -117,6 +123,8 @@ public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonResult> {
         	result.setEccentricity(minimumInstant.getTargetData().getKeplerianElements().getKeplerianOrbit().getEccentricity());
         	result.setMinTimestamp(minimumInstant.getTimestamp());
         	result.setSurface(minimumInstant.getTargetData().getCartesianState().getPosition().getNorm() - moon.getRadius());
+        	
+        	logger.info("Start at = {} with speed {}, surface = {}, e = {}", TimeUtils.toDateTime(timestamp).toString(), speed, result.getSurface() / 1E3, minimumInstant.getTargetData().getKeplerianElements().getKeplerianOrbit().getEccentricity());
         	
         	double diff = TimeUtils.getDuration(timeInterval.getStartTime(), minimumInstant.getTimestamp());
         	result.setDuration(diff);

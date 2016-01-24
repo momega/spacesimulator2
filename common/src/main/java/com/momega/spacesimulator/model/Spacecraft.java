@@ -16,7 +16,8 @@ public class Spacecraft extends MovingObject {
     private Instant minimalInstant;
     private double minimalDistance;
     private double eccentricityThreshold;
-    private double threshold;
+    private double minThreshold;
+    private double maxThreshold;
 
     public CelestialBody getTarget() {
         return target;
@@ -42,13 +43,21 @@ public class Spacecraft extends MovingObject {
         this.minimalInstant = minimalInstant;
     }
 
-    public void setThreshold(double threshold) {
-        this.threshold = threshold;
+    public void setMaxThreshold(double threshold) {
+        this.maxThreshold = threshold;
     }
 
-    public double getThreshold() {
-        return threshold;
+    public double getMaxThreshold() {
+        return maxThreshold;
     }
+    
+    public void setMinThreshold(double minThreshold) {
+		this.minThreshold = minThreshold;
+	}
+    
+    public double getMinThreshold() {
+		return minThreshold;
+	}
     
     public void setEccentricityThreshold(double eccentricityThreshold) {
 		this.eccentricityThreshold = eccentricityThreshold;

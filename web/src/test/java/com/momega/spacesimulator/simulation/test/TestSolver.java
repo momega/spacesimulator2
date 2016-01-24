@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("prototype")
-public class TestSolver extends SimulationSolver<TestResult> {
+public class TestSolver extends SimulationSolver<TestFields, TestResult> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestSolver.class);
 
 	@Override
-	public TestResult apply(TestResult result) {
+	public TestResult apply(TestFields fields, TestResult result) {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {

@@ -13,9 +13,13 @@ public class VoyageToMoonFields {
 
 	private Timestamp startTime;
 	private Timestamp endTime;
-	private int startSpeed;
-	private int endSpeed;
+	private double startSpeed;
+	private double endSpeed;
+	private double speedStep;
 	private double stepInSeconds;
+	private double minSurface;
+	private double maxSurface;
+	private double maxEccentricity;
 	
 	public Timestamp getStartTime() {
 		return startTime;
@@ -33,19 +37,19 @@ public class VoyageToMoonFields {
 		this.endTime = endTime;
 	}
 
-	public int getStartSpeed() {
+	public double getStartSpeed() {
 		return startSpeed;
 	}
 
-	public void setStartSpeed(int startSpeed) {
+	public void setStartSpeed(double startSpeed) {
 		this.startSpeed = startSpeed;
 	}
 
-	public int getEndSpeed() {
+	public double getEndSpeed() {
 		return endSpeed;
 	}
 
-	public void setEndSpeed(int endSpeed) {
+	public void setEndSpeed(double endSpeed) {
 		this.endSpeed = endSpeed;
 	}
 
@@ -56,12 +60,47 @@ public class VoyageToMoonFields {
 	public void setStepInSeconds(double stepInSeconds) {
 		this.stepInSeconds = stepInSeconds;
 	}
+	
+	public void setMaxSurface(double maxSurface) {
+		this.maxSurface = maxSurface;
+	}
+	
+	public double getMaxSurface() {
+		return maxSurface;
+	}
+	
+	public void setMinSurface(double minSurface) {
+		this.minSurface = minSurface;
+	}
+	
+	public double getMinSurface() {
+		return minSurface;
+	}
+	
+	public double getMaxEccentricity() {
+		return maxEccentricity;
+	}
+	
+	public void setMaxEccentricity(double maxEccentricity) {
+		this.maxEccentricity = maxEccentricity;
+	}
+	
+	public void setSpeedStep(double speedStep) {
+		this.speedStep = speedStep;
+	}
+	
+	public double getSpeedStep() {
+		return speedStep;
+	}
 
 	@Override
 	public String toString() {
-		return "VoyageToMoonParameters [startTime=" + startTime + ", endTime="
+		return "VoyageToMoonFields [startTime=" + startTime + ", endTime="
 				+ endTime + ", startSpeed=" + startSpeed + ", endSpeed="
-				+ endSpeed + ", stepInSeconds=" + stepInSeconds + "]";
+				+ endSpeed + ", speedStep=" + speedStep + ", stepInSeconds="
+				+ stepInSeconds + ", minSurface=" + minSurface
+				+ ", maxSurface=" + maxSurface + ", maxEccentricity="
+				+ maxEccentricity + "]";
 	}
 
 }

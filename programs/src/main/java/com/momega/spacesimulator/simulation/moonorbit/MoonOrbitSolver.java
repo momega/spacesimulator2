@@ -40,7 +40,7 @@ import com.momega.spacesimulator.simulation.SimulationSolver;
  */
 @Component
 @Scope("prototype")
-public class MoonOrbitSolver extends SimulationSolver<MoonOrbitResult> {
+public class MoonOrbitSolver extends SimulationSolver<MoonOrbitFields, MoonOrbitResult> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MoonOrbitSolver.class);
 	
@@ -63,7 +63,7 @@ public class MoonOrbitSolver extends SimulationSolver<MoonOrbitResult> {
 	private ApsisService apsisService;
 
 	@Override
-	public MoonOrbitResult apply(MoonOrbitResult input) {
+	public MoonOrbitResult apply(MoonOrbitFields fields, MoonOrbitResult input) {
 		Timestamp timestamp = input.timestamp;
 		double speed = input.speed;
 		double burnTime = input.burnTime;

@@ -16,12 +16,12 @@ import com.momega.spacesimulator.simulation.SimulationSolver;
  */
 @Component
 @Scope("prototype")
-public class TestCallable extends SimulationSolver<TestResult> {
+public class TestSolver extends SimulationSolver<TestFields, TestResult> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(TestCallable.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestSolver.class);
 
 	@Override
-	public TestResult apply(TestResult result) {
+	public TestResult apply(TestFields fields, TestResult result) {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {

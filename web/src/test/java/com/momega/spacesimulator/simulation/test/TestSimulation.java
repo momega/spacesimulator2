@@ -17,7 +17,7 @@ public class TestSimulation extends Simulation<TestFields, TestResult>{
 	}
 
 	@Override
-	protected Predicate<TestResult> createPredicate() {
+	protected Predicate<TestResult> createPredicate(TestFields fields) {
 		return new Predicate<TestResult>() {
 			@Override
 			public boolean test(TestResult t) {

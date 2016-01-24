@@ -75,11 +75,11 @@ public class TargetCalculationFeature implements PropagatorFeature {
                 si.setTargetData(targetData);
                 logger.debug("target data = {}", targetData);
 
-                if (spacecraft.getThreshold()>0  && spacecraft.getEccentricityThreshold()>0) {
+                if (spacecraft.getMaxThreshold()>0  && spacecraft.getEccentricityThreshold()>0) {
                     double dist = targetData.getCartesianState().getPosition().getNorm();
                     double e = targetData.getKeplerianElements().getKeplerianOrbit().getEccentricity();
-                    if (dist < spacecraft.getThreshold() && dist < spacecraft.getMinimalDistance() && e < spacecraft.getEccentricityThreshold()) {
-                    	logger.debug("threshold reached = {} at {}, distance = {}, velocity={}", relativeKe, TimeUtils.timeAsString(timestamp), dist - targetBody.getRadius(), si.getCartesianState().getVelocity().getNorm());
+                    if (dist < spacecraft.getMaxThreshold() && dist> spacecraft.getMinThreshold() && dist < spacecraft.getMinimalDistance() && e < spacecraft.getEccentricityThreshold()) {
+                    	logger.info("threshold reached = {} at {}, distance = {}, velocity={}", relativeKe, TimeUtils.timeAsString(timestamp), dist - targetBody.getRadius(), si.getCartesianState().getVelocity().getNorm());
                         spacecraft.setMinimalDistance(dist);
                         spacecraft.setMinimalInstant(si);
                     }

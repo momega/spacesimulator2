@@ -1,4 +1,4 @@
-package com.momega.spacesimulator.simulation.voyagetomoon;
+package com.momega.spacesimulator.simulation.moonorbit;
 
 import java.io.File;
 import java.io.FileNotFoundException;

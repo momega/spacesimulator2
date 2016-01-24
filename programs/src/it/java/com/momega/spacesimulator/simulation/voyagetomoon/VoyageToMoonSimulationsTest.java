@@ -42,38 +42,6 @@ public class VoyageToMoonSimulationsTest {
     
     @Test
     @Ignore
-    public void indicativeVoyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
-    	VoyageToMoonFields parameters = new VoyageToMoonFields();
-    	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 7, 0, DateTimeZone.UTC)));
-    	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 18, 0, DateTimeZone.UTC)));
-    	parameters.setStartSpeed(10835);
-    	parameters.setEndSpeed(10842);
-    	parameters.setStepInSeconds(120.0);
-    	
-    	List<VoyageToMoonResult> results = simulationFactory.runSimulation(simulation, parameters, taskExecutor);
-    	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
-    	gson.toJson(results, writer);
-    }
-    
-    @Test
-    @Ignore
-    public void voyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
-    	VoyageToMoonFields parameters = new VoyageToMoonFields();
-    	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 30, DateTimeZone.UTC)));
-    	parameters.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 11, 36, DateTimeZone.UTC)));
-    	parameters.setStartSpeed(10837);
-    	parameters.setEndSpeed(10840);
-    	parameters.setStepInSeconds(10.0);
-    	
-    	List<VoyageToMoonResult> results = simulationFactory.runSimulation(simulation, parameters, taskExecutor);
-    	PrintWriter writer = new PrintWriter(new File("voyageToMoon.txt"));
-    	gson.toJson(results, writer);
-    	writer.flush();
-    	writer.close();
-    }
-    
-    @Test
-    @Ignore
     public void shortVoyagerTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	VoyageToMoonFields parameters = new VoyageToMoonFields();
     	parameters.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 50, DateTimeZone.UTC)));

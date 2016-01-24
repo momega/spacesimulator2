@@ -26,29 +26,31 @@ public class VoyageToMoonSimulation extends Simulation<VoyageToMoonFields, Voyag
 
 	@Override
 	protected List<VoyageToMoonResult> generateInputs() {
-		VoyageToMoonFields parameters = getFields();
-		Timestamp timestamp = parameters.getStartTime();
-        Timestamp endTime = parameters.getEndTime();
+		VoyageToMoonFields fields = getFields();
+		Timestamp timestamp = fields.getStartTime();
+        Timestamp endTime = fields.getEndTime();
         Timestamp t = timestamp;
         List<VoyageToMoonResult> result = new ArrayList<>();
         while(t.before(endTime)) {
-            for(int speed=parameters.getStartSpeed(); speed<parameters.getEndSpeed(); speed++) {
+        	double speed = fields.getStartSpeed();
+            while(speed<fields.getEndSpeed()) {
             	VoyageToMoonResult input = new VoyageToMoonResult();
             	input.setTimestamp(t);
             	input.setSpeed(speed);
             	result.add(input);
+            	speed += fields.getSpeedStep();
             }
-            t = t.add(parameters.getStepInSeconds());
+            t = t.add(fields.getStepInSeconds());
         }
         return result;
 	}
 	
 	@Override
-	protected Predicate<VoyageToMoonResult> createPredicate() {
+	protected Predicate<VoyageToMoonResult> createPredicate(VoyageToMoonFields fields) {
 		return new Predicate<VoyageToMoonResult>() {
 			@Override
 			public boolean test(VoyageToMoonResult output) {
-				return output.getSurface()>120E3 && output.getSurface()<150E3;
+				return output.getSurface()>fields.getMinSurface() && output.getSurface()<fields.getMaxSurface();
 			}
 		};
 	}

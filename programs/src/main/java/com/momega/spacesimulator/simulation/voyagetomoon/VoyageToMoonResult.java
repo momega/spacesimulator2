@@ -28,8 +28,6 @@ public class VoyageToMoonResult {
 		return timestamp;
 	}
 
-
-
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
@@ -59,25 +57,17 @@ public class VoyageToMoonResult {
 		return distance;
 	}
 
-
-
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-
-
 
 	public double getVelocity() {
 		return velocity;
 	}
 
-
-
 	public void setVelocity(double velocity) {
 		this.velocity = velocity;
 	}
-
-
 
 	public Timestamp getMinTimestamp() {
 		return minTimestamp;
@@ -89,31 +79,21 @@ public class VoyageToMoonResult {
 		this.minTimestamp = minTimestamp;
 	}
 
-
-
 	public double getDuration() {
 		return duration;
 	}
-
-
 
 	public void setDuration(double duration) {
 		this.duration = duration;
 	}
 
-
-
 	public double getSurface() {
 		return surface;
 	}
 
-
-
 	public void setSurface(double surface) {
 		this.surface = surface;
 	}
-
-
 
 	@Override
 	public String toString() {

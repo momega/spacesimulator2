@@ -26,7 +26,7 @@ public class MoonOrbitSimulation extends Simulation<MoonOrbitFields, MoonOrbitRe
 	}
 
 	@Override
-	protected Predicate<MoonOrbitResult> createPredicate() {
+	protected Predicate<MoonOrbitResult> createPredicate(MoonOrbitFields fields) {
 		return new Predicate<MoonOrbitResult>() {
 			@Override
 			public boolean test(MoonOrbitResult m) {

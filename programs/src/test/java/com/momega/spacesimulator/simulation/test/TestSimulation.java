@@ -14,11 +14,11 @@ import com.momega.spacesimulator.simulation.Simulation;
 public class TestSimulation extends Simulation<TestFields, TestResult>{
 
 	protected TestSimulation() {
-		super("Test", TestCallable.class);
+		super("Test", TestSolver.class);
 	}
 
 	@Override
-	protected Predicate<TestResult> createPredicate() {
+	protected Predicate<TestResult> createPredicate(TestFields fields) {
 		return new Predicate<TestResult>() {
 			@Override
 			public boolean test(TestResult t) {

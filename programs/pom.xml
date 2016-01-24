@@ -16,6 +16,37 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+            <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <version>2.19.1</version>
+		        <configuration>
+		          <excludes>
+		            <exclude>IndicativeTest.java</exclude>
+		          </excludes>
+		        </configuration>
+		    </plugin>
+		    <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-failsafe-plugin</artifactId>
+		        <version>2.19.1</version>
+		        <configuration>
+		          <includes>
+		            <include>IndicativeTest.java</include>
+		            <include>VoyageToMoonSimulationsTest.java</include>
+		            <include>VoyageToMoonTest.java</include>
+		            <include>MoonSimulationsTest.java</include>
+		          </includes>
+		        </configuration>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>integration-test</goal>
+		              <goal>verify</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+		      </plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -35,7 +66,27 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>            
+			</plugin>   
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>build-helper-maven-plugin</artifactId>
+			    <version>1.9.1</version>
+			    <executions>
+				    <execution>
+					    <id>add-integration-test-sources</id>
+					    <phase>generate-test-sources</phase>
+					    <goals>
+					        <goal>add-test-source</goal>
+					    </goals>
+					    <configuration>
+					        <!-- Configures the source directory of our integration tests -->
+					        <sources>
+					            <source>src/it/java</source>
+					        </sources>
+					    </configuration>
+					</execution>
+				</executions>
+			</plugin>         
         </plugins>
     </build>
 
