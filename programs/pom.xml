@@ -23,6 +23,9 @@
 		        <configuration>
 		          <excludes>
 		            <exclude>IndicativeTest.java</exclude>
+		            <exclude>VoyageToMoonSimulationsTest.java</exclude>
+		            <exclude>VoyageToMoonTest.java</exclude>
+		            <exclude>MoonSimulationsTest.java</exclude>
 		          </excludes>
 		        </configuration>
 		    </plugin>

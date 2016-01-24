@@ -81,6 +81,7 @@ public class MoonOrbitSolver extends SimulationSolver<MoonOrbitFields, MoonOrbit
         CelestialBody moon = (CelestialBody) modelService.findByName(model, "Moon");
         
         Spacecraft spacecraft = modelService.findAllSpacecrafts(model).get(0);
+        spacecraft.setTarget(moon);
         Assert.notNull(spacecraft);
 
         Instant si = instantManager.getInstant(model, spacecraft, timestamp);
@@ -135,8 +136,7 @@ public class MoonOrbitSolver extends SimulationSolver<MoonOrbitFields, MoonOrbit
         r.perilune = endKe.getKeplerianOrbit().getSemimajorAxis() * (1 - endKe.getKeplerianOrbit().getEccentricity()) - moon.getRadius();
         r.apolune = endKe.getKeplerianOrbit().getSemimajorAxis() * (1 + endKe.getKeplerianOrbit().getEccentricity()) - moon.getRadius();
         r.velocity = velocity;
-        logger.info("final ellipses {}km by {}km", r.perilune / 1000, r.apolune/1000);
-        logger.info("start burn = {}, burn time = {}, orbit at end of the burn = {}, end vel = {}, perilune {}km, apolune= {}km", TimeUtils.timeAsString(r.startBurnTime), r.burnTime, endKe, r.velocity, r.perilune / 1000, r.apolune/1000);
+        logger.warn("final ellipses {}km by {}km, start time = {}, start burn = {}, burn time = {}, orbit at end of the burn = {}, end vel = {}, perilune {}km, apolune= {}km", r.perilune / 1000, r.apolune/1000, TimeUtils.timeAsString(r.timestamp), TimeUtils.timeAsString(r.startBurnTime), r.burnTime, endKe, r.velocity, r.perilune / 1000, r.apolune/1000);
         
         return r;
 	}

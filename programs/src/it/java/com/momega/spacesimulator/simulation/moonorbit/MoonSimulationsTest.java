@@ -44,15 +44,21 @@ public class MoonSimulationsTest {
 	private ThreadPoolTaskExecutor taskExecutor; 
     
     @Test
+    @Ignore
     public void shortMoonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	MoonOrbitFields fields = new MoonOrbitFields();
     	fields.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 49, 22, DateTimeZone.UTC)));
     	fields.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 49, 23, DateTimeZone.UTC)));
-    	fields.setSpeed(10841.0);
+    	fields.setSpeed(10836.9);
     	fields.setStartBurnTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 48, 30, DateTimeZone.UTC)));
     	fields.setEndBurnTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 48, 31, DateTimeZone.UTC)));
     	fields.setStepTime(1.0);
     	fields.setBurnTime(362.0);
+    	
+    	fields.setApolune(2000 * 1E3);
+    	fields.setPerilune(50 * 1E3);
+    	fields.setMaxEccentricity(0.4);
+    	
     	
     	List<MoonOrbitResult> results = simulationFactory.runSimulation(simulation, fields, taskExecutor);
     	
@@ -63,14 +69,13 @@ public class MoonSimulationsTest {
     }    
     
     @Test
-    @Ignore
     public void moonOrbitTest() throws FileNotFoundException, InterruptedException, ExecutionException {
     	MoonOrbitFields fields = new MoonOrbitFields();
-    	fields.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 40, 0, DateTimeZone.UTC)));
-    	fields.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 15, 59, 0, DateTimeZone.UTC)));
-    	fields.setSpeed(10841.0);
-    	fields.setStartBurnTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 45, 0, DateTimeZone.UTC)));
-    	fields.setEndBurnTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 52, 0, DateTimeZone.UTC)));
+    	fields.setStartTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 3, 10, 0, DateTimeZone.UTC)));
+    	fields.setEndTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 12, 3, 20, 0, DateTimeZone.UTC)));
+    	fields.setSpeed(10836.9);
+    	fields.setStartBurnTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 6, 40, 0, DateTimeZone.UTC)));
+    	fields.setEndBurnTime(TimeUtils.fromDateTime(new DateTime(2014, 9, 16, 8, 50, 0, DateTimeZone.UTC)));
     	fields.setStepTime(10.0);
     	fields.setBurnTime(362.0);
     	

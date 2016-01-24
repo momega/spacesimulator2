@@ -15,6 +15,10 @@ public class MoonOrbitFields {
 	private Timestamp endBurnTime;
 
 	private double stepTime;
+	
+	private double apolune;
+	private double perilune;
+	private double maxEccentricity;
 
     public Timestamp getEndBurnTime() {
         return endBurnTime;
@@ -71,6 +75,30 @@ public class MoonOrbitFields {
     public void setBurnTime(double burnTime) {
         this.burnTime = burnTime;
     }
+    
+    public void setApolune(double apolune) {
+		this.apolune = apolune;
+	}
+    
+    public double getApolune() {
+		return apolune;
+	}
+    
+    public void setPerilune(double perilune) {
+		this.perilune = perilune;
+	}
+    
+    public double getPerilune() {
+		return perilune;
+	}
+    
+    public void setMaxEccentricity(double maxEccentricity) {
+		this.maxEccentricity = maxEccentricity;
+	}
+    
+    public double getMaxEccentricity() {
+		return maxEccentricity;
+	}
 
     @Override
     public String toString() {

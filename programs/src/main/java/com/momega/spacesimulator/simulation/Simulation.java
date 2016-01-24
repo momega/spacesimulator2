@@ -93,6 +93,7 @@ public abstract class Simulation<F, I> implements Callable<List<I>> {
 	            }
 			} catch (Exception e) {
 				failedInputs++;
+				logger.info("exception = {}", e.getMessage());
 			}
 			this.completedInputs++;
 		}

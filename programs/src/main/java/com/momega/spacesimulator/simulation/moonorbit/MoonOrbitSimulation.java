@@ -26,11 +26,12 @@ public class MoonOrbitSimulation extends Simulation<MoonOrbitFields, MoonOrbitRe
 	}
 
 	@Override
-	protected Predicate<MoonOrbitResult> createPredicate(MoonOrbitFields fields) {
+	protected Predicate<MoonOrbitResult> createPredicate(final MoonOrbitFields fields) {
 		return new Predicate<MoonOrbitResult>() {
 			@Override
 			public boolean test(MoonOrbitResult m) {
-				return m.eccentricity<0.4 && m.perilune>70E3 && m.apolune<1770E3;
+				return m.eccentricity<fields.getMaxEccentricity() 
+						&& m.perilune>fields.getPerilune() && m.apolune<fields.getPerilune();
 			}
 		};
 	}

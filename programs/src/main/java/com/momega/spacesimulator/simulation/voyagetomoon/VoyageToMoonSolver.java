@@ -82,6 +82,7 @@ public class VoyageToMoonSolver extends SimulationSolver<VoyageToMoonFields, Voy
         Assert.notNull(spacecraft);
         
         spacecraft.setTarget(moon);
+        //TODO: I do not like this settings here. They should not be properties of spacecraft
         spacecraft.setMaxThreshold(moon.getRadius() + fields.getMaxSurface());
         spacecraft.setMinThreshold(moon.getRadius() + fields.getMinSurface());
         spacecraft.setEccentricityThreshold(fields.getMaxEccentricity());
